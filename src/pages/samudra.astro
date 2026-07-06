@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectDetail from '../components/ProjectDetail.astro';
+import { img } from '../consts';
+
+const completed = [
+  '2026/05/Copy-of-11-1024x683.webp',
+  '2026/05/Copy-of-10-1024x683.webp',
+  '2026/05/Copy-of-08-1024x683.webp',
+  '2026/05/Copy-of-07-1024x682.webp',
+  '2026/05/Copy-of-05-1024x683.webp',
+  '2026/05/Copy-of-06-1024x683.webp',
+  '2026/05/Copy-of-09-1024x683.webp',
+  '2026/05/Copy-of-04-1024x683.webp',
+  '2026/05/Copy-of-03-1024x683.webp',
+  '2026/05/Copy-of-02-1024x683.webp',
+  '2026/05/Copy-of-01-1024x576.webp',
+].map(img);
+
+const construction = [
+  '2026/05/01-scaled.webp',
+  '2026/05/13-scaled.webp',
+  '2026/05/12-scaled.webp',
+  '2026/05/11-1.webp',
+  '2026/05/10-1-scaled.webp',
+  '2026/05/09-scaled.webp',
+  '2026/05/08-scaled.webp',
+  '2026/05/07-scaled.webp',
+  '2026/05/06-scaled.webp',
+  '2026/05/05-scaled.webp',
+  '2026/05/04-scaled.webp',
+  '2026/05/03-scaled.webp',
+  '2026/05/02.webp',
+].map(img);
+---
+<Base title="Samudra">
+  <ProjectDetail
+    category="RESIDENTIAL"
+    title="Samudra"
+    hero={img('2026/05/Copy-of-01.webp')}
+    overview={[
+      'Samudra was envisioned as a tranquil coastal retreat for an industrialist couple seeking timeless elegance blended with relaxed seaside living. Inspired by colonial architecture, the home features a strong, symmetrical presence while remaining deeply connected to its surroundings.',
+      'Opening into expansive lawns designed for gatherings and celebrations, the residence seamlessly extends into outdoor living, with a serene pool reflecting the calm rhythm of the coast. Carefully shaped by the demands of a coastal climate, Samudra stands as a graceful beach house where classic character meets the ease of seaside living.',
+    ]}
+    features={[
+      ['Sustainable design', 'Energy management systems', 'Integrated EV charging stations'],
+      ['Sky gardens on every 5th floor', 'Rooftop solar panel installation', 'High-speed elevators with destination dispatch'],
+    ]}
+    galleries={[
+      { label: 'Completed Images', images: completed },
+      { label: 'Construction Stage', images: construction },
+    ]}
+    team={[
+      { name: 'Amar Bhandary', role: 'Lead Architect' },
+      { name: 'Sarina Bhandary', role: 'Lead Architect' },
+    ]}
+    details={[
+      { label: 'Location', value: 'Yermal, Karnataka' },
+      { label: 'Year of execution', value: '2025' },
+      { label: 'Total Area', value: '6400 sq. ft' },
+      { label: 'Client', value: 'Metropolitan Builders' },
+      { label: 'Status', value: 'Completed' },
+    ]}
+  />
+</Base>

@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectDetail from '../components/ProjectDetail.astro';
+import { img } from '../consts';
+
+const gallery = [
+  '2026/05/Copy-of-01-1-1024x683.webp',
+  '2026/05/Copy-of-02-1-1024x682.webp',
+  '2026/05/Copy-of-03-1-1024x682.webp',
+  '2026/05/Copy-of-04-1-683x1024.webp',
+  '2026/05/Copy-of-05-1.webp',
+  '2026/05/Copy-of-06-1-683x1024.webp',
+  '2026/05/Copy-of-07-1-1024x683.webp',
+  '2026/05/Copy-of-08-1-1024x683.webp',
+  '2026/05/Copy-of-09-1-1024x683.webp',
+  '2026/05/Copy-of-10-1-1024x683.webp',
+  '2026/05/Copy-of-11-1-1024x768.webp',
+  '2026/05/Copy-of-12-1024x683.webp',
+  '2026/05/Copy-of-13-683x1024.webp',
+  '2026/05/Copy-of-14-1024x683.webp',
+  '2026/05/Copy-of-15-683x1024.webp',
+  '2026/05/Copy-of-16-1024x683.webp',
+  '2026/05/Copy-of-17-1024x683.webp',
+  '2026/05/Copy-of-18-1024x683.webp',
+  '2026/05/Copy-of-19-683x1024.webp',
+  '2026/05/Copy-of-20-1024x683.webp',
+  '2026/05/Copy-of-21-1024x683.webp',
+].map(img);
+---
+<Base title="Kuitra">
+  <ProjectDetail
+    category="RESIDENTIAL"
+    title="KUTIRA"
+    hero={img('2026/05/Copy-of-01-1.webp')}
+    overview={[
+      '<strong>Kutira</strong> was designed for a client who approached the project with two clear expectations, strict adherence to Vastu principles and the freedom to experiment with design. The process evolved into a collaborative journey shaped by trust, refinement, and close attention to detail.',
+      'Planned as a series of free-flowing spaces rather than rigidly defined rooms, the home encourages openness, light, and everyday family interaction. The spatial layout creates a sense of continuity while maintaining warmth and comfort throughout.',
+      'At the heart of Kutira lies its defining feature: a central teak wood staircase supported on a metal stringer. Achieving its final form required multiple refinements and detailing iterations until the perfect balance of strength, lightness, and elegance was achieved, making it the visual anchor of the home.',
+      'The result is a residence that respectfully blends traditional planning with contemporary expression reflecting our belief: that is listening closely, refining patiently, and shaping spaces that feel deeply personal to the people who live in them.',
+    ]}
+    features={[
+      ['Sustainable design', 'Energy management systems', 'Integrated EV charging stations'],
+      ['Sky gardens on every 5th floor', 'Rooftop solar panel installation', 'High-speed elevators with destination dispatch'],
+    ]}
+    galleries={[{ images: gallery }]}
+    slides={[img('2026/05/18-1-scaled.webp'), img('2026/05/20-1-scaled.webp')]}
+    team={[
+      { name: 'Amar Bhandary', role: 'Lead Architect' },
+      { name: 'Sarina Bhandary', role: 'Lead Architect' },
+    ]}
+    details={[
+      { label: 'Location', value: 'Mangalore, Karnataka' },
+      { label: 'Year of Execution', value: '2024' },
+      { label: 'Total Area', value: '4200 sq ft' },
+      { label: 'Client', value: 'Metropolitan Builders' },
+      { label: 'Status', value: 'Completed' },
+    ]}
+  />
+</Base>

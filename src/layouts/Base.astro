@@ -1,0 +1,218 @@
+---
+import { SITE_TITLE, NAV, CONTACT, img } from '../consts';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = 'Bhandary Architects — Curating timeless spaces that endure. Estd. 1995, Mangalore, India.' } = Astro.props;
+const pageTitle = title ? `${title} – ${SITE_TITLE}` : SITE_TITLE;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href={img('2026/03/Link.svg')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/" class="logo" aria-label="Bhandary Architects — home">
+          <img src={img('2026/03/Link.svg')} alt="Bhandary Architects" width="46" height="46" />
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav">
+          <ul>
+            {NAV.map((item) => (
+              <li>
+                <a href={item.href} class={path === item.href ? 'active' : ''}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="footer-brand">Bhandary Architects</p>
+        <p class="footer-meta">Estd. 1995 · {CONTACT.location}</p>
+        <p class="footer-copy">© {new Date().getFullYear()} Bhandary Architects. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-label="Image viewer">
+      <button class="lightbox-close" aria-label="Close">×</button>
+      <button class="lightbox-nav lightbox-prev" aria-label="Previous image">‹</button>
+      <img src="" alt="" />
+      <button class="lightbox-nav lightbox-next" aria-label="Next image">›</button>
+    </div>
+
+    <script>
+      // Mobile nav
+      const toggle = document.querySelector('.nav-toggle');
+      const nav = document.querySelector('.site-nav');
+      toggle?.addEventListener('click', () => {
+        const open = nav?.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(!!open));
+      });
+
+      // Header background on scroll
+      const header = document.querySelector('.site-header');
+      const onScroll = () => header?.classList.toggle('scrolled', window.scrollY > 40);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Reveal on scroll
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('visible')),
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+      // Lightbox for any [data-lightbox] image group
+      const lb = document.getElementById('lightbox');
+      const lbImg = lb?.querySelector('img');
+      let group: HTMLElement[] = [];
+      let idx = 0;
+      const show = (i: number) => {
+        if (!group.length || !lbImg) return;
+        idx = (i + group.length) % group.length;
+        const el = group[idx];
+        lbImg.src = el.dataset.full || (el as HTMLImageElement).src;
+      };
+      document.querySelectorAll<HTMLElement>('[data-lightbox]').forEach((el) => {
+        el.style.cursor = 'zoom-in';
+        el.addEventListener('click', () => {
+          const g = el.dataset.lightbox || 'default';
+          group = Array.from(document.querySelectorAll<HTMLElement>(`[data-lightbox="${g}"]`));
+          show(group.indexOf(el));
+          lb?.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      const close = () => {
+        lb?.classList.remove('open');
+        document.body.style.overflow = '';
+      };
+      lb?.querySelector('.lightbox-close')?.addEventListener('click', close);
+      lb?.querySelector('.lightbox-prev')?.addEventListener('click', () => show(idx - 1));
+      lb?.querySelector('.lightbox-next')?.addEventListener('click', () => show(idx + 1));
+      lb?.addEventListener('click', (e) => e.target === lb && close());
+      window.addEventListener('keydown', (e) => {
+        if (!lb?.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') show(idx - 1);
+        if (e.key === 'ArrowRight') show(idx + 1);
+      });
+    </script>
+
+    <style>
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        transition: background 0.3s, box-shadow 0.3s;
+      }
+      .site-header.scrolled {
+        background: rgba(0, 0, 0, 0.88);
+        backdrop-filter: blur(6px);
+        box-shadow: 0 2px 14px rgba(0, 0, 0, 0.25);
+      }
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+      .logo img { width: 46px; height: auto; }
+      .site-nav ul {
+        display: flex;
+        gap: 34px;
+        list-style: none;
+      }
+      .site-nav a {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        padding-bottom: 4px;
+        border-bottom: 2px solid transparent;
+        transition: color 0.25s, border-color 0.25s;
+      }
+      .site-nav a:hover,
+      .site-nav a.active { color: var(--accent); border-color: var(--accent); }
+
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 6px;
+      }
+      .nav-toggle span {
+        width: 24px;
+        height: 2px;
+        background: #fff;
+        display: block;
+      }
+
+      .site-footer {
+        background: var(--black);
+        color: #bbb;
+        text-align: center;
+        padding: 44px 0 36px;
+      }
+      .footer-brand {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .footer-meta { font-size: 14px; margin-bottom: 14px; color: var(--accent); }
+      .footer-copy { font-size: 13px; color: #8a8a8a; }
+
+      @media (max-width: 767px) {
+        .nav-toggle { display: flex; }
+        .site-nav {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.95);
+          display: none;
+        }
+        .site-nav.open { display: block; }
+        .site-nav ul {
+          flex-direction: column;
+          gap: 0;
+          padding: 10px 20px 20px;
+        }
+        .site-nav a { display: block; padding: 12px 0; }
+      }
+    </style>
+  </body>
+</html>

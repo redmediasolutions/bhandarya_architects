@@ -1,0 +1,16 @@
+{
+  "name": "bhandary-architects",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "fetch-images": "node scripts/fetch-images.mjs",
+    "postinstall": "node scripts/fetch-images.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  }
+}
