@@ -2,6 +2,7 @@
 interface GallerySection {
   label?: string;
   images: string[];
+  layout?: 'grid' | 'carousel';
 }
 
 interface Props {
@@ -64,17 +65,32 @@ const slug = title.toLowerCase().replace(/\s+/g, '-');
       {galleries.map((g, gi) => (
         <div class="pd-gallery-block">
           {g.label && <h4 class="pd-gallery-label">{g.label}</h4>}
-          <div class="pd-gallery">
-            {g.images.map((src, i) => (
-              <img
-                src={src}
-                alt={`${title} — ${g.label ?? 'gallery'} image ${i + 1}`}
-                loading="lazy"
-                data-lightbox={`${slug}-${gi}`}
-                data-full={src}
-              />
-            ))}
-          </div>
+          {g.layout === 'carousel' ? (
+            <div class="pd-carousel" data-carousel>
+              {g.images.map((src, i) => (
+                <div class={`pd-c-slide${i === 0 ? ' active' : ''}`} style={`background-image:url('${src}')`}></div>
+              ))}
+              <button class="pd-c-nav pd-c-prev" aria-label="Previous image">‹</button>
+              <button class="pd-c-nav pd-c-next" aria-label="Next image">›</button>
+              <div class="pd-c-dots">
+                {g.images.map((_, i) => (
+                  <button class={`pd-c-dot${i === 0 ? ' active' : ''}`} data-index={i} aria-label={`Go to image ${i + 1}`}></button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div class="pd-gallery">
+              {g.images.map((src, i) => (
+                <img
+                  src={src}
+                  alt={`${title} — ${g.label ?? 'gallery'} image ${i + 1}`}
+                  loading="lazy"
+                  data-lightbox={`${slug}-${gi}`}
+                  data-full={src}
+                />
+              ))}
+            </div>
+          )}
         </div>
       ))}
 
@@ -137,6 +153,23 @@ const slug = title.toLowerCase().replace(/\s+/g, '-');
     slider.addEventListener('mouseleave', start);
     slider.querySelector('.pd-s-prev')?.addEventListener('click', () => go(cur - 1));
     slider.querySelector('.pd-s-next')?.addEventListener('click', () => go(cur + 1));
+  });
+
+  document.querySelectorAll<HTMLElement>('.pd-carousel[data-carousel]').forEach((carousel) => {
+    const slides = carousel.querySelectorAll<HTMLElement>('.pd-c-slide');
+    const dots = carousel.querySelectorAll<HTMLElement>('.pd-c-dot');
+    if (slides.length < 2) return;
+    let cur = 0;
+    const go = (i: number) => {
+      slides[cur].classList.remove('active');
+      dots[cur]?.classList.remove('active');
+      cur = (i + slides.length) % slides.length;
+      slides[cur].classList.add('active');
+      dots[cur]?.classList.add('active');
+    };
+    carousel.querySelector('.pd-c-prev')?.addEventListener('click', () => go(cur - 1));
+    carousel.querySelector('.pd-c-next')?.addEventListener('click', () => go(cur + 1));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
   });
 </script>
 
@@ -208,6 +241,60 @@ const slug = title.toLowerCase().replace(/\s+/g, '-');
     transition: transform 0.35s ease, box-shadow 0.35s ease;
   }
   .pd-gallery img:hover { transform: scale(1.02); box-shadow: 0 10px 24px rgba(0,0,0,0.16); }
+
+  .pd-carousel {
+    position: relative;
+    height: 560px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .pd-c-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .pd-c-slide.active { opacity: 1; }
+  .pd-c-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background 0.25s;
+  }
+  .pd-c-nav:hover { background: var(--accent); }
+  .pd-c-prev { left: 14px; }
+  .pd-c-next { right: 14px; }
+  .pd-c-dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    gap: 8px;
+  }
+  .pd-c-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.6);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.25s, transform 0.25s;
+  }
+  .pd-c-dot.active { background: #fff; transform: scale(1.2); }
 
   .pd-slider {
     position: relative;
@@ -296,5 +383,6 @@ const slug = title.toLowerCase().replace(/\s+/g, '-');
     .pd-gallery { grid-template-columns: 1fr; }
     .pd-features { grid-template-columns: 1fr; }
     .pd-gallery img { height: auto; }
+    .pd-carousel { height: 320px; }
   }
 </style>
