@@ -3,23 +3,32 @@ import { slides } from "./heroData";
 const hero = document.getElementById("hero");
 
 if (!hero) {
-  throw new Error("Hero element not found");
+    throw new Error("Hero element not found");
 }
 
-const backgroundSlides = [
-  ...document.querySelectorAll<HTMLElement>(".hero-slide"),
-];
-
+// ------------------------------------------------
+// Selectors
+// ------------------------------------------------
+const backgroundSlides = [...document.querySelectorAll<HTMLElement>(".hero-slide")];
+const content = document.getElementById("hero-content");
 const title = document.getElementById("hero-title");
 const description = document.getElementById("hero-description");
 const subtitle = document.querySelector(".hero-subtitle");
+const buttonsContainer = document.querySelector(".hero-buttons");
+
 const currentNumber = document.getElementById("hero-current");
 const progress = document.getElementById("hero-progress-fill");
+const prevButton = document.getElementById("hero-prev");
+const nextButton = document.getElementById("hero-next");
 
+// ------------------------------------------------
+// State
+// ------------------------------------------------
 let current = 0;
 const total = slides.length;
 const DURATION = 7000;
-let autoplay: any; // Fixed: Explicit typing to prevent window.setInterval TS errors
+let autoplay: number | undefined; 
+let isTransitioning = false; // Prevents button spamming
 
 /* ------------------------------------------------ */
 /* Control Flow */
@@ -33,7 +42,7 @@ function start() {
 }
 
 function stop() {
-    clearInterval(autoplay);
+    if (autoplay) clearInterval(autoplay);
 }
 
 function restart() {
@@ -42,25 +51,26 @@ function restart() {
 }
 
 function nextSlide() {
+    if (isTransitioning) return;
     let next = current + 1;
     if (next >= total) next = 0;
     goToSlide(next);
 }
 
 function previousSlide() {
+    if (isTransitioning) return;
     let prev = current - 1;
     if (prev < 0) prev = total - 1;
     goToSlide(prev);
 }
 
-// Placeholder for the missing progress function called in start() and goToSlide()
 function restartProgress() {
     if (progress) {
-        progress.style.transition = 'none';
-        progress.style.width = '0%';
-        void progress.offsetWidth; // Trigger reflow
+        progress.style.transition = "none";
+        progress.style.width = "0%";
+        void progress.offsetWidth; 
         progress.style.transition = `width ${DURATION}ms linear`;
-        progress.style.width = '100%';
+        progress.style.width = "100%";
     }
 }
 
@@ -68,15 +78,16 @@ function restartProgress() {
 /* CONTENT & SLIDE TRANSITION */
 /* ------------------------------------------------ */
 
-const content = document.getElementById("hero-content");
-const buttons = document.querySelector(".hero-buttons");
-
-// Fixed: Removed the first duplicate goToSlide definition and kept this complete one
 function goToSlide(index: number) {
-    if (index === current) return;
+    if (index === current || isTransitioning) return;
+    
+    const slide = slides[index];
+    if (!slide) return;
+
+    isTransitioning = true; // Lock controls
 
     //----------------------------------------
-    // Background
+    // 1. Crossfade Backgrounds Immediately
     //----------------------------------------
     if (backgroundSlides[current]) {
         backgroundSlides[current].classList.remove("active");
@@ -86,61 +97,65 @@ function goToSlide(index: number) {
     }
 
     //----------------------------------------
-    // Content Animation
+    // 2. Animate Current Content Out
     //----------------------------------------
-    content?.classList.remove("animating");
-    void (content as HTMLElement)?.offsetWidth; // restart animation
-    content?.classList.add("animating");
-
-    //----------------------------------------
-    // Update Text
-    //----------------------------------------
-    const slide = slides[index];
-
-    if (title && slide)
-        title.innerHTML = slide.title.replace(/\n/g, "<br>");
-
-    if (subtitle && slide)
-        subtitle.textContent = slide.subtitle;
-
-    if (description && slide)
-        description.textContent = slide.description;
-
-    //----------------------------------------
-    // Update Buttons
-    //----------------------------------------
-    if (buttons && slide?.buttons) {
-        buttons.innerHTML = "";
-        slide.buttons.forEach(button => {
-            const a = document.createElement("a");
-            a.href = button.href;
-            a.className = "btn" + (button.outline ? " btn-outline" : "");
-            a.textContent = button.text;
-            buttons.appendChild(a);
-        });
+    if (content) {
+        content.classList.remove("animating");
+        content.classList.add("fade-out"); // New class we will add to CSS
     }
 
     //----------------------------------------
-    // Counter
+    // 3. Wait for fade-out, then swap data
     //----------------------------------------
-    if (currentNumber) {
-        currentNumber.textContent = String(index + 1).padStart(2, "0");
-    }
+    setTimeout(() => {
+        
+        // Update Text
+        if (title) title.textContent = slide.title;
+        if (subtitle) subtitle.textContent = slide.subtitle;
+        if (description) description.textContent = slide.description;
 
-    //----------------------------------------
-    // Progress & State
-    //----------------------------------------
-    restartProgress();
-    preloadUpcoming(); // Moved here from the deleted duplicate function
-    current = index;
+        // Update Buttons
+        if (buttonsContainer && slide.buttons) {
+            buttonsContainer.innerHTML = ""; 
+            slide.buttons.forEach((button) => {
+                const a = document.createElement("a");
+                a.href = button.href;
+                a.className = "btn" + (button.outline ? " btn-outline" : "");
+                a.textContent = button.text;
+                buttonsContainer.appendChild(a);
+            });
+        }
+
+        // Counter Update
+        if (currentNumber) {
+            currentNumber.textContent = String(index + 1).padStart(2, "0");
+        }
+
+        //----------------------------------------
+        // 4. Animate New Content In
+        //----------------------------------------
+        if (content) {
+            content.classList.remove("fade-out");
+            void content.offsetWidth; // Force layout recalculation
+            content.classList.add("animating");
+        }
+
+        // Update state and progress
+        current = index;
+        restartProgress();
+        preloadUpcoming(); 
+
+        // Unlock controls after reveal animation finishes (approx 1s)
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 1000);
+
+    }, 400); // 400ms matches the fade-out CSS duration
 }
 
 /* ------------------------------------------------ */
-/* Navigation Links */
+/* Event Listeners */
 /* ------------------------------------------------ */
-
-const prevButton = document.getElementById("hero-prev");
-const nextButton = document.getElementById("hero-next");
 
 prevButton?.addEventListener("click", () => {
     previousSlide();
@@ -166,13 +181,14 @@ function preloadImage(index: number) {
     loadedImages.add(index);
 }
 
-// Initial preloads
-preloadImage(0);
-preloadImage(1);
-
-start();
-
 function preloadUpcoming() {
     preloadImage((current + 1) % total);
     preloadImage((current + 2) % total);
 }
+
+// ------------------------------------------------
+// Initialization
+// ------------------------------------------------
+preloadImage(0);
+preloadImage(1);
+start();
