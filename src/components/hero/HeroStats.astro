@@ -1,0 +1,186 @@
+---
+const stats = [
+    {
+        value: "30+",
+        label: "Years Experience",
+    },
+    {
+        value: "500+",
+        label: "Projects Completed",
+    },
+    {
+        value: "100+",
+        label: "Happy Clients",
+    },
+    {
+        value: "Since 1995",
+        label: "Design Excellence",
+    },
+];
+---
+
+<div class="hero-stats">
+
+    {
+        stats.map((stat) => (
+
+            <div class="hero-stat">
+
+                <div class="hero-stat-number">
+                    {stat.value}
+                </div>
+
+                <div class="hero-stat-label">
+                    {stat.label}
+                </div>
+
+            </div>
+
+        ))
+    }
+
+</div>
+
+<style>
+
+.hero-stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:40px;
+
+    flex:1;
+
+}
+
+.hero-stat{
+
+    position:relative;
+
+    padding-right:25px;
+
+}
+
+.hero-stat:not(:last-child)::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+
+    right:0;
+
+    transform:translateY(-50%);
+
+    width:1px;
+
+    height:42px;
+
+    background:rgba(255,255,255,.15);
+
+}
+
+.hero-stat-number{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    line-height:1;
+
+    color:white;
+
+    letter-spacing:-1px;
+
+}
+
+.hero-stat-label{
+
+    margin-top:10px;
+
+    font-size:12px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    color:rgba(255,255,255,.65);
+
+}
+
+.hero-stat{
+
+    transition:transform .35s ease;
+
+}
+
+.hero-stat:hover{
+
+    transform:translateY(-3px);
+
+}
+
+@media(max-width:991px){
+
+    .hero-stats{
+
+        grid-template-columns:repeat(2,1fr);
+
+        gap:28px;
+
+    }
+
+    .hero-stat:nth-child(2)::after{
+
+        display:none;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .hero-stats{
+
+        grid-template-columns:1fr;
+
+        gap:22px;
+
+    }
+
+    .hero-stat{
+
+        padding-right:0;
+
+        padding-bottom:20px;
+
+        border-bottom:1px solid rgba(255,255,255,.08);
+
+    }
+
+    .hero-stat:last-child{
+
+        border-bottom:none;
+
+        padding-bottom:0;
+
+    }
+
+    .hero-stat::after{
+
+        display:none;
+
+    }
+
+    .hero-stat-number{
+
+        font-size:34px;
+
+    }
+
+}
+
+</style>

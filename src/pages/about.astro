@@ -1,0 +1,65 @@
+---
+import Base from "../layouts/Base.astro";
+
+import Headers from "../layouts/Header.astro";
+import Footer from "../layouts/Footer.astro";
+
+import AboutHero from "../components/about/AboutHero.astro";
+import Story from "../components/about/Story.astro";
+import Statistics from "../components/about/Statistics.astro";
+import DesignPhilosophy from "../components/about/DesignPhilosophy.astro";
+import Values from "../components/about/Values.astro";
+import Leadership from "../components/about/Leadership.astro";
+import Team from "../components/about/Team.astro";
+import WhyChooseUs from "../components/about/WhyChooseUs.astro";
+import CTA from "../components/about/CTA.astro";
+---
+
+<Base
+    title="About Us"
+    description="Learn about Bhandary Architects, our philosophy, our people and over three decades of architectural excellence."
+>
+
+    <Headers />
+
+    <main>
+
+       
+
+       <AboutHero
+
+            title={`Building Dreams,
+
+Shaping Futures
+
+Since 1995`}
+
+            subtitle="About Us"
+
+            description="For over three decades, Bhandary Architects has been creating thoughtful residential, commercial and hospitality spaces rooted in timeless design, innovation and craftsmanship."
+
+            image="/images/about/hero.jpg"
+
+        />
+
+        <Story />
+
+        <Statistics />
+
+        <DesignPhilosophy />
+
+        <Values />
+
+        <Leadership />
+
+        <Team />
+
+        <WhyChooseUs />
+
+        <CTA />
+
+    </main>
+
+    <Footer />
+
+</Base>

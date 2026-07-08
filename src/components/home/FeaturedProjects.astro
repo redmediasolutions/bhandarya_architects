@@ -1,0 +1,270 @@
+---
+const projects = [
+  {
+    title: "The Courtyard Residence",
+    category: "Residential",
+    image: "/images/projects/project-1.jpg",
+    class: "large",
+  },
+  {
+    title: "Urban Business Centre",
+    category: "Commercial",
+    image: "/images/projects/project-2.jpg",
+    class: "vertical",
+  },
+  {
+    title: "Serenity Villa",
+    category: "Luxury Residence",
+    image: "/images/projects/project-3.jpg",
+    class: "square",
+  },
+  {
+    title: "Ocean View Resort",
+    category: "Hospitality",
+    image: "/images/projects/project-4.jpg",
+    class: "wide",
+  },
+];
+---
+
+<section class="projects section">
+
+    <div class="container">
+
+        <div class="projects-header">
+
+            <div>
+
+                <span class="small-title">
+                    Featured Projects
+                </span>
+
+                <h2>
+                    Spaces Crafted with Purpose
+                </h2>
+
+            </div>
+
+            <a
+                href="/projects"
+                class="text-link"
+            >
+                View All Projects →
+            </a>
+
+        </div>
+
+        <div class="projects-grid">
+
+            {
+                projects.map((project) => (
+
+                    <article class={`project-card ${project.class}`}>
+
+                        <img
+                            src={project.image}
+                            alt={project.title}
+                        />
+
+                        <div class="project-overlay">
+
+                            <span class="project-category">
+                                {project.category}
+                            </span>
+
+                            <h3>
+                                {project.title}
+                            </h3>
+
+                        </div>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.projects{
+    background:var(--surface);
+}
+
+.projects-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:end;
+
+    margin-bottom:60px;
+
+    gap:40px;
+
+}
+
+.projects-header h2{
+    margin-top:18px;
+}
+
+.projects-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(12,1fr);
+
+    gap:24px;
+
+}
+
+.project-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+}
+
+.project-card img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:transform .8s;
+
+}
+
+.project-card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+.project-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    padding:35px;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        to top,
+        rgba(0,0,0,.78),
+        transparent 60%
+    );
+
+}
+
+.project-category{
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    opacity:.75;
+
+    margin-bottom:10px;
+
+}
+
+.project-overlay h3{
+
+    color:white;
+
+}
+
+.large{
+
+    grid-column:span 8;
+
+    aspect-ratio:16/10;
+
+}
+
+.vertical{
+
+    grid-column:span 4;
+
+    aspect-ratio:4/5;
+
+}
+
+.square{
+
+    grid-column:span 4;
+
+    aspect-ratio:1;
+
+}
+
+.wide{
+
+    grid-column:span 8;
+
+    aspect-ratio:21/9;
+
+}
+
+@media(max-width:991px){
+
+    .projects-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .large,
+    .vertical,
+    .square,
+    .wide{
+
+        grid-column:auto;
+
+        aspect-ratio:16/10;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .projects-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .project-overlay{
+
+        padding:24px;
+
+    }
+
+}
+
+</style>

@@ -1,0 +1,279 @@
+---
+const values = [
+  {
+    title: "Excellence",
+    text: "We pursue the highest standards in every project we undertake.",
+  },
+  {
+    title: "Collaboration",
+    text: "Working closely with clients to bring their vision to life through open communication and shared creativity.",
+  },
+  {
+    title: "Innovation",
+    text: "Embracing new technologies and sustainable design practices to create future-ready spaces.",
+  },
+  {
+    title: "Passion",
+    text: "Every design reflects our deep commitment to architectural excellence and thoughtful craftsmanship.",
+  },
+];
+---
+
+<section class="values section">
+
+    <div class="container">
+
+        <div class="values-header">
+
+            <span class="small-title">
+                Our Values
+            </span>
+
+            <h2>
+                The Principles That
+                <br>
+                Guide Every Project
+            </h2>
+
+            <p>
+                Our work is shaped by a commitment to thoughtful design,
+                meaningful collaboration and a passion for creating spaces that
+                enrich everyday life.
+            </p>
+
+        </div>
+
+        <div class="values-grid">
+
+            {
+                values.map((value, index) => (
+
+                    <article class="value-item">
+
+                        <span class="value-number">
+                            {String(index + 1).padStart(2, "0")}
+                        </span>
+
+                        <h3>
+                            {value.title}
+                        </h3>
+
+                        <p>
+                            {value.text}
+                        </p>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.values{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#151515;
+
+    color:white;
+
+}
+
+/* Background */
+
+.values::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+
+    background-size:70px 70px;
+
+    opacity:.35;
+
+}
+
+.values::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    right:-300px;
+
+    top:-300px;
+
+    background:
+        radial-gradient(circle,
+        rgba(255,105,0,.08),
+        transparent 70%);
+
+}
+
+.values .container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.values-header{
+
+    max-width:720px;
+
+    margin-bottom:80px;
+
+}
+
+.values-header .small-title{
+
+    color:var(--accent);
+
+}
+
+.values-header h2{
+
+    color:white;
+
+    margin:20px 0 24px;
+
+}
+
+.values-header p{
+
+    color:rgba(255,255,255,.65);
+
+    max-width:620px;
+
+}
+
+/* Grid */
+
+.values-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:30px;
+
+}
+
+/* Card */
+
+.value-item{
+
+    padding:45px 35px;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(10px);
+
+    transition:all .35s ease;
+
+}
+
+.value-item:hover{
+
+    transform:translateY(-8px);
+
+    border-color:var(--accent);
+
+    background:rgba(255,255,255,.05);
+
+}
+
+/* Number */
+
+.value-number{
+
+    display:block;
+
+    margin-bottom:30px;
+
+    font-size:58px;
+
+    font-weight:700;
+
+    color:rgba(255,255,255,.08);
+
+    line-height:1;
+
+}
+
+/* Heading */
+
+.value-item h3{
+
+    margin-bottom:18px;
+
+    color:white;
+
+    font-size:26px;
+
+}
+
+/* Text */
+
+.value-item p{
+
+    color:rgba(255,255,255,.65);
+
+    line-height:1.8;
+
+}
+
+@media(max-width:991px){
+
+    .values-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .values{
+
+        padding:80px 0;
+
+    }
+
+    .values-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .values-header{
+
+        margin-bottom:50px;
+
+    }
+
+}
+
+</style>

@@ -1,0 +1,287 @@
+---
+import { img } from "../../consts";
+
+const team = [
+  {
+    name: "Anil Kumar",
+    role: "Project Manager",
+  },
+  {
+    name: "Meera Patel",
+    role: "Interior Designer",
+  },
+  {
+    name: "Rahul Sharma",
+    role: "Architect",
+  },
+  {
+    name: "Priya Nair",
+    role: "Architect",
+  },
+];
+
+const portrait = img("2026/03/photo-1506794778202-cad84cf45f1d.avif");
+---
+
+<section class="team section">
+
+    <div class="container">
+
+        <div class="team-header">
+
+            <span class="small-title">
+                Our Team
+            </span>
+
+            <h2>
+                Meet the People Behind
+                Every Project
+            </h2>
+
+            <p>
+                Our multidisciplinary team brings together architects,
+                designers and project managers committed to creating spaces
+                that inspire and endure.
+            </p>
+
+        </div>
+
+        <div class="team-grid">
+
+            {
+                team.map((member) => (
+
+                    <article class="team-card">
+
+                        <img
+                            src={portrait}
+                            alt={member.name}
+                            loading="lazy"
+                        />
+
+                        <div class="team-info">
+
+                            <h3>
+                                {member.name}
+                            </h3>
+
+                            <span>
+                                {member.role}
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.team{
+
+    background:#f5f3f0;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* subtle pattern */
+
+.team::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+        linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px);
+
+    background-size:70px 70px;
+
+    opacity:.5;
+
+}
+
+.team .container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.team-header{
+
+    max-width:700px;
+
+    margin-bottom:70px;
+
+}
+
+.team-header h2{
+
+    margin:20px 0;
+
+}
+
+.team-header p{
+
+    max-width:620px;
+
+    color:var(--gray);
+
+}
+
+/* ---------- Grid ---------- */
+
+.team-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:30px;
+
+}
+
+/* ---------- Card ---------- */
+
+.team-card{
+
+    background:white;
+
+    border:1px solid rgba(0,0,0,.06);
+
+    overflow:hidden;
+
+    transition:all .35s ease;
+
+}
+
+.team-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 18px 45px rgba(0,0,0,.08);
+
+}
+
+/* ---------- Image ---------- */
+
+.team-card img{
+
+    width:100%;
+
+    aspect-ratio:4/5;
+
+    object-fit:cover;
+
+    transition:transform .6s;
+
+}
+
+.team-card:hover img{
+
+    transform:scale(1.05);
+
+}
+
+/* ---------- Content ---------- */
+
+.team-info{
+
+    padding:28px;
+
+}
+
+.team-info h3{
+
+    font-size:22px;
+
+    margin-bottom:8px;
+
+    color:var(--black);
+
+}
+
+.team-info span{
+
+    display:inline-block;
+
+    margin-bottom:18px;
+
+    color:var(--accent);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+}
+
+.team-info::after{
+
+    content:"";
+
+    display:block;
+
+    width:40px;
+
+    height:2px;
+
+    margin-top:20px;
+
+    background:var(--accent);
+
+    transition:width .35s ease;
+
+}
+
+.team-card:hover .team-info::after{
+
+    width:80px;
+
+}
+
+@media(max-width:991px){
+
+    .team-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .team-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .team-header{
+
+        margin-bottom:50px;
+
+    }
+
+}
+
+</style>

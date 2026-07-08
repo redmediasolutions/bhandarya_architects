@@ -1,0 +1,192 @@
+---
+interface Slide {
+    title: string;
+    subtitle: string;
+    description: string;
+    image: string;
+}
+
+interface Props {
+    slides: Slide[];
+}
+
+const { slides } = Astro.props;
+---
+
+<div class="hero-background">
+
+    {
+        slides.map((slide, index) => (
+
+            <div
+                class={`hero-slide ${index === 0 ? "active" : ""}`}
+                data-slide={index}
+            >
+
+                <img
+                    src={slide.image}
+                    alt={slide.title}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                />
+
+            </div>
+
+        ))
+    }
+
+</div>
+
+<style>
+
+.hero-background{
+
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    z-index:0;
+
+}
+
+/* -------------------------------- */
+
+.hero-slide{
+
+    position:absolute;
+    inset:0;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:
+        opacity 1.4s cubic-bezier(.22,1,.36,1),
+        visibility 1.4s;
+
+}
+
+/* -------------------------------- */
+
+.hero-slide.active{
+
+    opacity:1;
+    visibility:visible;
+    z-index:2;
+
+}
+
+/* -------------------------------- */
+
+.hero-slide img{
+
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+    object-position:center center;
+
+    transform:scale(1.02);
+
+    will-change:transform;
+    backface-visibility:hidden;
+
+}
+
+/* -------------------------------- */
+
+.hero-slide.active img{
+
+    animation:kenBurns 10s ease-in-out forwards;
+
+}
+
+/* -------------------------------- */
+/* Light gradient for text */
+/* -------------------------------- */
+
+.hero-slide::after{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.28) 0%,
+            rgba(0,0,0,.12) 28%,
+            rgba(0,0,0,.03) 55%,
+            rgba(0,0,0,0) 100%
+        );
+
+    z-index:1;
+
+    pointer-events:none;
+
+}
+
+/* -------------------------------- */
+
+@keyframes kenBurns{
+
+    from{
+
+        transform:
+            scale(1.02)
+            translate3d(0,0,0);
+
+    }
+
+    to{
+
+        transform:
+            scale(1.07)
+            translate3d(-1%,-1%,0);
+
+    }
+
+}
+
+/* -------------------------------- */
+
+@media(max-width:991px){
+
+    .hero-slide img{
+
+        object-position:center center;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .hero-slide img{
+
+        object-fit:cover;
+        object-position:center center;
+
+    }
+
+    @keyframes kenBurns{
+
+        from{
+
+            transform:scale(1.02);
+
+        }
+
+        to{
+
+            transform:scale(1.04);
+
+        }
+
+    }
+
+}
+
+</style>

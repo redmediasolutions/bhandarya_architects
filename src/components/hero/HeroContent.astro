@@ -1,0 +1,319 @@
+---
+interface Button {
+  text: string;
+  href: string;
+  outline?: boolean;
+}
+
+interface Slide {
+  title: string;
+  subtitle: string;
+  description: string;
+  buttons: Button[];
+}
+
+interface Props {
+  slide: Slide;
+}
+
+const { slide } = Astro.props;
+---
+
+<div class="hero-content" id="hero-content">
+
+    <span class="hero-subtitle animate-item">
+        {slide.subtitle}
+    </span>
+
+    <h1
+        class="hero-title animate-item"
+        id="hero-title"
+        style="white-space: pre-line;"
+    >
+        {slide.title}
+    </h1>
+
+    <p
+        class="hero-description animate-item"
+        id="hero-description"
+    >
+        {slide.description}
+    </p>
+
+    <div class="hero-buttons animate-item">
+
+        {
+            slide.buttons.map((button) => (
+
+                <a
+                    href={button.href}
+                    class={`btn ${button.outline ? "btn-outline" : ""}`}
+                >
+                    {button.text}
+                </a>
+
+            ))
+        }
+
+    </div>
+
+</div>
+
+<style>
+
+.hero-content{
+
+    position:relative;
+
+    z-index:10;
+
+    max-width:760px;
+
+    color:white;
+
+}
+
+/* ------------------------------- */
+
+.hero-subtitle{
+
+    display:inline-block;
+
+    color:rgba(255,255,255,.75);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    text-transform:uppercase;
+
+    letter-spacing:4px;
+
+    margin-bottom:28px;
+
+}
+
+/* ------------------------------- */
+
+.hero-title{
+
+    font-size:clamp(46px, 5.5vw, 72px);
+
+    line-height:1;
+
+    font-weight:600;
+
+    letter-spacing:-2px;
+
+    color:white;
+
+    margin-bottom:28px;
+
+    max-width:780px;
+
+}
+
+/* ------------------------------- */
+
+.hero-description{
+
+    max-width:640px;
+
+    font-size:20px;
+
+    line-height:1.8;
+
+    color:rgba(255,255,255,.72);
+
+}
+
+/* ------------------------------- */
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:20px;
+
+    margin-top:50px;
+
+    flex-wrap:wrap;
+
+}
+
+/* -------------------------------- */
+/* Initial State */
+/* -------------------------------- */
+
+.animate-item{
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+}
+
+/* -------------------------------- */
+/* Initial Page Load */
+/* Wait for image to fade in */
+/* -------------------------------- */
+
+.hero-subtitle{
+
+    animation:heroReveal .8s cubic-bezier(.22,1,.36,1) forwards;
+
+    animation-delay:.9s;
+
+}
+
+.hero-title{
+
+    animation:heroReveal .9s cubic-bezier(.22,1,.36,1) forwards;
+
+    animation-delay:1.15s;
+
+}
+
+.hero-description{
+
+    animation:heroReveal .9s cubic-bezier(.22,1,.36,1) forwards;
+
+    animation-delay:1.4s;
+
+}
+
+.hero-buttons{
+
+    animation:heroReveal .9s cubic-bezier(.22,1,.36,1) forwards;
+
+    animation-delay:1.65s;
+
+}
+
+/* -------------------------------- */
+/* Slide Transition */
+/* -------------------------------- */
+
+.hero-content.animating .animate-item{
+
+    animation:none;
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+}
+
+.hero-content.animating .hero-subtitle{
+
+    animation:heroReveal .7s cubic-bezier(.22,1,.36,1) forwards;
+
+    animation-delay:.25s;
+
+}
+
+.hero-content.animating .hero-title{
+
+    animation:heroReveal .8s cubic-bezier(.22,1,.36,1) forwards;
+
+    animation-delay:.45s;
+
+}
+
+.hero-content.animating .hero-description{
+
+    animation:heroReveal .8s cubic-bezier(.22,1,.36,1) forwards;
+
+    animation-delay:.65s;
+
+}
+
+.hero-content.animating .hero-buttons{
+
+    animation:heroReveal .8s cubic-bezier(.22,1,.36,1) forwards;
+
+    animation-delay:.85s;
+
+}
+
+/* -------------------------------- */
+
+@keyframes heroReveal{
+
+    0%{
+
+        opacity:0;
+
+        transform:translateY(50px);
+
+    }
+
+    100%{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ------------------------------- */
+
+@media(max-width:991px){
+
+    .hero-content{
+
+        max-width:620px;
+
+    }
+
+    .hero-title{
+
+        font-size:72px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .hero-title{
+
+        font-size:46px;
+
+        letter-spacing:-2px;
+
+        margin-bottom:24px;
+
+    }
+
+    .hero-description{
+
+        font-size:17px;
+
+        line-height:1.7;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .hero-buttons .btn{
+
+        width:100%;
+
+        max-width:260px;
+
+        text-align:center;
+
+    }
+
+}
+
+</style>

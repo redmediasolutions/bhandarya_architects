@@ -1,0 +1,362 @@
+---
+const navigation = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Projects", href: "/projects" },
+  { name: "Services", href: "/services" },
+  { name: "Contact", href: "/contact" },
+];
+
+const pathname = Astro.url.pathname;
+
+interface Props {
+  sticky?: boolean;
+}
+
+const { sticky = false } = Astro.props;
+---
+
+<header
+  id="site-header"
+  class:list={[
+    "site-header",
+    sticky ? "sticky-home" : "fixed-header"
+  ]}
+>
+
+    <div class="container navbar">
+
+        <a href="/" class="logo">
+
+            <div class="logo-text">
+
+                <span>Bhandary</span>
+
+                <small>Architects</small>
+
+            </div>
+
+        </a>
+
+        <nav class="nav-menu">
+
+            {
+                navigation.map((item) => (
+
+                    <a
+                        href={item.href}
+                        class={pathname === item.href ? "active" : ""}
+                    >
+                        {item.name}
+                    </a>
+
+                ))
+            }
+
+        </nav>
+
+        <a
+            href="/contact"
+            class="btn header-btn"
+        >
+            Get In Touch
+        </a>
+
+        <button
+            class="mobile-toggle"
+            aria-label="Open Menu"
+        >
+            ☰
+        </button>
+
+    </div>
+
+</header>
+
+{!sticky && <div class="header-space"></div>}
+
+<script>
+
+const header = document.getElementById("site-header");
+
+if(header && header.classList.contains("sticky-home")){
+
+    const trigger = header.offsetTop;
+
+    const onScroll = ()=>{
+
+        if(window.scrollY >= trigger){
+
+            header.classList.add("is-fixed");
+
+        }else{
+
+            header.classList.remove("is-fixed");
+
+        }
+
+    };
+
+    onScroll();
+
+    window.addEventListener("scroll", onScroll);
+
+}
+
+</script>
+
+<style>
+
+.site-header{
+
+    width:100%;
+
+    background:rgba(255,255,255,.96);
+
+    backdrop-filter:blur(12px);
+
+    border-bottom:1px solid var(--border);
+
+    z-index:1000;
+
+    transition:
+        box-shadow .35s ease,
+        transform .35s ease,
+        background .35s ease;
+
+}
+
+/* About / Services / Contact pages */
+
+.fixed-header{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+    right:0;
+
+}
+
+/* Home page */
+
+.sticky-home{
+
+    position:relative;
+
+}
+
+/* When scrolled */
+
+.sticky-home.is-fixed{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+    right:0;
+
+    animation:headerIn .45s ease;
+
+    box-shadow:
+        0 12px 40px rgba(0,0,0,.08);
+
+}
+
+@keyframes headerIn{
+
+    from{
+
+        transform:translateY(-100%);
+
+    }
+
+    to{
+
+        transform:none;
+
+    }
+
+}
+
+.navbar{
+
+    height:90px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    text-decoration:none;
+
+}
+
+.logo-text{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.logo-text span{
+
+    font-size:20px;
+
+    font-weight:600;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+.logo-text small{
+
+    font-size:12px;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+    color:var(--gray);
+
+}
+
+.nav-menu{
+
+    display:flex;
+
+    gap:42px;
+
+}
+
+.nav-menu a{
+
+    position:relative;
+
+    font-size:13px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    color:var(--gray);
+
+    transition:.3s;
+
+}
+
+.nav-menu a:hover,
+
+.nav-menu a.active{
+
+    color:var(--accent);
+
+}
+
+.nav-menu a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:2px;
+
+    background:var(--accent);
+
+    transition:.3s;
+
+}
+
+.nav-menu a:hover::after,
+
+.nav-menu a.active::after{
+
+    width:100%;
+
+}
+
+.header-btn{
+
+    padding:12px 24px;
+
+    font-size:12px;
+
+}
+
+.mobile-toggle{
+
+    display:none;
+
+    background:none;
+
+    border:none;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+}
+
+.header-space{
+
+    height:90px;
+
+}
+
+@media(max-width:991px){
+
+    .nav-menu{
+
+        display:none;
+
+    }
+
+    .header-btn{
+
+        display:none;
+
+    }
+
+    .mobile-toggle{
+
+        display:block;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .navbar{
+
+        height:80px;
+
+    }
+
+    .header-space{
+
+        height:80px;
+
+    }
+
+}
+
+</style>

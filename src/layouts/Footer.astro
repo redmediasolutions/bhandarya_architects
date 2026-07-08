@@ -1,0 +1,225 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <!-- Company -->
+
+            <div>
+
+                <img
+                    src="/images/logo-white.svg"
+                    alt="Bhandary Architects"
+                    class="footer-logo"
+                />
+
+                <p class="footer-about">
+                    Designing timeless residential, commercial and hospitality
+                    spaces through thoughtful architecture, refined interiors
+                    and sustainable planning.
+                </p>
+
+            </div>
+
+            <!-- Navigation -->
+
+            <div>
+
+                <h4>Navigation</h4>
+
+                <ul>
+
+                    <li><a href="/">Home</a></li>
+
+                    <li><a href="/about">About</a></li>
+
+                    <li><a href="/projects">Projects</a></li>
+
+                    <li><a href="/services">Services</a></li>
+
+                    <li><a href="/contact">Contact</a></li>
+
+                </ul>
+
+            </div>
+
+            <!-- Services -->
+
+            <div>
+
+                <h4>Services</h4>
+
+                <ul>
+
+                    <li>Architecture</li>
+
+                    <li>Interior Design</li>
+
+                    <li>Master Planning</li>
+
+                    <li>Landscape Design</li>
+
+                    <li>Project Management</li>
+
+                </ul>
+
+            </div>
+
+            <!-- Contact -->
+
+            <div>
+
+                <h4>Contact</h4>
+
+                <ul>
+
+                    <li>Bhandary Architects</li>
+
+                    <li>Mangalore, Karnataka</li>
+
+                    <li>hello@bhandaryarchitects.com</li>
+
+                    <li>+91 98765 43210</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+                © {year} Bhandary Architects. All Rights Reserved.
+            </p>
+
+            <div class="footer-social">
+
+                <a href="#">Instagram</a>
+
+                <a href="#">Facebook</a>
+
+                <a href="#">LinkedIn</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<style>
+
+.site-footer{
+    background:var(--black);
+    color:white;
+    padding:100px 0 30px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1.3fr;
+    gap:60px;
+}
+
+.footer-logo{
+    height:54px;
+    margin-bottom:28px;
+}
+
+.footer-about{
+    max-width:420px;
+    color:#B5B5B5;
+}
+
+.site-footer h4{
+    margin-bottom:22px;
+    color:white;
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.site-footer ul{
+    list-style:none;
+}
+
+.site-footer li{
+    margin-bottom:14px;
+    color:#A8A8A8;
+}
+
+.site-footer a{
+    color:#A8A8A8;
+    transition:var(--transition);
+}
+
+.site-footer a:hover{
+    color:var(--white);
+}
+
+.footer-bottom{
+    margin-top:70px;
+    padding-top:30px;
+    border-top:1px solid rgba(255,255,255,.1);
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.footer-bottom p{
+    color:#8A8A8A;
+    font-size:14px;
+}
+
+.footer-social{
+    display:flex;
+    gap:30px;
+}
+
+.footer-social a{
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+@media(max-width:991px){
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+        gap:50px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .site-footer{
+        padding:70px 0 25px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+        gap:20px;
+        text-align:center;
+    }
+
+    .footer-social{
+        justify-content:center;
+    }
+
+}
+
+</style>

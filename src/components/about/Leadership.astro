@@ -1,0 +1,224 @@
+---
+import { img } from "../../consts";
+
+const leaders = [
+  {
+    name: "Ar. Amarnath Bhandary",
+    role: "Principal Architect",
+    image: img("2026/03/photo-1506794778202-cad84cf45f1d.avif"),
+    bio: `With over three decades of architectural experience, Amarnath
+    Bhandary has led the practice with a vision rooted in timeless design,
+    functionality and innovation. His work reflects a deep understanding of
+    people, place and purpose, resulting in projects that remain relevant for
+    generations.`,
+  },
+  {
+    name: "Ar. Sarina Bhandary",
+    role: "Principal Architect",
+    image: img("2026/03/photo-1506794778202-cad84cf45f1d.avif"),
+    bio: `Sarina Bhandary brings a thoughtful and human-centred approach to
+    architecture and interiors. Her attention to detail, materiality and
+    spatial planning ensures that every project delivers beauty, comfort and
+    lasting value.`,
+  },
+];
+---
+
+<section class="leadership section">
+
+    <div class="container">
+
+        <div class="leadership-header">
+
+            <span class="small-title">
+                Leadership
+            </span>
+
+            <h2>
+                Meet Our Principal Architects
+            </h2>
+
+            <p>
+                Every successful project begins with strong leadership,
+                thoughtful collaboration and decades of architectural
+                experience.
+            </p>
+
+        </div>
+
+        {
+            leaders.map((leader, index) => (
+
+                <article class={`leader ${index % 2 ? "reverse" : ""}`}>
+
+                    <div class="leader-image">
+
+                        <img
+                            src={leader.image}
+                            alt={leader.name}
+                            loading="lazy"
+                        />
+
+                    </div>
+
+                    <div class="leader-content">
+
+                        <span class="leader-role">
+                            {leader.role}
+                        </span>
+
+                        <h3>
+                            {leader.name}
+                        </h3>
+
+                        <p>
+                            {leader.bio}
+                        </p>
+
+                    </div>
+
+                </article>
+
+            ))
+        }
+
+    </div>
+
+</section>
+
+<style>
+
+.leadership{
+    background:var(--white);
+}
+
+.leadership-header{
+    max-width:720px;
+    margin-bottom:80px;
+}
+
+.leadership-header h2{
+    margin:20px 0;
+}
+
+.leadership-header p{
+    max-width:620px;
+}
+
+.leader{
+
+    display:grid;
+
+    grid-template-columns:420px 1fr;
+
+    gap:80px;
+
+    align-items:center;
+
+    margin-bottom:100px;
+
+}
+
+.leader:last-child{
+    margin-bottom:0;
+}
+
+.leader.reverse{
+    grid-template-columns:1fr 420px;
+}
+
+.leader.reverse .leader-image{
+    order:2;
+}
+
+.leader.reverse .leader-content{
+    order:1;
+}
+
+.leader-image img{
+
+    width:100%;
+
+    aspect-ratio:4/5;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+.leader-role{
+
+    display:inline-block;
+
+    margin-bottom:16px;
+
+    color:var(--accent);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+}
+
+.leader-content h3{
+
+    font-size:42px;
+
+    margin-bottom:24px;
+
+}
+
+.leader-content p{
+
+    max-width:620px;
+
+}
+
+@media(max-width:991px){
+
+    .leader,
+    .leader.reverse{
+
+        grid-template-columns:1fr;
+
+        gap:40px;
+
+    }
+
+    .leader.reverse .leader-image,
+    .leader.reverse .leader-content{
+
+        order:initial;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .leadership-header{
+
+        margin-bottom:50px;
+
+    }
+
+    .leader{
+
+        margin-bottom:70px;
+
+    }
+
+    .leader-content h3{
+
+        font-size:32px;
+
+    }
+
+}
+
+</style>

@@ -1,0 +1,166 @@
+---
+interface Props {
+    current: number;
+    total: number;
+}
+
+const { current, total } = Astro.props;
+
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<div
+    class="hero-progress"
+    id="hero-progress"
+>
+
+    <div class="hero-counter">
+
+        <span id="hero-current">
+            {pad(current)}
+        </span>
+
+        <span class="divider">/</span>
+
+        <span id="hero-total">
+            {pad(total)}
+        </span>
+
+    </div>
+
+    <div class="progress-track">
+
+        <div
+            class="progress-fill"
+            id="hero-progress-fill"
+        ></div>
+
+    </div>
+
+</div>
+
+<style>
+
+.hero-progress{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+    min-width:220px;
+
+}
+
+/* ---------------------------- */
+
+.hero-counter{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:14px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    color:white;
+
+}
+
+.hero-counter span{
+
+    display:block;
+
+}
+
+.divider{
+
+    opacity:.45;
+
+}
+
+/* ---------------------------- */
+
+.progress-track{
+
+    width:220px;
+
+    height:2px;
+
+    background:rgba(255,255,255,.15);
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+/* ---------------------------- */
+
+.progress-fill{
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:0%;
+
+    height:100%;
+
+    background:var(--accent);
+
+}
+
+/* autoplay */
+
+.progress-fill.animate{
+
+    animation:heroProgress 7s linear forwards;
+
+}
+
+/* ---------------------------- */
+
+@keyframes heroProgress{
+
+    from{
+
+        width:0;
+
+    }
+
+    to{
+
+        width:100%;
+
+    }
+
+}
+
+/* ---------------------------- */
+
+@media(max-width:768px){
+
+    .hero-progress{
+
+        width:100%;
+
+    }
+
+    .progress-track{
+
+        width:100%;
+
+    }
+
+}
+
+</style>

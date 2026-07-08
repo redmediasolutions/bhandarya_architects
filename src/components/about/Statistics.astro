@@ -1,0 +1,238 @@
+<section class="statistics section">
+
+    <div class="bg-pattern"></div>
+
+    <div class="container">
+
+        <div class="stats-grid">
+
+            <div class="stat">
+
+                <h2>30+</h2>
+
+                <p>Years Experience</p>
+
+            </div>
+
+            <div class="stat">
+
+                <h2>500+</h2>
+
+                <p>Projects</p>
+
+            </div>
+
+            <div class="stat">
+
+                <h2>100+</h2>
+
+                <p>Happy Clients</p>
+
+            </div>
+
+            <div class="stat">
+
+                <h2>1995</h2>
+
+                <p>Established</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.statistics{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(circle at top left,
+        rgba(255,105,0,.08),
+        transparent 40%),
+        linear-gradient(180deg,#191919,#111111);
+
+    color:white;
+
+}
+
+/* Grid Pattern */
+
+.bg-pattern{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.04) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.04) 1px,
+            transparent 1px
+        );
+
+    background-size:80px 80px;
+
+    opacity:.35;
+
+}
+
+/* Decorative Lines */
+
+.statistics::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:1200px;
+
+    height:1200px;
+
+    right:-500px;
+
+    top:-400px;
+
+    border:1px solid rgba(255,255,255,.05);
+
+    border-radius:50%;
+
+}
+
+.statistics::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:800px;
+
+    height:800px;
+
+    left:-350px;
+
+    bottom:-350px;
+
+    border:1px solid rgba(255,255,255,.04);
+
+    border-radius:50%;
+
+}
+
+.container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:40px;
+
+}
+
+.stat{
+
+    padding:50px 30px;
+
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.03);
+
+    backdrop-filter:blur(12px);
+
+    transition:var(--transition);
+
+}
+
+.stat:hover{
+
+    transform:translateY(-8px);
+
+    border-color:rgba(255,105,0,.5);
+
+    background:rgba(255,255,255,.05);
+
+}
+
+.stats-grid h2{
+
+    font-size:64px;
+
+    font-weight:700;
+
+    color:var(--accent);
+
+    line-height:1;
+
+}
+
+.stats-grid p{
+
+    margin-top:16px;
+
+    color:rgba(255,255,255,.75);
+
+    text-transform:uppercase;
+
+    letter-spacing:3px;
+
+    font-size:12px;
+
+}
+
+@media(max-width:768px){
+
+    .stats-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+        gap:20px;
+
+    }
+
+    .stat{
+
+        padding:35px 20px;
+
+    }
+
+    .stats-grid h2{
+
+        font-size:44px;
+
+    }
+
+}
+
+@media(max-width:560px){
+
+    .stats-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+</style>

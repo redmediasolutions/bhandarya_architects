@@ -1,0 +1,201 @@
+<div class="hero-navigation">
+
+    <button
+        class="hero-nav hero-prev"
+        id="hero-prev"
+        aria-label="Previous Slide"
+    >
+
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path d="M15 18l-6-6 6-6"/>
+        </svg>
+
+    </button>
+
+    <button
+        class="hero-nav hero-next"
+        id="hero-next"
+        aria-label="Next Slide"
+    >
+
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path d="M9 18l6-6-6-6"/>
+        </svg>
+
+    </button>
+
+</div>
+
+<style>
+
+.hero-navigation{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+/* -------------------------------- */
+
+.hero-nav{
+
+    width:58px;
+
+    height:58px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:1px solid rgba(255,255,255,.18);
+
+    background:rgba(255,255,255,.04);
+
+    backdrop-filter:blur(14px);
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:all .35s cubic-bezier(.19,1,.22,1);
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+/* animated fill */
+
+.hero-nav::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:var(--accent);
+
+    transform:scaleY(0);
+
+    transform-origin:bottom;
+
+    transition:transform .35s ease;
+
+    z-index:0;
+
+}
+
+/* icon */
+
+.hero-nav svg{
+
+    position:relative;
+
+    z-index:2;
+
+    width:22px;
+
+    height:22px;
+
+    transition:transform .35s ease;
+
+}
+
+/* -------------------------------- */
+
+.hero-nav:hover{
+
+    border-color:var(--accent);
+
+    transform:translateY(-3px);
+
+}
+
+.hero-nav:hover::before{
+
+    transform:scaleY(1);
+
+}
+
+.hero-prev:hover svg{
+
+    transform:translateX(-4px);
+
+}
+
+.hero-next:hover svg{
+
+    transform:translateX(4px);
+
+}
+
+/* click */
+
+.hero-nav:active{
+
+    transform:scale(.95);
+
+}
+
+/* keyboard */
+
+.hero-nav:focus-visible{
+
+    outline:2px solid var(--accent);
+
+    outline-offset:4px;
+
+}
+
+/* -------------------------------- */
+/* Mobile */
+/* -------------------------------- */
+
+@media(max-width:768px){
+
+    .hero-navigation{
+
+        gap:10px;
+
+    }
+
+    .hero-nav{
+
+        width:48px;
+
+        height:48px;
+
+    }
+
+    .hero-nav svg{
+
+        width:18px;
+
+        height:18px;
+
+    }
+
+}
+
+</style>

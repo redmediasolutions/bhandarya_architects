@@ -1,0 +1,193 @@
+---
+import HeroBackground from "./HeroBackground.astro";
+import HeroContent from "./HeroContent.astro";
+
+import { slides } from "./heroData";
+---
+
+<section
+    class="hero"
+    id="hero"
+>
+
+    <!-- Background Images -->
+
+    <HeroBackground slides={slides} />
+
+    <!-- Overlay -->
+
+    <div class="hero-overlay"></div>
+
+    <!-- Content -->
+
+    <div class="hero-inner">
+
+        <div class="container">
+
+            <HeroContent slide={slides[0]} />
+
+        </div>
+
+    </div>
+
+    <!-- Bottom UI -->
+
+    
+
+</section>
+
+<script type="module">
+
+    import "./hero.ts";
+
+</script>
+
+<style>
+
+.hero{
+
+    position:relative;
+
+        min-height:70vh;
+
+    overflow:hidden;
+
+    background:#111;
+
+    color:white;
+
+}
+
+/* -------------------------------- */
+
+.hero-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:2;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.78),
+            rgba(0,0,0,.45),
+            rgba(0,0,0,.12)
+        );
+
+}
+
+/* -------------------------------- */
+
+.hero-inner{
+
+    position:relative;
+
+    z-index:5;
+
+    display:flex;
+
+    align-items:center;
+
+    min-height:100vh;
+
+}
+
+/* -------------------------------- */
+
+.hero-bottom{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    z-index:8;
+
+    backdrop-filter:blur(12px);
+
+    background:rgba(0,0,0,.35);
+
+    border-top:1px solid rgba(255,255,255,.12);
+
+}
+
+/* -------------------------------- */
+
+.hero-bottom-inner{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:40px;
+
+    padding:28px 0;
+
+}
+
+/* -------------------------------- */
+
+.hero-controls{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:40px;
+
+}
+
+/* -------------------------------- */
+
+@media(max-width:991px){
+
+    .hero-bottom-inner{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:30px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .hero{
+
+        min-height:700px;
+
+    }
+
+    .hero-bottom{
+
+        position:relative;
+
+    }
+
+    .hero-bottom-inner{
+
+        padding:24px 0;
+
+    }
+
+    .hero-controls{
+
+        width:100%;
+
+        justify-content:space-between;
+
+    }
+
+}
+
+</style>

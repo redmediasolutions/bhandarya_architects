@@ -1,0 +1,263 @@
+<section class="philosophy section">
+
+    <div class="container">
+
+        <div class="philosophy-grid">
+
+            <!-- Image -->
+
+            <div class="philosophy-image">
+
+                <img
+                    src="/images/philosophy.jpg"
+                    alt="Bhandary Architects"
+                />
+
+                <div class="experience-box">
+
+                    <h3>25+</h3>
+
+                    <span>
+                        Years of Excellence
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- Content -->
+
+            <div class="philosophy-content">
+
+                <span class="small-title">
+                    Our Philosophy
+                </span>
+
+                <h2>
+                    Architecture is more than buildings—it is the art of shaping how people live.
+                </h2>
+
+                <div class="divider"></div>
+
+                <p>
+                    Every project begins with understanding the people, the place,
+                    and the purpose. We believe great architecture balances beauty,
+                    functionality, sustainability and timeless craftsmanship to
+                    create spaces that remain relevant for generations.
+                </p>
+
+                <p>
+                    Whether designing a private residence, a commercial
+                    development or an interior environment, our approach combines
+                    thoughtful planning with meticulous attention to detail,
+                    ensuring every space feels purposeful, refined and enduring.
+                </p>
+
+                <div class="principles">
+
+                    <div class="principle">
+
+                        <div class="principle-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Timeless Design
+                            </h4>
+
+                            <p>
+                                Spaces designed to remain elegant, functional
+                                and relevant beyond changing trends.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="principle">
+
+                        <div class="principle-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Attention to Detail
+                            </h4>
+
+                            <p>
+                                Every proportion, material and junction is
+                                carefully considered to deliver exceptional
+                                quality.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="principle">
+
+                        <div class="principle-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Sustainable Thinking
+                            </h4>
+
+                            <p>
+                                Designing environmentally responsible buildings
+                                that maximise comfort, efficiency and longevity.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a
+                    href="/about"
+                    class="text-link"
+                >
+                    Learn More →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.philosophy{
+    background:var(--white);
+}
+
+.philosophy-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+    align-items:center;
+}
+
+.philosophy-image{
+    position:relative;
+}
+
+.philosophy-image img{
+    width:100%;
+    display:block;
+}
+
+.experience-box{
+    position:absolute;
+    left:-30px;
+    bottom:-30px;
+    background:var(--black);
+    color:white;
+    padding:35px;
+}
+
+.experience-box h3{
+    color:white;
+    font-size:56px;
+    margin-bottom:6px;
+}
+
+.experience-box span{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.philosophy-content h2{
+    margin:20px 0 30px;
+}
+
+.divider{
+    width:70px;
+    height:2px;
+    background:var(--accent);
+    margin-bottom:35px;
+}
+
+.philosophy-content p{
+    margin-bottom:22px;
+}
+
+.principles{
+    margin:50px 0;
+}
+
+.principle{
+    display:flex;
+    gap:30px;
+    margin-bottom:35px;
+}
+
+.principle-number{
+    font-size:48px;
+    color:#d7d7d7;
+    font-weight:300;
+    min-width:70px;
+}
+
+.principle h4{
+    margin-bottom:10px;
+}
+
+.text-link{
+    display:inline-block;
+    margin-top:10px;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:13px;
+    font-weight:600;
+}
+
+@media(max-width:991px){
+
+    .philosophy-grid{
+        grid-template-columns:1fr;
+        gap:60px;
+    }
+
+    .experience-box{
+        left:20px;
+        bottom:20px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .principle{
+        gap:20px;
+    }
+
+    .principle-number{
+        font-size:34px;
+        min-width:45px;
+    }
+
+    .experience-box{
+        position:relative;
+        left:0;
+        bottom:0;
+        margin-top:20px;
+        display:inline-block;
+    }
+
+}
+
+</style>

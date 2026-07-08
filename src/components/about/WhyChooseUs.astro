@@ -1,0 +1,180 @@
+---
+const features = [
+  {
+    title: "30 Years of Experience",
+    text: "Three decades of delivering residential, commercial and institutional projects with precision and lasting quality.",
+  },
+  {
+    title: "Client-Centred Approach",
+    text: "Every project begins by understanding your aspirations, ensuring every design reflects your vision and lifestyle.",
+  },
+  {
+    title: "Timeless Design",
+    text: "We create spaces that remain functional, elegant and relevant long after trends have changed.",
+  },
+  {
+    title: "Attention to Detail",
+    text: "From concept sketches to final construction, every decision is carefully considered to achieve exceptional results.",
+  },
+];
+---
+
+<section class="why section">
+
+    <div class="container">
+
+        <div class="why-header">
+
+            <span class="small-title">
+                Why Choose Us
+            </span>
+
+            <h2>
+                Creating Architecture
+                That Lasts
+            </h2>
+
+            <p>
+                Our commitment to thoughtful design, technical excellence and
+                collaborative relationships has earned the trust of clients for
+                more than three decades.
+            </p>
+
+        </div>
+
+        <div class="why-grid">
+
+            {
+                features.map((feature, index) => (
+
+                    <article class="feature">
+
+                        <span class="feature-number">
+                            {String(index + 1).padStart(2, "0")}
+                        </span>
+
+                        <h3>
+                            {feature.title}
+                        </h3>
+
+                        <p>
+                            {feature.text}
+                        </p>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.why{
+    background:var(--surface);
+}
+
+.why-header{
+    max-width:720px;
+    margin-bottom:70px;
+}
+
+.why-header h2{
+    margin:20px 0;
+}
+
+.why-header p{
+    max-width:620px;
+}
+
+.why-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:50px;
+
+}
+
+.feature{
+
+    padding:40px;
+
+    background:var(--white);
+
+    border:1px solid var(--border);
+
+    transition:var(--transition);
+
+}
+
+.feature:hover{
+
+    transform:translateY(-6px);
+
+    border-color:var(--accent);
+
+    box-shadow:var(--shadow);
+
+}
+
+.feature-number{
+
+    display:block;
+
+    margin-bottom:24px;
+
+    font-size:48px;
+
+    font-weight:300;
+
+    color:#d8d8d8;
+
+    line-height:1;
+
+}
+
+.feature h3{
+
+    margin-bottom:16px;
+
+    font-size:26px;
+
+}
+
+.feature p{
+
+    color:var(--text);
+
+}
+
+@media(max-width:768px){
+
+    .why-grid{
+
+        grid-template-columns:1fr;
+
+        gap:30px;
+
+    }
+
+    .feature{
+
+        padding:32px;
+
+    }
+
+    .why-header{
+
+        margin-bottom:50px;
+
+    }
+
+}
+
+</style>

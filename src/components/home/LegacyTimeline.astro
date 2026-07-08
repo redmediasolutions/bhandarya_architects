@@ -1,0 +1,216 @@
+---
+const timeline = [
+  {
+    year: "1998",
+    title: "The Beginning",
+    description:
+      "Bhandary Architects was founded with a vision to create thoughtful architecture rooted in functionality, craftsmanship and timeless design.",
+  },
+  {
+    year: "2005",
+    title: "Growing Beyond Homes",
+    description:
+      "Expanded into commercial and institutional projects, delivering spaces that balanced aesthetics with practical efficiency.",
+  },
+  {
+    year: "2014",
+    title: "Design Recognition",
+    description:
+      "Received recognition for innovative and sustainable architectural solutions across residential and mixed-use developments.",
+  },
+  {
+    year: "2023",
+    title: "Building the Future",
+    description:
+      "Continuing to shape modern living through architecture, interiors and planning while embracing sustainable design principles.",
+  },
+];
+---
+
+<section class="timeline section">
+
+    <div class="container">
+
+        <div class="timeline-header">
+
+            <span class="small-title">
+                Our Journey
+            </span>
+
+            <h2>
+                Building a Legacy
+            </h2>
+
+            <p>
+                Every milestone represents our commitment to creating meaningful
+                spaces that inspire communities and stand the test of time.
+            </p>
+
+        </div>
+
+        <div class="timeline-grid">
+
+            {
+                timeline.map((item) => (
+
+                    <article class="timeline-item">
+
+                        <div class="timeline-dot"></div>
+
+                        <div class="timeline-year">
+                            {item.year}
+                        </div>
+
+                        <h3>
+                            {item.title}
+                        </h3>
+
+                        <p>
+                            {item.description}
+                        </p>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.timeline{
+    background:var(--black);
+    color:white;
+}
+
+.timeline h2{
+    color:white;
+    margin:20px 0;
+}
+
+.timeline-header{
+    max-width:700px;
+    margin-bottom:80px;
+}
+
+.timeline-header p{
+    color:rgba(255,255,255,.65);
+}
+
+.timeline-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:40px;
+
+    position:relative;
+
+}
+
+.timeline-grid::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    top:8px;
+
+    height:1px;
+
+    background:rgba(255,255,255,.15);
+
+}
+
+.timeline-item{
+    position:relative;
+}
+
+.timeline-dot{
+
+    width:16px;
+
+    height:16px;
+
+    border-radius:50%;
+
+    background:var(--accent);
+
+    position:relative;
+
+    z-index:2;
+
+    margin-bottom:30px;
+
+}
+
+.timeline-year{
+
+    font-size:52px;
+
+    font-weight:300;
+
+    color:rgba(255,255,255,.18);
+
+    margin-bottom:18px;
+
+}
+
+.timeline-item h3{
+
+    color:white;
+
+    margin-bottom:18px;
+
+}
+
+.timeline-item p{
+
+    color:rgba(255,255,255,.65);
+
+}
+
+@media(max-width:991px){
+
+    .timeline-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .timeline-grid::before{
+
+        display:none;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .timeline-grid{
+
+        grid-template-columns:1fr;
+
+        gap:50px;
+
+    }
+
+    .timeline-header{
+
+        margin-bottom:50px;
+
+    }
+
+}
+
+</style>
