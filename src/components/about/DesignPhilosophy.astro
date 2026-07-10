@@ -1,31 +1,106 @@
 <section class="philosophy section">
 
+
     <div class="container">
 
-        <div class="quote-block">
+       <div class="quote-block">
 
-            <span class="small-title">
-                Our Philosophy
-            </span>
+    <div class="quote-line"></div>
 
-            <blockquote>
-                "Great architecture doesn't simply create buildings—it creates
-                experiences that enrich the lives of those who inhabit them."
-            </blockquote>
+    <span class="small-title">
+        Our Philosophy
+    </span>
 
-        </div>
+    <blockquote>
+        Great architecture doesn't simply create buildings—it
+        creates experiences that enrich the lives of those who
+        inhabit them.
+    </blockquote>
+
+    <div class="quote-author">
+        Bhandary Architects
+    </div>
+
+</div>
 
         <div class="philosophy-grid">
 
+            <div class="sticky-column">
+
+    
+    <div class="design-sketch">
+
+        <svg viewBox="0 0 1000 420" class="blueprint">
+
+            <!-- Grid -->
+            <g class="grid">
+
+                <line x1="0" y1="80" x2="1000" y2="80"/>
+                <line x1="0" y1="180" x2="1000" y2="180"/>
+                <line x1="0" y1="280" x2="1000" y2="280"/>
+                <line x1="0" y1="380" x2="1000" y2="380"/>
+
+                <line x1="150" y1="0" x2="150" y2="420"/>
+                <line x1="350" y1="0" x2="350" y2="420"/>
+                <line x1="550" y1="0" x2="550" y2="420"/>
+                <line x1="750" y1="0" x2="750" y2="420"/>
+
+            </g>
+
+            <!-- Floor Plan -->
+
+            <g class="drawing">
+
+                <path d="M220 110 H760 V310 H220 Z"/>
+
+                <path d="M470 110 V310"/>
+
+                <path d="M220 200 H470"/>
+
+                <path d="M560 210 H760"/>
+
+                <path d="M320 310 V250"/>
+
+                <path d="M620 110 V170"/>
+
+                <path d="M470 150 H620"/>
+
+                <circle cx="470" cy="210" r="35"/>
+
+                <circle cx="320" cy="250" r="25"/>
+
+            </g>
+
+            <!-- Dimension -->
+
+            <g class="dimensions">
+
+                <line x1="220" y1="340" x2="760" y2="340"/>
+
+                <line x1="220" y1="335" x2="220" y2="345"/>
+
+                <line x1="760" y1="335" x2="760" y2="345"/>
+
+                <text x="490" y="333">
+                    12000
+                </text>
+
+            </g>
+
+        </svg>
+
+    </div>
+
+</div>
+
             <div>
+                <h3>
+        Designing with Purpose.
+    </h3>
+    <p>
+        
+    </p>
 
-                <h2>
-                    Designing with Purpose.
-                </h2>
-
-            </div>
-
-            <div>
 
                 <p>
                     We believe that architecture should do more than occupy
@@ -62,25 +137,203 @@
 
 .quote-block{
 
-    max-width:900px;
+    position:relative;
 
-    margin:0 auto 100px;
+    max-width:1100px;
+
+    margin:0 auto 120px;
+
+    padding:110px 80px;
 
     text-align:center;
+
+    overflow:hidden;
+
+    background:#171717;
+
+    border-radius:12px;
+
+    color:white;
+
+}
+
+/* subtle blueprint grid */
+
+.quote-block::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+
+    background-size:42px 42px;
+
+    opacity:.4;
+
+}
+
+/* soft radial light */
+
+.quote-block::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:700px;
+
+    height:700px;
+
+    border-radius:50%;
+
+    top:-350px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:radial-gradient(circle,
+        rgba(255,255,255,.08),
+        transparent 70%);
+
+}
+
+.quote-line{
+
+    position:relative;
+
+    z-index:2;
+
+    width:80px;
+
+    height:2px;
+
+    margin:0 auto 30px;
+
+    background:var(--accent);
+
+}
+
+.quote-block .small-title{
+
+    position:relative;
+
+    z-index:2;
+
+    color:rgba(255,255,255,.65);
 
 }
 
 .quote-block blockquote{
 
-    margin-top:24px;
+    position:relative;
 
-    font-size:clamp(34px,4vw,60px);
+    z-index:2;
 
-    line-height:1.2;
+    margin:34px auto;
+
+    max-width:850px;
+
+    font-size:clamp(38px,4vw,64px);
+
+    line-height:1.18;
 
     font-weight:300;
 
-    color:var(--black);
+    letter-spacing:-1px;
+
+    color:white;
+
+}
+
+.quote-author{
+
+    position:relative;
+
+    z-index:2;
+
+    margin-top:36px;
+
+    font-size:12px;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+    color:rgba(255,255,255,.55);
+
+}
+
+/* giant quotation marks */
+
+.quote-block blockquote::before{
+
+    content:"“";
+
+    position:absolute;
+
+    top:-70px;
+
+    left:-40px;
+
+    font-size:180px;
+
+    color:rgba(255,255,255,.04);
+
+    font-family:Georgia, serif;
+
+    line-height:1;
+
+}
+
+.quote-block blockquote::after{
+
+    content:"”";
+
+    position:absolute;
+
+    bottom:-130px;
+
+    right:-30px;
+
+    font-size:180px;
+
+    color:rgba(255,255,255,.04);
+
+    font-family:Georgia, serif;
+
+    line-height:1;
+
+}
+
+@media(max-width:900px){
+
+    .quote-block{
+
+        padding:70px 35px;
+
+        margin-bottom:70px;
+
+    }
+
+    .quote-block blockquote{
+
+        font-size:34px;
+
+    }
+
+    .quote-block blockquote::before,
+
+    .quote-block blockquote::after{
+
+        display:none;
+
+    }
 
 }
 
@@ -125,16 +378,345 @@
     }
 
     .philosophy-grid{
-
         grid-template-columns:1fr;
-
-        gap:40px;
-
+        gap:50px;
     }
+
+
 
     .philosophy-grid h2{
 
         position:static;
+
+    }
+
+}
+
+.philosophy{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:white;
+
+}
+
+/* ------------------------- */
+
+.sketch-background{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+}
+
+/* ------------------------- */
+
+.sketch{
+
+    width:min(1200px,90vw);
+
+    height:auto;
+
+    opacity:1;
+
+}
+
+.sketch path,
+.sketch line,
+.sketch circle{
+
+    fill:none;
+
+    stroke:#777;
+
+    stroke-width:1.4;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+    stroke-dasharray:1000;
+stroke-dashoffset:1000;
+
+    animation:
+
+        drawLine 6s ease forwards,
+
+        fadeSketch 18s linear infinite;
+
+}
+
+/* delay each stroke */
+
+.sketch path:nth-child(2){
+
+    animation-delay:.5s;
+
+}
+
+.sketch path:nth-child(3){
+
+    animation-delay:1.2s;
+
+}
+
+.sketch path:nth-child(4){
+
+    animation-delay:1.8s;
+
+}
+
+.sketch path:nth-child(5){
+
+    animation-delay:2.2s;
+
+}
+
+.sketch circle{
+
+    animation-delay:2.7s;
+
+}
+
+.sketch line{
+
+    animation-delay:3.2s;
+
+}
+
+/* ------------------------- */
+
+@keyframes drawLine{
+
+    to{
+
+        stroke-dashoffset:0;
+
+    }
+
+}
+
+@keyframes fadeSketch{
+
+    0%{
+
+        opacity:0;
+
+    }
+
+    15%{
+
+        opacity:.08;
+
+    }
+
+    70%{
+
+        opacity:.08;
+
+    }
+
+    100%{
+
+        opacity:0;
+
+    }
+
+}
+
+.sticky-column{
+
+    position:sticky;
+
+    top:120px;
+
+}
+
+.design-sketch{
+
+    margin-top:50px;
+
+    padding:35px 0;
+
+    border-top:1px solid #ececec;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+.blueprint{
+
+    width:100%;
+
+    max-width:680px;
+
+    display:block;
+
+}
+
+/* ------------------------------------------------ */
+
+.grid line{
+
+    stroke:#e8e8e8;
+
+    stroke-width:1;
+
+    opacity:.5;
+
+}
+
+/* ------------------------------------------------ */
+
+.drawing path,
+.drawing circle{
+
+    fill:none;
+
+    stroke:#8c8c8c;
+
+    stroke-width:2;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+    stroke-dasharray:1200;
+
+    stroke-dashoffset:1200;
+
+    animation:drawLine 5s ease forwards;
+
+}
+
+.drawing path:nth-child(2){
+
+    animation-delay:.3s;
+
+}
+
+.drawing path:nth-child(3){
+
+    animation-delay:.6s;
+
+}
+
+.drawing path:nth-child(4){
+
+    animation-delay:.9s;
+
+}
+
+.drawing path:nth-child(5){
+
+    animation-delay:1.2s;
+
+}
+
+.drawing path:nth-child(6){
+
+    animation-delay:1.5s;
+
+}
+
+.drawing path:nth-child(7){
+
+    animation-delay:1.8s;
+
+}
+
+.drawing circle:nth-child(8){
+
+    animation-delay:2.2s;
+
+}
+
+.drawing circle:nth-child(9){
+
+    animation-delay:2.5s;
+
+}
+
+/* ------------------------------------------------ */
+
+.dimensions line{
+
+    stroke:#b8b8b8;
+
+    stroke-width:1;
+
+    stroke-dasharray:600;
+
+    stroke-dashoffset:600;
+
+    animation:drawLine 3s ease forwards;
+
+    animation-delay:2.8s;
+
+}
+
+.dimensions text{
+
+    fill:#999;
+
+    font-size:14px;
+
+    letter-spacing:3px;
+
+    opacity:0;
+
+    animation:textReveal .8s ease forwards;
+
+    animation-delay:3.4s;
+
+}
+
+/* ------------------------------------------------ */
+
+@keyframes drawLine{
+
+    from{
+
+        stroke-dashoffset:1200;
+
+    }
+
+    to{
+
+        stroke-dashoffset:0;
+
+    }
+
+}
+
+@keyframes textReveal{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(6px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
 
     }
 

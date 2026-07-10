@@ -1,0 +1,48 @@
+---
+import Base from "../layouts/Base.astro";
+
+import Headers from "../layouts/Header.astro";
+import Footer from "../layouts/Footer.astro";
+
+import ContactHero from "../components/contact/ContactHero.astro";
+import ContactOptions from "../components/contact/ContactOptions.astro";
+import ContactForm from "../components/contact/ContactForm.astro";
+import StudioInformation from "../components/contact/StudioInformation.astro";
+import ProcessTimeline from "../components/contact/ProcessTimeline.astro";
+import FAQSection from "../components/contact/FAQSection.astro";
+import MapSection from "../components/contact/MapSection.astro";
+import ContactCTA from "../components/contact/ContactCTA.astro";
+---
+
+<Base
+    title="Contact Us | Bhandary Architects"
+    description="Get in touch with Bhandary Architects for residential, commercial and interior architecture projects."
+>
+    <Headers delayed/>
+    <!-- Hero -->
+    <ContactHero />
+
+    <!-- Quick Contact Options -->
+    <ContactOptions />
+
+    <!-- Contact Form -->
+    <ContactForm />
+
+    <!-- Studio Information -->
+    <StudioInformation />
+
+    <!-- Design Process -->
+    <ProcessTimeline />
+
+    <!-- Frequently Asked Questions -->
+    <FAQSection />
+
+    <!-- Google Map -->
+    <MapSection />
+
+    <!-- Final CTA -->
+    <ContactCTA />
+
+    <Footer />
+
+</Base>

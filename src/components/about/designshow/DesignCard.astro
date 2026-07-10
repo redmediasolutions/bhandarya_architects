@@ -1,0 +1,325 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    image: string;
+    index: number;
+}
+
+const {
+    title,
+    description,
+    image,
+    index,
+} = Astro.props;
+---
+
+<article
+    class="design-card slide"
+    data-index={index}
+>
+
+    <img
+        src={image}
+        alt={title}
+        loading={index === 0 ? "eager" : "lazy"}
+        decoding="async"
+    />
+
+    <div class="overlay"></div>
+
+    <div class="content">
+
+        <span class="number">
+
+            {String(index + 1).padStart(2, "0")}
+
+        </span>
+
+        <h3>
+
+            {title}
+
+        </h3>
+
+        <p>
+
+            {description}
+
+        </p>
+
+    </div>
+
+</article>
+
+<style>
+
+.design-card{
+
+    position:relative;
+
+    flex:0 0 86vw;
+
+    max-width:1500px;
+
+    height:78vh;
+
+    overflow:hidden;
+
+    border-radius:34px;
+
+    background:#ececec;
+
+    box-shadow:
+
+        0 40px 90px rgba(0,0,0,.12);
+
+    opacity:.35;
+
+    transform:scale(.92);
+
+    transition:
+
+        transform .7s cubic-bezier(.22,1,.36,1),
+
+        opacity .7s cubic-bezier(.22,1,.36,1),
+
+        box-shadow .7s ease;
+
+}
+
+/* ----------------------------- */
+
+.design-card.active{
+
+    opacity:1;
+
+    transform:scale(1);
+
+    box-shadow:
+
+        0 60px 120px rgba(0,0,0,.18);
+
+}
+
+/* ----------------------------- */
+
+.design-card img{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    object-position:center;
+
+    transform:scale(1.08);
+
+    transition:
+
+        transform 7s ease,
+
+        filter .6s ease;
+
+    will-change:transform;
+
+}
+
+/* ----------------------------- */
+
+.design-card.active img{
+
+    transform:scale(1.14);
+
+}
+
+/* ----------------------------- */
+
+.overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+
+            to top,
+
+            rgba(0,0,0,.72),
+
+            rgba(0,0,0,.22),
+
+            transparent 50%
+
+        );
+
+}
+
+/* ----------------------------- */
+
+.content{
+
+    position:absolute;
+
+    left:56px;
+
+    bottom:56px;
+
+    z-index:5;
+
+    max-width:500px;
+
+    color:white;
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+    transition:
+
+        opacity .7s ease,
+
+        transform .7s cubic-bezier(.22,1,.36,1);
+
+}
+
+/* ----------------------------- */
+
+.design-card.active .content{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+/* ----------------------------- */
+
+.number{
+
+    display:block;
+
+    margin-bottom:20px;
+
+    font-size:14px;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+    color:rgba(255,255,255,.65);
+
+}
+
+/* ----------------------------- */
+
+.content h3{
+
+    font-size:clamp(36px,3vw,54px);
+
+    line-height:1.05;
+
+    font-weight:600;
+
+    margin-bottom:18px;
+
+}
+
+/* ----------------------------- */
+
+.content p{
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    color:rgba(255,255,255,.82);
+
+}
+
+/* ----------------------------- */
+
+@media (max-width:991px){
+
+    .design-card{
+
+        flex:0 0 94vw;
+
+        height:65vh;
+
+        border-radius:24px;
+
+    }
+
+    .content{
+
+        left:32px;
+
+        right:32px;
+
+        bottom:32px;
+
+    }
+
+    .content h3{
+
+        font-size:32px;
+
+    }
+
+    .content p{
+
+        font-size:16px;
+
+    }
+
+}
+
+/* ----------------------------- */
+
+@media (max-width:768px){
+
+    .design-card{
+
+        flex:0 0 100%;
+
+        height:420px;
+
+        transform:none;
+
+        opacity:1;
+
+    }
+
+    .content{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+    .content h3{
+
+        font-size:28px;
+
+    }
+
+    .content p{
+
+        font-size:15px;
+
+        line-height:1.6;
+
+    }
+
+}
+
+</style>

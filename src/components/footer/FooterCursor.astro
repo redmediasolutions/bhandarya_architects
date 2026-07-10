@@ -1,0 +1,94 @@
+<div
+    class="footer-cursor"
+    id="footer-cursor"
+></div>
+
+<style>
+
+.footer-cursor{
+
+    position:absolute;
+
+    width:280px;
+
+    height:280px;
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    left:0;
+
+    top:0;
+
+    opacity:0;
+
+    transform:
+
+        translate(-50%,-50%);
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,120,0,.16),
+
+            rgba(255,120,0,.08),
+
+            transparent 72%
+
+        );
+
+    filter:blur(35px);
+
+    transition:
+
+        opacity .35s ease,
+
+        transform .08s linear;
+
+    z-index:0;
+
+}
+
+.site-footer:hover .footer-cursor{
+
+    opacity:1;
+
+}
+
+</style>
+
+<script is:inline>
+
+const footer = document.querySelector(".site-footer");
+const cursor = document.getElementById("footer-cursor");
+
+if (footer && cursor) {
+
+    footer.addEventListener("mousemove", (e) => {
+
+        const rect = footer.getBoundingClientRect();
+
+        cursor.style.left = `${e.clientX - rect.left}px`;
+        cursor.style.top = `${e.clientY - rect.top}px`;
+
+    });
+
+    footer.addEventListener("mouseleave", () => {
+
+        cursor.style.opacity = "0";
+
+    });
+
+    footer.addEventListener("mouseenter", () => {
+
+        cursor.style.opacity = "1";
+
+    });
+
+}
+
+</script>

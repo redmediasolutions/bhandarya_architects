@@ -1,0 +1,650 @@
+---
+import { img } from "../../consts";
+
+const hero = img("2026/03/Screenshot-2026-03-25-154852.png");
+---
+
+<section
+    class="contact-hero"
+    style={`background-image:url('${hero}')`}
+>
+
+    <!-- Background Layers -->
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-grid"></div>
+
+    <div class="hero-glow"></div>
+
+    <div class="hero-inner">
+
+        <div class="container hero-container">
+
+            <div class="hero-content">
+
+                <span class="small-title reveal">
+
+                    Contact Us
+
+                </span>
+
+                <h1 class="reveal delay-1">
+
+                    Let's Create
+                    <br>
+                    Something
+                    <br>
+                    Extraordinary.
+
+                </h1>
+
+                <p class="reveal delay-2">
+
+                    Whether you're planning your dream residence,
+                    a commercial development or a thoughtful interior
+                    transformation, we'd love to hear your vision.
+                    Every remarkable project begins with a conversation.
+
+                </p>
+
+                <div class="hero-buttons reveal delay-3">
+
+                    <a
+                        href="#contact-form"
+                        class="btn"
+                    >
+
+                        Start Your Project
+
+                    </a>
+
+                    <a
+                        href="https://wa.me/919999999999"
+                        target="_blank"
+                        class="btn btn-outline"
+                    >
+
+                        WhatsApp Us
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <aside class="hero-card reveal delay-4">
+
+                <div class="card-header">
+
+                    <span>
+
+                        Available For
+
+                    </span>
+
+                </div>
+
+                <ul>
+
+                    <li>
+
+                        Residential Projects
+
+                    </li>
+
+                    <li>
+
+                        Commercial Architecture
+
+                    </li>
+
+                    <li>
+
+                        Interior Design
+
+                    </li>
+
+                    <li>
+
+                        Renovations & Extensions
+
+                    </li>
+
+                </ul>
+
+                <div class="card-divider"></div>
+
+                <div class="response">
+
+                    <strong>
+
+                        Average Response
+
+                    </strong>
+
+                    <span>
+
+                        Within 24 Hours
+
+                    </span>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+    <div class="hero-scroll">
+
+        <span>
+
+            Scroll
+
+        </span>
+
+        <div class="scroll-line"></div>
+
+    </div>
+
+</section>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const hero=document.querySelector(".contact-hero");
+
+    if(!hero) return;
+
+    const observer=new IntersectionObserver(entries=>{
+
+        if(entries[0].isIntersecting){
+
+            hero.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.3
+
+    });
+
+    observer.observe(hero);
+
+});
+
+</script>
+
+<style>
+
+.contact-hero{
+
+    position:relative;
+
+    min-height:100vh;
+
+    overflow:hidden;
+
+    background-size:cover;
+
+    background-position:center;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:140px 0;
+
+}
+
+/* -------------------------------- */
+
+.hero-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            rgba(8,8,8,.82),
+
+            rgba(8,8,8,.45)
+
+        ),
+
+        linear-gradient(
+
+            180deg,
+
+            rgba(0,0,0,.05),
+
+            rgba(0,0,0,.72)
+
+        );
+
+}
+
+/* -------------------------------- */
+
+.hero-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(
+
+            rgba(255,255,255,.04) 1px,
+
+            transparent 1px
+
+        ),
+
+        linear-gradient(
+
+            90deg,
+
+            rgba(255,255,255,.04) 1px,
+
+            transparent 1px
+
+        );
+
+    background-size:70px 70px;
+
+    animation:gridMove 18s linear infinite;
+
+}
+
+/* -------------------------------- */
+
+.hero-glow{
+
+    position:absolute;
+
+    right:-200px;
+
+    top:-200px;
+
+    width:900px;
+
+    height:900px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,120,0,.22),
+
+            transparent 70%
+
+        );
+
+    filter:blur(90px);
+
+    animation:glowFloat 9s ease-in-out infinite alternate;
+
+}
+
+/* -------------------------------- */
+
+.hero-inner{
+
+    width:100%;
+
+    position:relative;
+
+    z-index:5;
+
+}
+
+.hero-container{
+
+    display:grid;
+
+    grid-template-columns:1fr 360px;
+
+    gap:100px;
+
+    align-items:center;
+
+}
+
+/* -------------------------------- */
+
+.hero-content{
+
+    max-width:760px;
+
+}
+
+.hero-content h1{
+
+    color:white;
+
+    font-size:clamp(60px,8vw,110px);
+
+    line-height:.92;
+
+    margin:18px 0 28px;
+
+}
+
+.hero-content p{
+
+    color:rgba(255,255,255,.75);
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    max-width:620px;
+
+}
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:18px;
+
+    margin-top:45px;
+
+}
+
+/* -------------------------------- */
+
+.hero-card{
+
+    backdrop-filter:blur(18px);
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    padding:45px;
+
+    color:white;
+
+    border-radius:16px;
+
+}
+
+.card-header{
+
+    font-size:12px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    color:var(--accent);
+
+    margin-bottom:30px;
+
+}
+
+.hero-card ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.hero-card li{
+
+    padding:14px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.card-divider{
+
+    margin:35px 0;
+
+    height:1px;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.response strong{
+
+    display:block;
+
+    font-size:14px;
+
+}
+
+.response span{
+
+    color:rgba(255,255,255,.65);
+
+    font-size:13px;
+
+}
+
+/* -------------------------------- */
+
+.hero-scroll{
+
+    position:absolute;
+
+    bottom:40px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:14px;
+
+    z-index:10;
+
+    color:white;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+.scroll-line{
+
+    width:1px;
+
+    height:70px;
+
+    background:rgba(255,255,255,.35);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.scroll-line::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:-30px;
+
+    width:100%;
+
+    height:30px;
+
+    background:var(--accent);
+
+    animation:scrollMove 2s infinite;
+
+}
+
+/* -------------------------------- */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+}
+
+.contact-hero.visible .reveal{
+
+    animation:fadeUp 1s cubic-bezier(.22,1,.36,1) forwards;
+
+}
+
+.delay-1{
+
+    animation-delay:.15s;
+
+}
+
+.delay-2{
+
+    animation-delay:.35s;
+
+}
+
+.delay-3{
+
+    animation-delay:.55s;
+
+}
+
+.delay-4{
+
+    animation-delay:.75s;
+
+}
+
+/* -------------------------------- */
+
+@keyframes fadeUp{
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes glowFloat{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(40px);
+
+    }
+
+}
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+@keyframes scrollMove{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(100px);
+
+    }
+
+}
+
+/* -------------------------------- */
+
+@media(max-width:991px){
+
+    .hero-container{
+
+        grid-template-columns:1fr;
+
+        gap:60px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .contact-hero{
+
+        padding:110px 0;
+
+    }
+
+    .hero-content h1{
+
+        font-size:48px;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+    }
+
+}
+
+</style>

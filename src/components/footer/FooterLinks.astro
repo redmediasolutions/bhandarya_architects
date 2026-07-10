@@ -1,0 +1,281 @@
+---
+const quickLinks = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Projects", href: "/projects" },
+  { name: "Services", href: "/services" },
+  { name: "Contact", href: "/contact" },
+];
+
+const services = [
+  "Architecture",
+  "Interior Design",
+  "Master Planning",
+  "Landscape Design",
+  "Project Management",
+];
+---
+
+<div class="footer-links">
+
+    <!-- Quick Links -->
+
+    <div class="footer-column">
+
+        <h4>
+
+            Quick Links
+
+        </h4>
+
+        <ul>
+
+            {
+                quickLinks.map((link) => (
+
+                    <li>
+
+                        <a href={link.href}>
+
+                            {link.name}
+
+                        </a>
+
+                    </li>
+
+                ))
+            }
+
+        </ul>
+
+    </div>
+
+    <!-- Services -->
+
+    <div class="footer-column">
+
+        <h4>
+
+            Services
+
+        </h4>
+
+        <ul>
+
+            {
+                services.map((service) => (
+
+                    <li>
+
+                        {service}
+
+                    </li>
+
+                ))
+            }
+
+        </ul>
+
+    </div>
+
+</div>
+
+<style>
+
+.footer-links{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:70px;
+
+}
+
+/* -------------------------------- */
+
+.footer-column h4{
+
+    position:relative;
+
+    margin-bottom:32px;
+
+    font-size:12px;
+
+    text-transform:uppercase;
+
+    letter-spacing:4px;
+
+    color:white;
+
+    font-weight:600;
+
+}
+
+/* Animated orange sketch line */
+
+.footer-column h4::after{
+
+    content:"";
+
+    display:block;
+
+    width:56px;
+
+    height:2px;
+
+    margin-top:14px;
+
+    background:linear-gradient(
+
+        90deg,
+
+        var(--accent),
+
+        transparent
+
+    );
+
+    transform-origin:left;
+
+    animation:drawSketch 2.4s ease infinite alternate;
+
+}
+
+/* -------------------------------- */
+
+.footer-column ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.footer-column li{
+
+    margin-bottom:18px;
+
+    color:rgba(255,255,255,.65);
+
+}
+
+/* -------------------------------- */
+
+.footer-column a{
+
+    position:relative;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:rgba(255,255,255,.65);
+
+    text-decoration:none;
+
+    transition:
+
+        color .35s ease,
+
+        transform .35s ease;
+
+}
+
+/* Arrow */
+
+.footer-column a::before{
+
+    content:"";
+
+    width:0;
+
+    height:1px;
+
+    background:var(--accent);
+
+    transition:
+
+        width .35s ease,
+
+        margin-right .35s ease;
+
+}
+
+.footer-column a:hover{
+
+    color:white;
+
+    transform:translateX(6px);
+
+}
+
+.footer-column a:hover::before{
+
+    width:18px;
+
+    margin-right:6px;
+
+}
+
+/* -------------------------------- */
+
+.footer-column li:not(:has(a)){
+
+    transition:
+
+        color .35s ease,
+
+        transform .35s ease;
+
+}
+
+.footer-column li:not(:has(a)):hover{
+
+    color:white;
+
+    transform:translateX(4px);
+
+}
+
+/* -------------------------------- */
+
+@keyframes drawSketch{
+
+    from{
+
+        transform:scaleX(.2);
+
+        opacity:.45;
+
+    }
+
+    to{
+
+        transform:scaleX(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/* -------------------------------- */
+
+@media(max-width:768px){
+
+    .footer-links{
+
+        grid-template-columns:1fr;
+
+        gap:48px;
+
+    }
+
+}
+
+</style>

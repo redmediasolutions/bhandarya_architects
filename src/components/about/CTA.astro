@@ -50,13 +50,17 @@
 
     position:relative;
 
-    background:var(--black);
+    overflow:hidden;
+
+    background:#111;
 
     color:white;
 
-    overflow:hidden;
-
 }
+
+/* ================================= */
+/* Blueprint Grid */
+/* ================================= */
 
 .about-cta::before{
 
@@ -66,51 +70,163 @@
 
     inset:0;
 
-    background:
-        radial-gradient(
-            rgba(255,255,255,.06) 1px,
-            transparent 1px
-        );
+    background-image:
 
-    background-size:36px 36px;
+        linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
 
-    opacity:.35;
+        linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 18s linear infinite;
 
 }
+
+/* ================================= */
+/* Orange Glow */
+/* ================================= */
+
+.about-cta::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(circle,
+
+        rgba(255,120,0,.18),
+
+        transparent 70%);
+
+    filter:blur(80px);
+
+    animation:glowFloat 10s ease-in-out infinite alternate;
+
+}
+
+/* ================================= */
 
 .cta-content{
 
     position:relative;
 
-    max-width:850px;
+    z-index:5;
+
+    max-width:900px;
 
     margin:auto;
 
     text-align:center;
 
-    z-index:2;
+    opacity:0;
+
+    transform:translateY(70px);
+
+    transition:
+
+        opacity 1s ease,
+
+        transform 1s cubic-bezier(.22,1,.36,1);
 
 }
+
+.about-cta.animate .cta-content{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+/* ================================= */
+
+.small-title{
+
+    color:var(--accent);
+
+}
+
+/* ================================= */
 
 .about-cta h2{
 
+    position:relative;
+
+    display:inline-block;
+
     color:white;
 
-    margin:20px 0 30px;
+    margin:24px 0 30px;
+
+    font-size:clamp(48px,5vw,72px);
+
+    line-height:1.08;
 
 }
 
+/* Sketch underline */
+
+.about-cta h2::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:-16px;
+
+    width:220px;
+
+    height:3px;
+
+    background:var(--accent);
+
+    transform:translateX(-50%) scaleX(0);
+
+    transform-origin:left;
+
+}
+
+.about-cta.animate h2::after{
+
+    animation:drawLine .9s ease forwards;
+
+    animation-delay:.7s;
+
+}
+
+/* ================================= */
+
 .about-cta p{
 
-    max-width:680px;
+    max-width:720px;
 
-    margin:0 auto;
+    margin:auto;
 
-    font-size:18px;
+    font-size:20px;
+
+    line-height:1.9;
 
     color:rgba(255,255,255,.72);
 
 }
+
+/* ================================= */
 
 .cta-buttons{
 
@@ -118,23 +234,207 @@
 
     justify-content:center;
 
-    gap:20px;
+    gap:24px;
 
-    margin-top:50px;
-
-}
-
-.about-cta .btn-outline{
-
-    border-color:rgba(255,255,255,.35);
+    margin-top:55px;
 
 }
 
-.about-cta .btn-outline:hover{
+/* ================================= */
 
-    border-color:white;
+.cta-buttons .btn{
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:
+
+        transform .35s ease,
+
+        box-shadow .35s ease;
 
 }
+
+.cta-buttons .btn:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+
+        0 20px 40px rgba(255,120,0,.25);
+
+}
+
+/* Animated Shine */
+
+.cta-buttons .btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:70%;
+
+    height:100%;
+
+    background:
+
+        linear-gradient(
+
+            120deg,
+
+            transparent,
+
+            rgba(255,255,255,.4),
+
+            transparent
+
+        );
+
+    transform:skewX(-20deg);
+
+}
+
+.cta-buttons .btn:hover::before{
+
+    animation:shine .8s;
+
+}
+
+/* ================================= */
+
+.btn-outline{
+
+    border:1px solid rgba(255,255,255,.3);
+
+    background:transparent;
+
+}
+
+.btn-outline:hover{
+
+    border-color:var(--accent);
+
+}
+
+/* ================================= */
+/* Decorative Blueprint Corners */
+/* ================================= */
+
+.cta-content::before,
+
+.cta-content::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:80px;
+
+    height:80px;
+
+    border:2px solid rgba(255,120,0,.35);
+
+}
+
+.cta-content::before{
+
+    left:-80px;
+
+    top:-50px;
+
+    border-right:none;
+
+    border-bottom:none;
+
+}
+
+.cta-content::after{
+
+    right:-80px;
+
+    bottom:-50px;
+
+    border-left:none;
+
+    border-top:none;
+
+}
+
+/* ================================= */
+
+@keyframes shine{
+
+    from{
+
+        left:-120%;
+
+    }
+
+    to{
+
+        left:130%;
+
+    }
+
+}
+
+@keyframes drawLine{
+
+    to{
+
+        transform:translateX(-50%) scaleX(1);
+
+    }
+
+}
+
+@keyframes glowFloat{
+
+    from{
+
+        transform:
+
+            translate(-50%,-50%)
+
+            scale(1);
+
+    }
+
+    to{
+
+        transform:
+
+            translate(-50%,-46%)
+
+            scale(1.08);
+
+    }
+
+}
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+/* ================================= */
 
 @media(max-width:768px){
 
@@ -154,12 +454,54 @@
 
     }
 
+    .about-cta h2{
+
+        font-size:42px;
+
+    }
+
     .about-cta p{
 
-        font-size:16px;
+        font-size:17px;
+
+    }
+
+    .cta-content::before,
+
+    .cta-content::after{
+
+        display:none;
 
     }
 
 }
 
 </style>
+
+<script is:inline>
+
+const cta = document.querySelector(".about-cta");
+
+if(cta){
+
+    const observer = new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            cta.classList.add("animate");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.35
+
+    });
+
+    observer.observe(cta);
+
+}
+
+</script>

@@ -1,0 +1,432 @@
+---
+import { img } from "../../consts";
+
+const image = img("2026/05/Copy-of-01.webp");
+---
+
+<section class="design-approach section">
+
+    <div class="container">
+
+        <div class="approach-grid">
+
+            <!-- Left Content -->
+
+            <div class="approach-content">
+
+                <span class="small-title">
+
+                    Design Approach
+
+                </span>
+
+                <h2>
+
+                    Every Home Begins
+                    With Understanding
+                    How People Live.
+
+                </h2>
+
+                <div class="divider"></div>
+
+                <p>
+
+                    We believe exceptional residential architecture is
+                    never about imposing a style. It begins with listening,
+                    observing and understanding the people who will call
+                    the space home.
+
+                </p>
+
+                <p>
+
+                    Every decision—from orientation and spatial planning
+                    to material selection and natural lighting—is made to
+                    improve everyday living while ensuring the architecture
+                    remains timeless.
+
+                </p>
+
+                <div class="approach-list">
+
+                    <div class="item">
+
+                        <strong>
+
+                            Site First
+
+                        </strong>
+
+                        <span>
+
+                            Every design responds to its landscape,
+                            climate and surroundings.
+
+                        </span>
+
+                    </div>
+
+                    <div class="item">
+
+                        <strong>
+
+                            Light & Ventilation
+
+                        </strong>
+
+                        <span>
+
+                            Natural daylight and airflow become
+                            defining elements of every home.
+
+                        </span>
+
+                    </div>
+
+                    <div class="item">
+
+                        <strong>
+
+                            Crafted Details
+
+                        </strong>
+
+                        <span>
+
+                            Every junction, material and proportion
+                            is carefully considered.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Right Image -->
+
+            <div class="approach-image">
+
+                <img
+                    src={image}
+                    alt="Residential Design"
+                />
+
+                <div class="floating-card">
+
+                    <strong>
+
+                        100%
+
+                    </strong>
+
+                    <span>
+
+                        Custom Designed
+                        <br>
+                        Homes
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.design-approach{
+
+    background:#fafafa;
+
+    overflow:hidden;
+
+}
+
+/* ---------------- */
+
+.approach-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:90px;
+
+    align-items:center;
+
+}
+
+/* ---------------- */
+
+.approach-content h2{
+
+    margin:22px 0 26px;
+
+    max-width:620px;
+
+}
+
+.divider{
+
+    width:80px;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-bottom:35px;
+
+}
+
+.approach-content p{
+
+    color:#666;
+
+    line-height:1.9;
+
+    margin-bottom:24px;
+
+}
+
+/* ---------------- */
+
+.approach-list{
+
+    margin-top:45px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:26px;
+
+}
+
+.item{
+
+    padding-bottom:24px;
+
+    border-bottom:1px solid rgba(0,0,0,.08);
+
+    transition:.35s;
+
+}
+
+.item:hover{
+
+    padding-left:14px;
+
+}
+
+.item strong{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:20px;
+
+}
+
+.item span{
+
+    color:#777;
+
+    line-height:1.8;
+
+}
+
+/* ---------------- */
+
+.approach-image{
+
+    position:relative;
+
+}
+
+.approach-image img{
+
+    width:100%;
+
+    display:block;
+
+    border-radius:18px;
+
+    box-shadow:
+
+        0 40px 80px rgba(0,0,0,.12);
+
+    transition:
+
+        transform 2s cubic-bezier(.22,1,.36,1);
+
+}
+
+.approach-image:hover img{
+
+    transform:scale(1.05);
+
+}
+
+/* ---------------- */
+
+.floating-card{
+
+    position:absolute;
+
+    left:-40px;
+
+    bottom:40px;
+
+    background:#111;
+
+    color:white;
+
+    padding:34px;
+
+    border-left:4px solid var(--accent);
+
+    box-shadow:
+
+        0 30px 60px rgba(0,0,0,.25);
+
+}
+
+.floating-card strong{
+
+    display:block;
+
+    color:var(--accent);
+
+    font-size:54px;
+
+    line-height:1;
+
+    margin-bottom:8px;
+
+}
+
+.floating-card span{
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:11px;
+
+    color:rgba(255,255,255,.7);
+
+}
+
+/* ---------------- */
+
+.approach-content,
+.approach-image{
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+    transition:
+
+        opacity .9s,
+
+        transform .9s;
+
+}
+
+.design-approach.visible .approach-content,
+
+.design-approach.visible .approach-image{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.design-approach.visible .approach-image{
+
+    transition-delay:.2s;
+
+}
+
+/* ---------------- */
+
+@media(max-width:991px){
+
+    .approach-grid{
+
+        grid-template-columns:1fr;
+
+        gap:60px;
+
+    }
+
+    .floating-card{
+
+        left:25px;
+
+        bottom:25px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .floating-card{
+
+        position:relative;
+
+        left:auto;
+
+        bottom:auto;
+
+        margin-top:20px;
+
+        display:inline-block;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".design-approach");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver(entries=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.25
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

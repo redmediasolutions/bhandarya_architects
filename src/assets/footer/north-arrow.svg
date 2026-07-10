@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120">
+
+<g
+stroke="#FF7A1A"
+fill="none"
+stroke-width="2">
+
+<circle
+cx="40"
+cy="60"
+r="24"/>
+
+<line
+x1="40"
+y1="90"
+x2="40"
+y2="18"/>
+
+<polygon
+points="40,6 34,24 46,24"
+fill="#FF7A1A"/>
+
+</g>
+
+<text
+x="40"
+y="114"
+font-size="18"
+fill="#FF7A1A"
+text-anchor="middle"
+font-family="monospace">
+
+N
+
+</text>
+
+</svg>

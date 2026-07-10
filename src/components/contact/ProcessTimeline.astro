@@ -1,0 +1,443 @@
+<section class="process-timeline section">
+
+    <div class="container">
+
+        <div class="section-heading center">
+
+            <span class="small-title">
+
+                Our Process
+
+            </span>
+
+            <h2>
+
+                From Vision to Reality
+
+            </h2>
+
+            <p>
+
+                Every project follows a carefully refined process that
+                transforms ideas into timeless architecture through
+                collaboration, precision and craftsmanship.
+
+            </p>
+
+        </div>
+
+        <div class="timeline">
+
+            <div class="timeline-line"></div>
+
+            <div class="timeline-item">
+
+                <div class="timeline-number">
+
+                    01
+
+                </div>
+
+                <div class="timeline-card">
+
+                    <h3>
+
+                        Consultation
+
+                    </h3>
+
+                    <p>
+
+                        Understanding your vision, lifestyle,
+                        requirements and project goals through
+                        detailed discussions.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="timeline-item">
+
+                <div class="timeline-number">
+
+                    02
+
+                </div>
+
+                <div class="timeline-card">
+
+                    <h3>
+
+                        Concept Design
+
+                    </h3>
+
+                    <p>
+
+                        Exploring layouts, massing, spatial planning
+                        and architectural character to create the
+                        perfect direction.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="timeline-item">
+
+                <div class="timeline-number">
+
+                    03
+
+                </div>
+
+                <div class="timeline-card">
+
+                    <h3>
+
+                        Design Development
+
+                    </h3>
+
+                    <p>
+
+                        Refining every material, detail and proportion
+                        while integrating structure, lighting and
+                        functionality.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="timeline-item">
+
+                <div class="timeline-number">
+
+                    04
+
+                </div>
+
+                <div class="timeline-card">
+
+                    <h3>
+
+                        Documentation
+
+                    </h3>
+
+                    <p>
+
+                        Producing complete architectural drawings,
+                        approvals and technical documentation for
+                        execution.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="timeline-item">
+
+                <div class="timeline-number">
+
+                    05
+
+                </div>
+
+                <div class="timeline-card">
+
+                    <h3>
+
+                        Site Supervision
+
+                    </h3>
+
+                    <p>
+
+                        Monitoring construction to ensure every detail
+                        reflects the original design intent and highest
+                        standards.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.process-timeline{
+
+    background:white;
+
+    overflow:hidden;
+
+}
+
+.section-heading.center{
+
+    max-width:760px;
+
+    margin:0 auto 90px;
+
+    text-align:center;
+
+}
+
+/* -------------------------------- */
+
+.timeline{
+
+    position:relative;
+
+    max-width:950px;
+
+    margin:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:60px;
+
+}
+
+.timeline-line{
+
+    position:absolute;
+
+    left:28px;
+
+    top:0;
+
+    bottom:0;
+
+    width:2px;
+
+    background:
+
+        linear-gradient(
+
+            var(--accent),
+
+            rgba(255,120,0,.15)
+
+        );
+
+}
+
+.timeline-item{
+
+    position:relative;
+
+    display:grid;
+
+    grid-template-columns:70px 1fr;
+
+    gap:40px;
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+    transition:
+
+        opacity .8s cubic-bezier(.22,1,.36,1),
+
+        transform .8s cubic-bezier(.22,1,.36,1);
+
+}
+
+.process-timeline.visible .timeline-item{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.process-timeline.visible .timeline-item:nth-child(2){
+
+    transition-delay:.15s;
+
+}
+
+.process-timeline.visible .timeline-item:nth-child(3){
+
+    transition-delay:.3s;
+
+}
+
+.process-timeline.visible .timeline-item:nth-child(4){
+
+    transition-delay:.45s;
+
+}
+
+.process-timeline.visible .timeline-item:nth-child(5){
+
+    transition-delay:.6s;
+
+}
+
+.process-timeline.visible .timeline-item:nth-child(6){
+
+    transition-delay:.75s;
+
+}
+
+/* -------------------------------- */
+
+.timeline-number{
+
+    width:56px;
+
+    height:56px;
+
+    border-radius:50%;
+
+    background:white;
+
+    border:2px solid var(--accent);
+
+    display:grid;
+
+    place-items:center;
+
+    font-weight:700;
+
+    color:var(--accent);
+
+    position:relative;
+
+    z-index:2;
+
+    transition:.45s;
+
+}
+
+.timeline-item:hover .timeline-number{
+
+    background:var(--accent);
+
+    color:white;
+
+    transform:scale(1.08);
+
+}
+
+/* -------------------------------- */
+
+.timeline-card{
+
+    background:#fafafa;
+
+    padding:35px 40px;
+
+    border-radius:16px;
+
+    box-shadow:
+
+        0 15px 40px rgba(0,0,0,.05);
+
+    transition:.45s;
+
+    border:1px solid rgba(0,0,0,.04);
+
+}
+
+.timeline-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+
+        0 30px 70px rgba(0,0,0,.10);
+
+}
+
+.timeline-card h3{
+
+    margin-bottom:14px;
+
+}
+
+.timeline-card p{
+
+    color:#666;
+
+    line-height:1.8;
+
+    margin:0;
+
+}
+
+/* -------------------------------- */
+
+@media(max-width:768px){
+
+    .timeline{
+
+        gap:40px;
+
+    }
+
+    .timeline-item{
+
+        grid-template-columns:56px 1fr;
+
+        gap:20px;
+
+    }
+
+    .timeline-card{
+
+        padding:25px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".process-timeline");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver(entries=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.25
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

@@ -3,28 +3,29 @@ const navigation = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
-  { name: "Services", href: "/services" },
   { name: "Contact", href: "/contact" },
 ];
 
 const pathname = Astro.url.pathname;
 
 interface Props {
-  sticky?: boolean;
+  delayed?: boolean;
 }
 
-const { sticky = false } = Astro.props;
+const { delayed = false } = Astro.props;
 ---
 
 <header
-  id="site-header"
-  class:list={[
-    "site-header",
-    sticky ? "sticky-home" : "fixed-header"
-  ]}
+    id="site-header"
+    class:list={[
+        "site-header",
+        delayed && "delayed-header"
+    ]}
 >
 
     <div class="container navbar">
+
+        <!-- Logo -->
 
         <a href="/" class="logo">
 
@@ -37,6 +38,8 @@ const { sticky = false } = Astro.props;
             </div>
 
         </a>
+
+        <!-- Navigation -->
 
         <nav class="nav-menu">
 
@@ -55,12 +58,16 @@ const { sticky = false } = Astro.props;
 
         </nav>
 
+        <!-- CTA -->
+
         <a
             href="/contact"
             class="btn header-btn"
         >
             Get In Touch
         </a>
+
+        <!-- Mobile -->
 
         <button
             class="mobile-toggle"
@@ -73,33 +80,31 @@ const { sticky = false } = Astro.props;
 
 </header>
 
-{!sticky && <div class="header-space"></div>}
-
-<script>
+<script is:inline>
 
 const header = document.getElementById("site-header");
 
-if(header && header.classList.contains("sticky-home")){
+if (header && header.classList.contains("delayed-header")) {
 
-    const trigger = header.offsetTop;
+    function updateHeader() {
 
-    const onScroll = ()=>{
+        if (window.scrollY <= 10) {
 
-        if(window.scrollY >= trigger){
+            header.classList.remove("visible");
 
-            header.classList.add("is-fixed");
+        } else {
 
-        }else{
-
-            header.classList.remove("is-fixed");
+            header.classList.add("visible");
 
         }
 
-    };
+    }
 
-    onScroll();
+    updateHeader();
 
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", updateHeader, {
+        passive: true
+    });
 
 }
 
@@ -109,75 +114,67 @@ if(header && header.classList.contains("sticky-home")){
 
 .site-header{
 
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    right:0;
+
     width:100%;
-
-    background:rgba(255,255,255,.96);
-
-    backdrop-filter:blur(12px);
-
-    border-bottom:1px solid var(--border);
 
     z-index:1000;
 
+    background:rgba(255,255,255,.94);
+
+    backdrop-filter:blur(14px);
+
+    -webkit-backdrop-filter:blur(14px);
+
+    border-bottom:1px solid var(--border);
+
     transition:
+
+        opacity .7s cubic-bezier(.22,1,.36,1),
+
+        transform .7s cubic-bezier(.22,1,.36,1),
+
         box-shadow .35s ease,
-        transform .35s ease,
+
         background .35s ease;
 
 }
 
-/* About / Services / Contact pages */
+/* -------------------------------- */
 
-.fixed-header{
+.delayed-header{
 
-    position:fixed;
+    opacity:0;
 
-    top:0;
-    left:0;
-    right:0;
+    transform:translateY(-100%);
 
-}
-
-/* Home page */
-
-.sticky-home{
-
-    position:relative;
+    pointer-events:none;
 
 }
 
-/* When scrolled */
+/* -------------------------------- */
 
-.sticky-home.is-fixed{
+.delayed-header.visible{
 
-    position:fixed;
+    opacity:1;
 
-    top:0;
-    left:0;
-    right:0;
+    transform:translateY(0);
 
-    animation:headerIn .45s ease;
+    pointer-events:auto;
 
     box-shadow:
+
         0 12px 40px rgba(0,0,0,.08);
 
 }
 
-@keyframes headerIn{
-
-    from{
-
-        transform:translateY(-100%);
-
-    }
-
-    to{
-
-        transform:none;
-
-    }
-
-}
+/* -------------------------------- */
 
 .navbar{
 
@@ -190,6 +187,8 @@ if(header && header.classList.contains("sticky-home")){
     justify-content:space-between;
 
 }
+
+/* -------------------------------- */
 
 .logo{
 
@@ -219,6 +218,8 @@ if(header && header.classList.contains("sticky-home")){
 
     text-transform:uppercase;
 
+    color:var(--black);
+
 }
 
 .logo-text small{
@@ -232,6 +233,8 @@ if(header && header.classList.contains("sticky-home")){
     color:var(--gray);
 
 }
+
+/* -------------------------------- */
 
 .nav-menu{
 
@@ -293,6 +296,8 @@ if(header && header.classList.contains("sticky-home")){
 
 }
 
+/* -------------------------------- */
+
 .header-btn{
 
     padding:12px 24px;
@@ -309,17 +314,21 @@ if(header && header.classList.contains("sticky-home")){
 
     border:none;
 
-    font-size:28px;
-
     cursor:pointer;
 
+    font-size:28px;
+
 }
+
+/* -------------------------------- */
 
 .header-space{
 
     height:90px;
 
 }
+
+/* -------------------------------- */
 
 @media(max-width:991px){
 
@@ -343,6 +352,8 @@ if(header && header.classList.contains("sticky-home")){
 
 }
 
+/* -------------------------------- */
+
 @media(max-width:768px){
 
     .navbar{
@@ -354,6 +365,18 @@ if(header && header.classList.contains("sticky-home")){
     .header-space{
 
         height:80px;
+
+    }
+
+    .logo-text span{
+
+        font-size:18px;
+
+    }
+
+    .logo-text small{
+
+        font-size:10px;
 
     }
 

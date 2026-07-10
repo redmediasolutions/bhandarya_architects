@@ -1,0 +1,268 @@
+<div class="footer-contact">
+
+    <h4>
+
+        Contact
+
+    </h4>
+
+    <ul>
+
+        <li>
+
+            <span class="label">
+                Studio
+            </span>
+
+            <span>
+                No.1006, Felicity Block 2, 
+                Near SBI NRI Branch, <br />
+                2-Bejai New Road, Bejai, 
+                Mangalore-575004, Karnataka
+            </span>
+
+        </li>
+
+        <li>
+
+            <span class="label">
+                Email
+            </span>
+
+            <a href="mailto:contact@bhandaryarchitects.com">
+
+                contact@bhandaryarchitects.com
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="label">
+                Phone
+            </span>
+
+            <a href="tel:+919876543210">
+
+                +91 98765 43210
+
+            </a>
+
+        </li>
+
+    </ul>
+
+    <div class="footer-social">
+
+        <a href="#" aria-label="Instagram">
+
+            Instagram
+
+        </a>
+
+        <a href="#" aria-label="Facebook">
+
+            Facebook
+
+        </a>
+
+        <a href="#" aria-label="LinkedIn">
+
+            LinkedIn
+
+        </a>
+
+    </div>
+
+</div>
+
+<style>
+
+.footer-contact h4{
+
+    position:relative;
+
+    margin-bottom:34px;
+
+    color:white;
+
+    font-size:12px;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+}
+
+.footer-contact h4::after{
+
+    content:"";
+
+    display:block;
+
+    width:60px;
+
+    height:2px;
+
+    margin-top:14px;
+
+    background:linear-gradient(
+
+        90deg,
+
+        var(--accent),
+
+        transparent
+
+    );
+
+    animation:footerDraw 2.5s ease infinite alternate;
+
+}
+
+.footer-contact ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.footer-contact li{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+    margin-bottom:26px;
+
+}
+
+.label{
+
+    font-size:10px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    color:rgba(255,255,255,.45);
+
+}
+
+.footer-contact span:not(.label){
+
+    color:rgba(255,255,255,.75);
+
+    line-height:1.8;
+
+}
+
+.footer-contact a{
+
+    color:rgba(255,255,255,.75);
+
+    text-decoration:none;
+
+    transition:.35s;
+
+}
+
+.footer-contact a:hover{
+
+    color:var(--accent);
+
+}
+
+/* ---------------------------- */
+
+.footer-social{
+
+    display:flex;
+
+    gap:18px;
+
+    margin-top:40px;
+
+    flex-wrap:wrap;
+
+}
+
+.footer-social a{
+
+    position:relative;
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    color:rgba(255,255,255,.55);
+
+}
+
+.footer-social a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-6px;
+
+    width:0;
+
+    height:2px;
+
+    background:var(--accent);
+
+    transition:.35s;
+
+}
+
+.footer-social a:hover{
+
+    color:white;
+
+}
+
+.footer-social a:hover::after{
+
+    width:100%;
+
+}
+
+/* ---------------------------- */
+
+@keyframes footerDraw{
+
+    from{
+
+        transform:scaleX(.25);
+
+        transform-origin:left;
+
+        opacity:.4;
+
+    }
+
+    to{
+
+        transform:scaleX(1);
+
+        transform-origin:left;
+
+        opacity:1;
+
+    }
+
+}
+
+</style>

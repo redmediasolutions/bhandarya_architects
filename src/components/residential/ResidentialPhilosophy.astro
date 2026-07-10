@@ -1,0 +1,480 @@
+---
+import { img } from "../../consts";
+
+const philosophyImage = img("2026/05/Copy-of-01.webp");
+---
+
+<section class="residential-philosophy section">
+
+    <div class="container">
+
+        <div class="philosophy-grid">
+
+            <!-- Image -->
+
+            <div class="image-column reveal-left">
+
+                <div class="image-wrapper">
+
+                    <img
+                        src={philosophyImage}
+                        alt="Residential Architecture"
+                    />
+
+                    <div class="image-badge">
+
+                        <strong>25+</strong>
+
+                        <span>
+
+                            Years of
+                            <br>
+                            Excellence
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Content -->
+
+            <div class="content-column reveal-right">
+
+                <span class="small-title">
+
+                    Our Philosophy
+
+                </span>
+
+                <h2>
+
+                    Homes Designed Around
+                    People, Not Trends.
+
+                </h2>
+
+                <div class="divider"></div>
+
+                <p>
+
+                    Every residence begins with understanding the
+                    people who will inhabit it. We believe a home
+                    should reflect its owners, embrace its setting,
+                    and evolve gracefully through generations.
+
+                </p>
+
+                <p>
+
+                    By carefully balancing natural light, ventilation,
+                    proportion and materiality, we create timeless
+                    living environments that are elegant, functional
+                    and deeply connected to nature.
+
+                </p>
+
+                <div class="principles">
+
+                    <div class="principle">
+
+                        <div class="number">
+
+                            01
+
+                        </div>
+
+                        <div>
+
+                            <h4>
+
+                                Human-Centred Planning
+
+                            </h4>
+
+                            <p>
+
+                                Every layout is designed around how
+                                families actually live.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="principle">
+
+                        <div class="number">
+
+                            02
+
+                        </div>
+
+                        <div>
+
+                            <h4>
+
+                                Climate Responsive
+
+                            </h4>
+
+                            <p>
+
+                                Light, breeze and landscape become
+                                integral elements of every home.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="principle">
+
+                        <div class="number">
+
+                            03
+
+                        </div>
+
+                        <div>
+
+                            <h4>
+
+                                Timeless Craftsmanship
+
+                            </h4>
+
+                            <p>
+
+                                Thoughtful detailing ensures every
+                                project remains relevant for decades.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.residential-philosophy{
+
+    background:white;
+
+    overflow:hidden;
+
+}
+
+/* ---------------- Layout ---------------- */
+
+.philosophy-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:90px;
+
+    align-items:center;
+
+}
+
+/* ---------------- Image ---------------- */
+
+.image-wrapper{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    box-shadow:
+
+        0 40px 90px rgba(0,0,0,.12);
+
+}
+
+.image-wrapper img{
+
+    width:100%;
+
+    display:block;
+
+    transition:
+
+        transform 2s cubic-bezier(.22,1,.36,1),
+
+        filter .8s;
+
+}
+
+.image-wrapper:hover img{
+
+    transform:scale(1.06);
+
+}
+
+.image-wrapper::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+
+            transparent,
+
+            rgba(0,0,0,.08)
+
+        );
+
+}
+
+.image-badge{
+
+    position:absolute;
+
+    right:35px;
+
+    bottom:35px;
+
+    background:#111;
+
+    color:white;
+
+    padding:28px 34px;
+
+    border-left:4px solid var(--accent);
+
+    box-shadow:
+
+        0 20px 50px rgba(0,0,0,.2);
+
+}
+
+.image-badge strong{
+
+    display:block;
+
+    font-size:56px;
+
+    color:var(--accent);
+
+    line-height:1;
+
+    margin-bottom:8px;
+
+}
+
+.image-badge span{
+
+    text-transform:uppercase;
+
+    font-size:11px;
+
+    letter-spacing:2px;
+
+    color:rgba(255,255,255,.7);
+
+}
+
+/* ---------------- Content ---------------- */
+
+.content-column h2{
+
+    margin:22px 0 28px;
+
+    max-width:650px;
+
+}
+
+.divider{
+
+    width:70px;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-bottom:35px;
+
+}
+
+.content-column p{
+
+    margin-bottom:24px;
+
+    color:#666;
+
+    line-height:1.9;
+
+}
+
+/* ---------------- Principles ---------------- */
+
+.principles{
+
+    margin-top:55px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:32px;
+
+}
+
+.principle{
+
+    display:flex;
+
+    gap:28px;
+
+    transition:.35s;
+
+}
+
+.principle:hover{
+
+    transform:translateX(10px);
+
+}
+
+.number{
+
+    min-width:65px;
+
+    font-size:46px;
+
+    color:#d9d9d9;
+
+    font-weight:300;
+
+}
+
+.principle h4{
+
+    margin-bottom:8px;
+
+}
+
+.principle p{
+
+    margin:0;
+
+}
+
+/* ---------------- Reveal ---------------- */
+
+.reveal-left{
+
+    opacity:0;
+
+    transform:translateX(-70px);
+
+    animation:slideLeft .9s ease forwards;
+
+}
+
+.reveal-right{
+
+    opacity:0;
+
+    transform:translateX(70px);
+
+    animation:slideRight .9s ease forwards;
+
+    animation-delay:.2s;
+
+}
+
+@keyframes slideLeft{
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes slideRight{
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media(max-width:991px){
+
+    .philosophy-grid{
+
+        grid-template-columns:1fr;
+
+        gap:60px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .image-badge{
+
+        position:relative;
+
+        right:auto;
+
+        bottom:auto;
+
+        margin-top:20px;
+
+        width:max-content;
+
+    }
+
+    .principle{
+
+        gap:18px;
+
+    }
+
+    .number{
+
+        min-width:42px;
+
+        font-size:32px;
+
+    }
+
+}
+
+</style>

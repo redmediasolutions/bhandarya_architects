@@ -49,19 +49,17 @@ const features = [
 
                     <article class="feature">
 
-                        <span class="feature-number">
-                            {String(index + 1).padStart(2, "0")}
-                        </span>
+    <div class="glow"></div>
 
-                        <h3>
-                            {feature.title}
-                        </h3>
+    <span class="feature-number">
+        {String(index + 1).padStart(2, "0")}
+    </span>
 
-                        <p>
-                            {feature.text}
-                        </p>
+    <h3>{feature.title}</h3>
 
-                    </article>
+    <p>{feature.text}</p>
+
+</article>
 
                 ))
             }
@@ -72,24 +70,107 @@ const features = [
 
 </section>
 
+<script is:inline>
+
+const cards = document.querySelectorAll(".feature");
+
+const observer = new IntersectionObserver((entries)=>{
+
+    entries.forEach((entry,index)=>{
+
+        if(entry.isIntersecting){
+
+            setTimeout(()=>{
+
+                entry.target.classList.add("visible");
+
+            },index*120);
+
+        }
+
+    });
+
+},{
+    threshold:.2
+});
+
+cards.forEach(card=>observer.observe(card));
+
+</script>
+
 <style>
 
 .why{
-    background:var(--surface);
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#f5f3ef;
+
 }
 
+/* -------------------------------- */
+
+.why::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px),
+
+        linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px);
+
+    background-size:70px 70px;
+
+    opacity:.45;
+
+    pointer-events:none;
+
+}
+
+/* -------------------------------- */
+
+.why .container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* -------------------------------- */
+
 .why-header{
-    max-width:720px;
-    margin-bottom:70px;
+
+    max-width:760px;
+
+    margin:0 auto 80px;
+
+    text-align:center;
+
 }
 
 .why-header h2{
-    margin:20px 0;
+
+    margin:18px 0 24px;
+
 }
 
 .why-header p{
-    max-width:620px;
+
+    max-width:650px;
+
+    margin:auto;
+
 }
+
+/* -------------------------------- */
 
 .why-grid{
 
@@ -97,81 +178,262 @@ const features = [
 
     grid-template-columns:repeat(2,1fr);
 
-    gap:50px;
+    gap:34px;
 
 }
+
+/* -------------------------------- */
 
 .feature{
 
-    padding:40px;
+    position:relative;
 
-    background:var(--white);
+    overflow:hidden;
 
-    border:1px solid var(--border);
+    padding:48px;
 
-    transition:var(--transition);
+    border-radius:24px;
+
+    background:linear-gradient(
+
+        180deg,
+
+        #252525,
+
+        #171717
+
+    );
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+    transition:
+
+        transform .55s cubic-bezier(.22,1,.36,1),
+
+        border-color .45s ease,
+
+        box-shadow .45s ease,
+
+        opacity .8s ease;
+
+    opacity:0;
+
+    transform:translateY(60px);
 
 }
+
+/* Reveal */
+
+.feature.visible{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+/* -------------------------------- */
+
+.feature::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+
+            rgba(255,255,255,.03) 1px,
+
+            transparent 1px
+
+        ),
+
+        linear-gradient(
+
+            90deg,
+
+            rgba(255,255,255,.03) 1px,
+
+            transparent 1px
+
+        );
+
+    background-size:34px 34px;
+
+    opacity:.45;
+
+}
+
+/* Accent Line */
+
+.feature::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:0;
+
+    height:4px;
+
+    background:var(--accent);
+
+    transition:width .7s cubic-bezier(.22,1,.36,1);
+
+}
+
+/* -------------------------------- */
 
 .feature:hover{
 
-    transform:translateY(-6px);
+    transform:translateY(-10px);
 
-    border-color:var(--accent);
+    border-color:rgba(255,105,0,.45);
 
-    box-shadow:var(--shadow);
+    box-shadow:
+
+        0 35px 70px rgba(0,0,0,.22);
 
 }
+
+.feature:hover::after{
+
+    width:100%;
+
+}
+
+/* -------------------------------- */
 
 .feature-number{
 
+    position:relative;
+
+    z-index:2;
+
     display:block;
 
-    margin-bottom:24px;
+    margin-bottom:26px;
 
-    font-size:48px;
+    font-size:60px;
 
-    font-weight:300;
+    font-weight:200;
 
-    color:#d8d8d8;
+    color:rgba(255,255,255,.12);
 
-    line-height:1;
+    letter-spacing:-2px;
 
 }
+
+/* -------------------------------- */
 
 .feature h3{
 
-    margin-bottom:16px;
+    position:relative;
 
-    font-size:26px;
+    z-index:2;
+
+    font-size:28px;
+
+    margin-bottom:18px;
+
+    color:white;
 
 }
+
+/* -------------------------------- */
 
 .feature p{
 
-    color:var(--text);
+    position:relative;
+
+    z-index:2;
+
+    color:rgba(255,255,255,.72);
+
+    line-height:1.8;
 
 }
 
-@media(max-width:768px){
+/* -------------------------------- */
+/* Floating Glow */
+
+.feature .glow{
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    right:-80px;
+
+    top:-80px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,105,0,.12),
+
+            transparent 70%
+
+        );
+
+    opacity:0;
+
+    transition:.6s;
+
+}
+
+.feature:hover .glow{
+
+    opacity:1;
+
+}
+
+/* -------------------------------- */
+
+@media(max-width:900px){
 
     .why-grid{
 
         grid-template-columns:1fr;
 
-        gap:30px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .why-header{
+
+        margin-bottom:60px;
 
     }
 
     .feature{
 
-        padding:32px;
+        padding:36px;
 
     }
 
-    .why-header{
+    .feature h3{
 
-        margin-bottom:50px;
+        font-size:24px;
 
     }
 

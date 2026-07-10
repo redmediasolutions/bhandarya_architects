@@ -44,12 +44,19 @@ const leaders = [
                 experience.
             </p>
 
+
         </div>
 
         {
             leaders.map((leader, index) => (
 
                 <article class={`leader ${index % 2 ? "reverse" : ""}`}>
+
+                     <div class="leader-number">
+
+        {String(index + 1).padStart(2,"0")}
+
+    </div>
 
                     <div class="leader-image">
 
@@ -67,9 +74,27 @@ const leaders = [
                             {leader.role}
                         </span>
 
-                        <h3>
-                            {leader.name}
-                        </h3>
+                       <h3 class="leader-name">
+
+    {leader.name}
+
+    <svg class="name-sketch" viewBox="0 0 320 20">
+
+        <path
+
+            d="M5 12
+
+               C40 16 80 5 120 11
+
+               C170 18 220 6 270 12
+
+               C295 15 308 12 315 13"
+
+        />
+
+    </svg>
+
+</h3>
 
                         <p>
                             {leader.bio}
@@ -105,19 +130,7 @@ const leaders = [
     max-width:620px;
 }
 
-.leader{
 
-    display:grid;
-
-    grid-template-columns:420px 1fr;
-
-    gap:80px;
-
-    align-items:center;
-
-    margin-bottom:100px;
-
-}
 
 .leader:last-child{
     margin-bottom:0;
@@ -128,7 +141,9 @@ const leaders = [
 }
 
 .leader.reverse .leader-image{
-    order:2;
+
+    transform:translateX(60px);
+
 }
 
 .leader.reverse .leader-content{
@@ -139,11 +154,15 @@ const leaders = [
 
     width:100%;
 
+    display:block;
+
     aspect-ratio:4/5;
 
     object-fit:cover;
 
-    display:block;
+    transition:
+        transform 1.2s ease,
+        filter .6s ease;
 
 }
 
@@ -199,6 +218,67 @@ const leaders = [
 
 }
 
+.leader-content{
+
+    opacity:0;
+
+    transform:translateY(30px);
+
+    transition:
+
+        opacity .8s ease,
+
+        transform .8s ease;
+
+    transition-delay:.2s;
+
+}
+
+.leader.animate .leader-content{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.leader-image::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+
+    height:260px;
+
+    left:-80px;
+
+    top:-80px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(circle,
+
+        rgba(255,120,0,.22),
+
+        transparent 70%);
+
+    filter:blur(45px);
+
+    opacity:0;
+
+    transition:.8s;
+
+}
+
+.leader.animate .leader-image::before{
+
+    opacity:1;
+
+}
 @media(max-width:768px){
 
     .leadership-header{
@@ -221,4 +301,220 @@ const leaders = [
 
 }
 
+.leader-name{
+
+    position:relative;
+
+    display:inline-block;
+
+    margin-bottom:28px;
+
+    font-size:46px;
+
+}
+
+.name-sketch{
+
+    width:100%;
+
+    height:18px;
+
+    margin-top:10px;
+
+    overflow:visible;
+
+}
+
+.name-sketch path{
+
+    fill:none;
+
+    stroke:var(--accent);
+
+    stroke-width:3;
+
+    stroke-linecap:round;
+
+    stroke-dasharray:600;
+
+    stroke-dashoffset:600;
+
+}
+
+.leader.animate .name-sketch path{
+
+    animation:drawUnderline 1.2s ease forwards;
+
+    animation-delay:.4s;
+
+}
+
+@keyframes drawUnderline{
+
+    to{
+
+        stroke-dashoffset:0;
+
+    }
+
+}
+
+
+.leader.animate{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.leader-image{
+
+    opacity:0;
+
+    transform:translateX(-60px);
+
+    transition:
+
+        opacity .8s ease,
+
+        transform .8s cubic-bezier(.22,1,.36,1);
+
+}
+
+.leader.animate .leader-image{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.leader-image::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        radial-gradient(circle at top left,
+
+        rgba(255,120,0,.22),
+
+        transparent 65%);
+
+    opacity:0;
+
+    transition:.6s;
+
+}
+
+.leader-image:hover::after{
+
+    opacity:1;
+
+}
+
+.leader-image img{
+
+    width:100%;
+
+    aspect-ratio:4/5;
+
+    object-fit:cover;
+
+    transition:
+
+        transform 1.2s ease,
+
+        filter .6s ease;
+
+}
+
+.leader:hover img{
+
+    transform:scale(1.06);
+
+    filter:contrast(1.05);
+
+}
+
+.leader{
+
+    position:relative;
+
+    display:grid;
+
+    grid-template-columns:420px 1fr;
+
+    gap:80px;
+
+    align-items:center;
+
+    margin-bottom:100px;
+
+    opacity:0;
+
+    transform:translateY(80px);
+
+    transition:
+        opacity .9s ease,
+        transform .9s cubic-bezier(.22,1,.36,1);
+
+}
+
+.leader-number{
+
+    position:absolute;
+
+    top:50%;
+
+    right:-30px;
+
+    transform:translateY(-50%);
+
+    font-size:220px;
+
+    font-weight:700;
+
+    color:rgba(255,120,0,.05);
+
+    line-height:1;
+
+    pointer-events:none;
+
+    user-select:none;
+
+}
+
+
 </style>
+
+<script is:inline>
+
+document.querySelectorAll(".leader").forEach((leader)=>{
+
+    const observer = new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            leader.classList.add("animate");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.35
+
+    });
+
+    observer.observe(leader);
+
+});
+
+</script>

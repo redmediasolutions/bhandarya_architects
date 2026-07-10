@@ -1,0 +1,538 @@
+---
+import { img } from "../../consts";
+
+const hero = img("2026/03/Screenshot-2026-03-25-154852.png");
+---
+
+<section
+    class="residential-hero"
+    style={`background-image:url('${hero}')`}
+>
+
+    <div class="hero-overlay"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+
+    <div class="container hero-container">
+
+        <div class="hero-content">
+
+            <span class="small-title reveal">
+
+                Residential Architecture
+
+            </span>
+
+            <h1 class="reveal delay-1">
+
+                Homes Designed
+                <br>
+                Around Life,
+                <br>
+                Light & Nature.
+
+            </h1>
+
+            <p class="reveal delay-2">
+
+                Every residence begins with understanding the family,
+                the landscape and the lifestyle. We create timeless
+                homes where architecture, nature and everyday living
+                exist in perfect harmony.
+
+            </p>
+
+            <div class="hero-buttons reveal delay-3">
+
+                <a
+                    href="#featured"
+                    class="btn"
+                >
+                    Explore Projects
+                </a>
+
+                <a
+                    href="/contact"
+                    class="btn-outline"
+                >
+                    Start Your Home
+                </a>
+
+            </div>
+
+        </div>
+
+        <aside class="hero-stats reveal delay-4">
+
+            <div>
+
+                <strong>80+</strong>
+
+                <span>Homes Designed</span>
+
+            </div>
+
+            <div>
+
+                <strong>25+</strong>
+
+                <span>Years Experience</span>
+
+            </div>
+
+            <div>
+
+                <strong>3.5M+</strong>
+
+                <span>Sq.ft Designed</span>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+    <div class="scroll-indicator">
+
+        <span></span>
+
+        <small>Scroll</small>
+
+    </div>
+
+</section>
+
+<style>
+
+.residential-hero{
+
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    background-size:cover;
+
+    background-position:center;
+
+}
+
+/* ---------------- Background ---------------- */
+
+.hero-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(8,8,8,.82),
+            rgba(8,8,8,.45)
+        ),
+
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.72)
+        );
+
+}
+
+.hero-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 24s linear infinite;
+
+    opacity:.35;
+
+}
+
+.hero-glow{
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    right:-220px;
+
+    top:-260px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,120,0,.22),
+
+            transparent 70%
+
+        );
+
+    filter:blur(90px);
+
+    animation:glow 10s ease-in-out infinite alternate;
+
+}
+
+/* ---------------- Layout ---------------- */
+
+.hero-container{
+
+    position:relative;
+
+    z-index:5;
+
+    display:grid;
+
+    grid-template-columns:1fr auto;
+
+    gap:90px;
+
+    align-items:end;
+
+}
+
+.hero-content{
+
+    max-width:760px;
+
+}
+
+.hero-content .small-title{
+
+    color:rgba(255,255,255,.85);
+
+}
+
+.hero-content h1{
+
+    color:white;
+
+    font-size:clamp(60px,8vw,105px);
+
+    line-height:.92;
+
+    margin:22px 0;
+
+    letter-spacing:-2px;
+
+}
+
+.hero-content p{
+
+    color:rgba(255,255,255,.75);
+
+    max-width:620px;
+
+    line-height:1.8;
+
+    font-size:18px;
+
+}
+
+.hero-buttons{
+
+    margin-top:50px;
+
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+/* ---------------- Buttons ---------------- */
+
+.btn-outline{
+
+    padding:16px 34px;
+
+    border:1px solid rgba(255,255,255,.25);
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:.35s;
+
+}
+
+.btn-outline:hover{
+
+    background:white;
+
+    color:#111;
+
+}
+
+/* ---------------- Stats ---------------- */
+
+.hero-stats{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:40px;
+
+    min-width:240px;
+
+}
+
+.hero-stats div{
+
+    padding-left:22px;
+
+    border-left:2px solid rgba(255,255,255,.08);
+
+}
+
+.hero-stats strong{
+
+    display:block;
+
+    color:white;
+
+    font-size:54px;
+
+    line-height:1;
+
+}
+
+.hero-stats span{
+
+    color:rgba(255,255,255,.65);
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:12px;
+
+}
+
+/* ---------------- Scroll ---------------- */
+
+.scroll-indicator{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:35px;
+
+    transform:translateX(-50%);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:12px;
+
+    z-index:10;
+
+}
+
+.scroll-indicator span{
+
+    width:2px;
+
+    height:70px;
+
+    background:rgba(255,255,255,.45);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.scroll-indicator span::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:var(--accent);
+
+    animation:scrollDown 2s infinite;
+
+}
+
+.scroll-indicator small{
+
+    color:white;
+
+    text-transform:uppercase;
+
+    letter-spacing:3px;
+
+    font-size:11px;
+
+}
+
+/* ---------------- Reveal ---------------- */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    animation:fadeUp .9s cubic-bezier(.22,1,.36,1) forwards;
+
+}
+
+.delay-1{animation-delay:.15s;}
+.delay-2{animation-delay:.35s;}
+.delay-3{animation-delay:.55s;}
+.delay-4{animation-delay:.75s;}
+
+/* ---------------- Keyframes ---------------- */
+
+@keyframes fadeUp{
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes glow{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(45px);
+
+    }
+
+}
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+@keyframes scrollDown{
+
+    from{
+
+        transform:translateY(-100%);
+
+    }
+
+    to{
+
+        transform:translateY(100%);
+
+    }
+
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media(max-width:991px){
+
+    .hero-container{
+
+        grid-template-columns:1fr;
+
+        gap:60px;
+
+    }
+
+    .hero-stats{
+
+        flex-direction:row;
+
+        justify-content:space-between;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .residential-hero{
+
+        min-height:90vh;
+
+        padding:120px 0;
+
+    }
+
+    .hero-content h1{
+
+        font-size:52px;
+
+    }
+
+    .hero-content p{
+
+        font-size:16px;
+
+    }
+
+    .hero-stats{
+
+        flex-direction:column;
+
+    }
+
+    .scroll-indicator{
+
+        display:none;
+
+    }
+
+}
+
+</style>

@@ -19,7 +19,10 @@ const values = [
 ];
 ---
 
-<section class="values section">
+<section class="values section" id="values">
+
+    <div class="background-grid"></div>
+    <div class="ambient-light"></div>
 
     <div class="container">
 
@@ -36,9 +39,9 @@ const values = [
             </h2>
 
             <p>
-                Our work is shaped by a commitment to thoughtful design,
-                meaningful collaboration and a passion for creating spaces that
-                enrich everyday life.
+                Our work is shaped by thoughtful design,
+                meaningful collaboration and a passion
+                for creating spaces that enrich everyday life.
             </p>
 
         </div>
@@ -46,21 +49,24 @@ const values = [
         <div class="values-grid">
 
             {
-                values.map((value, index) => (
+                values.map((value,index)=>(
 
-                    <article class="value-item">
+                    <article
+                        class="value-item"
+                        style={`--delay:${index*0.15}s`}
+                    >
+
+                        <div class="accent-line"></div>
 
                         <span class="value-number">
-                            {String(index + 1).padStart(2, "0")}
+
+                            {String(index+1).padStart(2,"0")}
+
                         </span>
 
-                        <h3>
-                            {value.title}
-                        </h3>
+                        <h3>{value.title}</h3>
 
-                        <p>
-                            {value.text}
-                        </p>
+                        <p>{value.text}</p>
 
                     </article>
 
@@ -81,35 +87,35 @@ const values = [
 
     overflow:hidden;
 
-    background:#151515;
+    background:#101010;
 
     color:white;
 
 }
 
-/* Background */
+/* ----------------------- */
 
-.values::before{
-
-    content:"";
+.background-grid{
 
     position:absolute;
 
     inset:0;
 
     background-image:
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+
+        linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
 
     background-size:70px 70px;
 
-    opacity:.35;
+    animation:gridMove 20s linear infinite;
 
 }
 
-.values::after{
+/* ----------------------- */
 
-    content:"";
+.ambient-light{
 
     position:absolute;
 
@@ -117,16 +123,25 @@ const values = [
 
     height:900px;
 
-    right:-300px;
-
     top:-300px;
 
+    right:-200px;
+
+    border-radius:50%;
+
     background:
+
         radial-gradient(circle,
-        rgba(255,105,0,.08),
+        rgba(255,120,0,.16),
         transparent 70%);
 
+    filter:blur(80px);
+
+    animation:floatLight 10s ease-in-out infinite alternate;
+
 }
+
+/* ----------------------- */
 
 .values .container{
 
@@ -136,17 +151,13 @@ const values = [
 
 }
 
+/* ----------------------- */
+
 .values-header{
 
-    max-width:720px;
+    max-width:760px;
 
-    margin-bottom:80px;
-
-}
-
-.values-header .small-title{
-
-    color:var(--accent);
+    margin-bottom:90px;
 
 }
 
@@ -154,19 +165,17 @@ const values = [
 
     color:white;
 
-    margin:20px 0 24px;
+    margin:18px 0 22px;
 
 }
 
 .values-header p{
 
-    color:rgba(255,255,255,.65);
-
-    max-width:620px;
+    color:rgba(255,255,255,.68);
 
 }
 
-/* Grid */
+/* ----------------------- */
 
 .values-grid{
 
@@ -174,55 +183,125 @@ const values = [
 
     grid-template-columns:repeat(4,1fr);
 
-    gap:30px;
+    gap:28px;
 
 }
 
-/* Card */
+/* ----------------------- */
 
 .value-item{
 
-    padding:45px 35px;
+    position:relative;
 
-    background:rgba(255,255,255,.03);
+    overflow:hidden;
+
+    padding:42px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,.04);
 
     border:1px solid rgba(255,255,255,.08);
 
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(16px);
 
-    transition:all .35s ease;
+    opacity:0;
+
+    transform:none;
+
+    transition:
+        transform .5s,
+        border-color .4s,
+        box-shadow .4s,
+        background .4s;
 
 }
+
+/* ----------------------- */
+
+.values.animate .value-item{
+
+    animation:cardReveal .9s cubic-bezier(.22,1,.36,1) forwards;
+
+    animation-delay:var(--delay);
+
+}
+
+/* ----------------------- */
+
+.accent-line{
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:0;
+
+    height:3px;
+
+    background:linear-gradient(90deg,var(--accent),transparent);
+
+    transition:.5s;
+
+}
+
+.value-item:hover .accent-line{
+
+    width:100%;
+
+}
+
+/* ----------------------- */
 
 .value-item:hover{
 
-    transform:translateY(-8px);
+    transform:
 
-    border-color:var(--accent);
+        translateY(-12px);
 
-    background:rgba(255,255,255,.05);
+    border-color:rgba(255,140,0,.5);
+
+    background:rgba(255,255,255,.06);
+
+    box-shadow:
+
+        0 25px 60px rgba(0,0,0,.25),
+
+        0 0 60px rgba(255,120,0,.12);
 
 }
 
-/* Number */
+/* ----------------------- */
 
 .value-number{
 
     display:block;
 
-    margin-bottom:30px;
+    font-size:64px;
 
-    font-size:58px;
+    line-height:1;
+
+    margin-bottom:28px;
 
     font-weight:700;
 
     color:rgba(255,255,255,.08);
 
-    line-height:1;
+    transition:.5s;
 
 }
 
-/* Heading */
+.value-item:hover .value-number{
+
+    color:rgba(255,150,0,.18);
+
+    transform:translateX(8px);
+
+}
+
+/* ----------------------- */
 
 .value-item h3{
 
@@ -230,50 +309,156 @@ const values = [
 
     color:white;
 
-    font-size:26px;
+    font-size:28px;
 
 }
 
-/* Text */
-
 .value-item p{
 
-    color:rgba(255,255,255,.65);
+    color:rgba(255,255,255,.68);
 
     line-height:1.8;
 
 }
 
-@media(max-width:991px){
+/* ----------------------- */
 
-    .values-grid{
+@keyframes cardReveal{
 
-        grid-template-columns:repeat(2,1fr);
+    from{
+
+        opacity:0;
+
+        transform:
+
+            translateY(60px)
+
+            scale(.96);
 
     }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes floatLight{
+
+    from{
+
+        transform:
+
+            translate(0,0);
+
+    }
+
+    to{
+
+        transform:
+
+            translate(-120px,80px);
+
+    }
+
+}
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+/* ----------------------- */
+
+@media(max-width:991px){
+
+.values-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
 
 }
 
 @media(max-width:768px){
 
-    .values{
+.values-grid{
 
-        padding:80px 0;
+grid-template-columns:1fr;
 
-    }
+}
 
-    .values-grid{
+.values-header{
 
-        grid-template-columns:1fr;
+margin-bottom:60px;
 
-    }
-
-    .values-header{
-
-        margin-bottom:50px;
-
-    }
+}
 
 }
 
 </style>
+
+<script is:inline>
+
+const valuesSection = document.querySelector("#values");
+
+if(valuesSection){
+
+const observer=new IntersectionObserver((entries)=>{
+
+if(entries[0].isIntersecting){
+
+valuesSection.classList.add("animate");
+
+observer.disconnect();
+
+}
+
+},{threshold:.25});
+
+observer.observe(valuesSection);
+
+}
+
+/* Premium Tilt Effect */
+
+document.querySelectorAll(".value-item").forEach(card=>{
+
+card.addEventListener("mousemove",(e)=>{
+
+const r=card.getBoundingClientRect();
+
+const x=e.clientX-r.left;
+const y=e.clientY-r.top;
+
+const rx=((y/r.height)-0.5)*-8;
+const ry=((x/r.width)-0.5)*8;
+
+card.style.transform=`perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-8px)`;
+
+});
+
+card.addEventListener("mouseleave",()=>{
+
+card.style.transform="";
+
+});
+
+});
+
+</script>

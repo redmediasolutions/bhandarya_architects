@@ -1,0 +1,426 @@
+---
+const projects = [
+  {
+    title: "Samudra",
+    category: "Luxury Residence",
+    image: "/images/projects/samudra/samudra.webp",
+    href: "/samudra",
+  },
+  {
+    title: "Kutira",
+    category: "Private Residence",
+    image: "/images/projects/kutira/Kuitra.webp",
+    href: "/kutira",
+  },
+  {
+    title: "Courtyard House",
+    category: "Contemporary Home",
+    image: "/images/project4.webp",
+    href: "#",
+  },
+];
+---
+
+<section class="related-projects section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="small-title">
+
+                    More Residential Projects
+
+                </span>
+
+                <h2>
+
+                    Explore Similar Homes
+
+                </h2>
+
+            </div>
+
+            <a
+                href="/projects"
+                class="text-link"
+            >
+
+                View All Projects →
+
+            </a>
+
+        </div>
+
+        <div class="projects-grid">
+
+            {
+                projects.map((project,index)=>(
+
+                    <a
+                        href={project.href}
+                        class="project-card"
+                        style={`animation-delay:${index * .18}s`}
+                    >
+
+                        <div class="image">
+
+                            <img
+                                src={project.image}
+                                alt={project.title}
+                            />
+
+                        </div>
+
+                        <div class="overlay">
+
+                            <span>
+
+                                {project.category}
+
+                            </span>
+
+                            <h3>
+
+                                {project.title}
+
+                            </h3>
+
+                            <div class="line"></div>
+
+                        </div>
+
+                    </a>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.related-projects{
+
+    background:#fafafa;
+
+}
+
+/* ---------------- */
+
+.section-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    gap:40px;
+
+    margin-bottom:70px;
+
+}
+
+.section-header h2{
+
+    margin-top:18px;
+
+}
+
+/* ---------------- */
+
+.projects-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:30px;
+
+}
+
+/* ---------------- */
+
+.project-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:16px;
+
+    min-height:520px;
+
+    background:#111;
+
+    text-decoration:none;
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+    transition:
+
+        transform .45s,
+
+        box-shadow .45s;
+
+}
+
+.related-projects.visible .project-card{
+
+    animation:
+
+        fadeUp .9s cubic-bezier(.22,1,.36,1) forwards;
+
+}
+
+.image{
+
+    position:absolute;
+
+    inset:0;
+
+    overflow:hidden;
+
+}
+
+.image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transform:scale(1.08);
+
+    transition:
+
+        transform 2s cubic-bezier(.22,1,.36,1),
+
+        filter .8s;
+
+    filter:
+
+        brightness(.82)
+
+        saturate(.8);
+
+}
+
+.project-card:hover img{
+
+    transform:scale(1.15);
+
+    filter:
+
+        brightness(1)
+
+        saturate(1);
+
+}
+
+/* ---------------- */
+
+.overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    padding:36px;
+
+    background:
+
+        linear-gradient(
+
+            transparent,
+
+            rgba(0,0,0,.88)
+
+        );
+
+}
+
+.overlay span{
+
+    color:rgba(255,255,255,.72);
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:11px;
+
+}
+
+.overlay h3{
+
+    color:white;
+
+    margin-top:10px;
+
+    font-size:32px;
+
+    transition:.4s;
+
+}
+
+.line{
+
+    width:0;
+
+    height:2px;
+
+    margin-top:18px;
+
+    background:var(--accent);
+
+    transition:.5s;
+
+}
+
+.project-card:hover .line{
+
+    width:90px;
+
+}
+
+.project-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:18px;
+
+    border:1px solid rgba(255,120,0,.3);
+
+    opacity:0;
+
+    transform:scale(.94);
+
+    transition:.5s;
+
+}
+
+.project-card:hover::after{
+
+    opacity:1;
+
+    transform:scale(1);
+
+}
+
+.project-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+
+        0 40px 80px rgba(0,0,0,.22);
+
+}
+
+/* ---------------- */
+
+.text-link{
+
+    text-decoration:none;
+
+    color:var(--accent);
+
+    font-weight:600;
+
+}
+
+/* ---------------- */
+
+@keyframes fadeUp{
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+/* ---------------- */
+
+@media(max-width:991px){
+
+    .projects-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .project-card{
+
+        min-height:420px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .section-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        margin-bottom:40px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".related-projects");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver(entries=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.25
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

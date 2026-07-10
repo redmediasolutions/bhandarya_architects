@@ -1,0 +1,617 @@
+---
+import { img } from "../../consts";
+
+const hero = img("2026/03/Screenshot-2026-03-25-154852.png");
+---
+
+<section
+    class="projects-hero"
+    style={`background-image:url('${hero}')`}
+>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-grid"></div>
+
+    <div class="hero-glow"></div>
+
+    <div class="hero-inner">
+
+        <div class="container hero-container">
+
+            <div class="hero-content">
+
+                <span class="small-title reveal">
+                    Our Portfolio
+                </span>
+
+                <h1 class="reveal delay-1">
+                    Projects That
+                    <br />
+                    Stand The Test
+                    <br />
+                    of Time.
+                </h1>
+
+                <p class="reveal delay-2">
+                    From luxury residences to commercial developments,
+                    every project is designed with clarity, purpose and
+                    enduring architectural character.
+                </p>
+
+                <div class="hero-buttons reveal delay-3">
+
+                    <a
+                        href="#featured"
+                        class="btn"
+                    >
+                        View Featured Projects
+                    </a>
+
+                </div>
+
+            </div>
+
+            <aside class="hero-stats reveal delay-4">
+
+                <div>
+
+                    <strong>25+</strong>
+
+                    <span>Years Experience</span>
+
+                </div>
+
+                <div>
+
+                    <strong>120+</strong>
+
+                    <span>Completed Projects</span>
+
+                </div>
+
+                <div>
+
+                    <strong>3.5M+</strong>
+
+                    <span>Sq.ft Designed</span>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+    <nav class="project-types">
+
+        <a href="#featured">
+            Featured
+        </a>
+
+        <a href="#residential">
+            Residential
+        </a>
+
+        <a href="#commercial">
+            Commercial
+        </a>
+
+        <a href="#hospitality">
+            Hospitality
+        </a>
+
+    </nav>
+
+</section>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const hero=document.querySelector(".projects-hero");
+
+    if(!hero) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            hero.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.35
+
+    });
+
+    observer.observe(hero);
+
+});
+
+</script>
+
+
+<style>
+
+.projects-hero{
+
+    position:relative;
+
+    min-height:100vh;
+
+    display:grid;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    padding:140px 0 120px;
+
+}
+
+/* ================================================= */
+/* Background Layers */
+/* ================================================= */
+
+.hero-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,8,8,.82),
+            rgba(8,8,8,.48)
+        ),
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.08),
+            rgba(0,0,0,.72)
+        );
+
+    z-index:1;
+
+}
+
+.hero-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.045) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.045) 1px,
+            transparent 1px
+        );
+
+    background-size:70px 70px;
+
+    opacity:.35;
+
+    animation:gridMove 20s linear infinite;
+
+    z-index:2;
+
+}
+
+.hero-glow{
+
+    position:absolute;
+
+    right:-180px;
+
+    top:-180px;
+
+    width:850px;
+
+    height:850px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,120,0,.22),
+
+            transparent 70%
+
+        );
+
+    filter:blur(90px);
+
+    animation:glowFloat 10s ease-in-out infinite alternate;
+
+    z-index:2;
+
+}
+
+/* ================================================= */
+/* Layout */
+/* ================================================= */
+
+.hero-container{
+
+    position:relative;
+
+    z-index:5;
+
+    display:grid;
+
+    grid-template-columns:minmax(0,1fr) 260px;
+
+    gap:80px;
+
+    align-items:end;
+
+}
+
+.hero-content{
+
+    max-width:760px;
+
+}
+
+.hero-content .small-title{
+
+    color:rgba(255,255,255,.82);
+
+}
+
+.hero-content h1{
+
+    color:#fff;
+
+    font-size:clamp(58px,7vw,100px);
+
+    line-height:.92;
+
+    margin:20px 0 26px;
+
+    letter-spacing:-2px;
+
+}
+
+.hero-content p{
+
+    color:rgba(255,255,255,.75);
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    max-width:620px;
+
+}
+
+.hero-buttons{
+
+    margin-top:48px;
+
+}
+
+/* ================================================= */
+/* Stats */
+/* ================================================= */
+
+.hero-stats{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:42px;
+
+    justify-content:flex-end;
+
+    padding-bottom:30px;
+
+}
+
+.hero-stats div{
+
+    border-left:2px solid rgba(255,255,255,.08);
+
+    padding-left:22px;
+
+}
+
+.hero-stats strong{
+
+    display:block;
+
+    color:#fff;
+
+    font-size:52px;
+
+    font-weight:700;
+
+    line-height:1;
+
+    margin-bottom:8px;
+
+}
+
+.hero-stats span{
+
+    color:rgba(255,255,255,.65);
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:12px;
+
+}
+
+/* ================================================= */
+/* Bottom Navigation */
+/* ================================================= */
+
+.project-types{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    z-index:10;
+
+    height:90px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:70px;
+
+    backdrop-filter:blur(16px);
+
+    background:rgba(0,0,0,.28);
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.project-types a{
+
+    position:relative;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:12px;
+
+    transition:.35s;
+
+}
+
+.project-types a:hover{
+
+    color:var(--accent);
+
+}
+
+.project-types a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:2px;
+
+    background:var(--accent);
+
+    transition:.45s;
+
+}
+
+.project-types a:hover::after{
+
+    width:100%;
+
+}
+
+/* ================================================= */
+/* Reveal Animation */
+/* ================================================= */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(45px);
+
+    animation:fadeUp 1s cubic-bezier(.22,1,.36,1) forwards;
+
+}
+
+.delay-1{
+
+    animation-delay:.15s;
+
+}
+
+.delay-2{
+
+    animation-delay:.35s;
+
+}
+
+.delay-3{
+
+    animation-delay:.55s;
+
+}
+
+.delay-4{
+
+    animation-delay:.75s;
+
+}
+
+/* ================================================= */
+/* Keyframes */
+/* ================================================= */
+
+@keyframes fadeUp{
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+@keyframes glowFloat{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(40px);
+
+    }
+
+}
+
+/* ================================================= */
+/* Responsive */
+/* ================================================= */
+
+@media(max-width:991px){
+
+    .projects-hero{
+
+        padding:120px 0 150px;
+
+    }
+
+    .hero-container{
+
+        grid-template-columns:1fr;
+
+        gap:60px;
+
+    }
+
+    .hero-stats{
+
+        flex-direction:row;
+
+        gap:24px;
+
+    }
+
+    .hero-stats div{
+
+        flex:1;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .projects-hero{
+
+        min-height:90vh;
+
+        padding:110px 0 150px;
+
+    }
+
+    .hero-content h1{
+
+        font-size:48px;
+
+    }
+
+    .hero-content p{
+
+        font-size:16px;
+
+    }
+
+    .hero-stats{
+
+        flex-direction:column;
+
+    }
+
+    .project-types{
+
+        height:auto;
+
+        padding:20px;
+
+        gap:22px;
+
+        flex-wrap:wrap;
+
+    }
+
+}
+
+</style>

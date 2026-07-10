@@ -1,0 +1,154 @@
+---
+const faqs = [
+  {
+    q: "What types of projects do you undertake?",
+    a: "We specialise in residential architecture, luxury villas, commercial developments, hospitality projects and interior design."
+  },
+  {
+    q: "Do you provide complete turnkey solutions?",
+    a: "Yes. From concept planning and design development to construction drawings and site supervision, we offer end-to-end architectural services."
+  },
+  {
+    q: "Can you work on projects outside Karnataka?",
+    a: "Absolutely. We undertake projects across India and collaborate remotely throughout the design process."
+  },
+  {
+    q: "How long does the design process take?",
+    a: "Depending on the project scope, concept design generally takes 3–8 weeks followed by design development and technical documentation."
+  }
+];
+---
+
+<section class="faq section">
+
+    <div class="container">
+
+        <div class="section-heading center">
+
+            <span class="small-title">
+                Frequently Asked Questions
+            </span>
+
+            <h2>
+                Everything You Need to Know
+            </h2>
+
+        </div>
+
+        <div class="faq-list">
+
+            {
+                faqs.map((item)=>(
+                    <details class="faq-item">
+
+                        <summary>
+
+                            <span>{item.q}</span>
+
+                            <span class="plus">+</span>
+
+                        </summary>
+
+                        <p>{item.a}</p>
+
+                    </details>
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.faq{
+
+    background:#fafafa;
+
+}
+
+.section-heading.center{
+
+    text-align:center;
+
+    margin-bottom:70px;
+
+}
+
+.faq-list{
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+.faq-item{
+
+    background:white;
+
+    border-radius:14px;
+
+    margin-bottom:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.05);
+
+}
+
+.faq-item summary{
+
+    list-style:none;
+
+    cursor:pointer;
+
+    padding:26px 34px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+.faq-item summary::-webkit-details-marker{
+
+    display:none;
+
+}
+
+.faq-item p{
+
+    padding:0 34px 30px;
+
+    color:#666;
+
+    line-height:1.8;
+
+}
+
+.plus{
+
+    color:var(--accent);
+
+    font-size:28px;
+
+    transition:.35s;
+
+}
+
+.faq-item[open] .plus{
+
+    transform:rotate(45deg);
+
+}
+
+</style>

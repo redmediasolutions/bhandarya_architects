@@ -1,0 +1,653 @@
+---
+const projects = [
+  {
+    title:"Samudra",
+    category:"Luxury Residence",
+    image:"/images/projects/samudra/samudra.webp",
+    href:"/samudra",
+    featured:true
+  },
+  {
+    title:"Kutira",
+    category:"Residential",
+    image:"/images/projects/kutira/Kuitra.webp",
+    href:"/kutira"
+  },
+  {
+    title:"Serenity Villa",
+    category:"Residential",
+    image:"/images/project3.webp",
+    href:"#"
+  },
+  {
+    title:"Courtyard House",
+    category:"Residential",
+    image:"/images/project4.webp",
+    href:"#"
+  },
+  {
+    title:"Urban Pavilion",
+    category:"Commercial",
+    image:"/images/project5.webp",
+    href:"#"
+  }
+];
+---
+
+<section class="featured-projects section" id="featured">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+
+                Featured Projects
+
+            </span>
+
+            <h2>
+
+                Selected Works
+
+            </h2>
+
+            <p>
+
+                Every project reflects our pursuit of timeless
+                architecture, thoughtful planning and enduring
+                craftsmanship.
+
+            </p>
+
+        </div>
+
+        <div class="featured-grid">
+
+            <a
+                href={projects[0].href}
+                class="featured-card hero-card"
+            >
+
+                <img
+                    src={projects[0].image}
+                    alt={projects[0].title}
+                />
+
+                <div class="overlay">
+
+                    <span>
+
+                        {projects[0].category}
+
+                    </span>
+
+                    <h3>
+
+                        {projects[0].title}
+
+                    </h3>
+
+                    <div class="line"></div>
+
+                </div>
+
+            </a>
+
+            {
+                projects.slice(1).map(project => (
+
+                    <a
+                        href={project.href}
+                        class="featured-card"
+                    >
+
+                        <img
+                            src={project.image}
+                            alt={project.title}
+                        />
+
+                        <div class="overlay">
+
+                            <span>
+
+                                {project.category}
+
+                            </span>
+
+                            <h3>
+
+                                {project.title}
+
+                            </h3>
+
+                            <div class="line"></div>
+
+                        </div>
+
+                    </a>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+    .featured-projects{
+
+    background:var(--white);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.section-heading{
+
+    max-width:760px;
+
+    margin:0 auto 80px;
+
+    text-align:center;
+
+}
+
+.section-heading h2{
+
+    margin:18px 0 24px;
+
+}
+
+.section-heading p{
+
+    max-width:620px;
+
+    margin:auto;
+
+    color:#666;
+
+}
+
+/* ===================================== */
+
+.featured-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(12,minmax(0,1fr));
+
+    grid-auto-rows:110px;
+
+    gap:26px;
+
+}
+
+/* ===================================== */
+/* Layout */
+/* ===================================== */
+
+.hero-card{
+
+    grid-column:1/-1;
+
+    grid-row:span 6;
+
+}
+
+.featured-card:nth-child(2){
+
+    grid-column:1/span 5;
+
+    grid-row:span 4;
+
+}
+
+.featured-card:nth-child(3){
+
+    grid-column:6/-1;
+
+    grid-row:span 4;
+
+}
+
+.featured-card:nth-child(4){
+
+    grid-column:1/span 4;
+
+    grid-row:span 3;
+
+}
+
+.featured-card:nth-child(5){
+
+    grid-column:5/-1;
+
+    grid-row:span 3;
+
+}
+
+/* ===================================== */
+
+.featured-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:block;
+
+    isolation:isolate;
+
+    border-radius:18px;
+
+    background:#111;
+
+    cursor:pointer;
+
+    box-shadow:
+
+        0 20px 60px rgba(0,0,0,.08);
+
+    opacity:0;
+
+    transform:
+
+        translateY(70px)
+
+        scale(.97);
+
+    transition:
+
+        opacity .9s ease,
+
+        transform .9s cubic-bezier(.22,1,.36,1),
+
+        box-shadow .5s;
+
+}
+
+.featured-projects.visible .featured-card{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.featured-projects.visible .featured-card:nth-child(1){
+
+    transition-delay:.1s;
+
+}
+
+.featured-projects.visible .featured-card:nth-child(2){
+
+    transition-delay:.25s;
+
+}
+
+.featured-projects.visible .featured-card:nth-child(3){
+
+    transition-delay:.4s;
+
+}
+
+.featured-projects.visible .featured-card:nth-child(4){
+
+    transition-delay:.55s;
+
+}
+
+.featured-projects.visible .featured-card:nth-child(5){
+
+    transition-delay:.7s;
+
+}
+
+/* ===================================== */
+
+.featured-card img{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transform:scale(1.06);
+
+    filter:
+
+        brightness(.88)
+
+        saturate(.82);
+
+    transition:
+
+        transform 2s cubic-bezier(.22,1,.36,1),
+
+        filter .7s;
+
+}
+
+.hero-card img{
+
+    animation:
+
+        heroKenBurns 18s ease-in-out infinite alternate;
+
+}
+
+.featured-card:hover img{
+
+    transform:
+
+        scale(1.13);
+
+    filter:
+
+        brightness(1)
+
+        saturate(1);
+
+}
+
+/* ===================================== */
+
+.featured-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-35%;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,120,0,.18),
+
+            transparent 70%
+
+        );
+
+    opacity:0;
+
+    transition:.7s;
+
+    z-index:2;
+
+}
+
+.featured-card:hover::before{
+
+    opacity:1;
+
+}
+
+.featured-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:18px;
+
+    border:1px solid rgba(255,140,0,.4);
+
+    opacity:0;
+
+    transform:scale(.96);
+
+    transition:.5s;
+
+    z-index:4;
+
+}
+
+.featured-card:hover::after{
+
+    opacity:1;
+
+    transform:scale(1);
+
+}
+
+/* ===================================== */
+
+.overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    padding:42px;
+
+    background:
+
+        linear-gradient(
+
+            180deg,
+
+            transparent 25%,
+
+            rgba(0,0,0,.82) 100%
+
+        );
+
+    z-index:5;
+
+    transition:.5s;
+
+}
+
+.featured-card:hover .overlay{
+
+    background:
+
+        linear-gradient(
+
+            180deg,
+
+            transparent 15%,
+
+            rgba(0,0,0,.92) 100%
+
+        );
+
+}
+
+/* ===================================== */
+
+.overlay span{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    color:rgba(255,255,255,.72);
+
+    font-size:11px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    transform:translateY(18px);
+
+    opacity:0;
+
+    transition:.45s;
+
+}
+
+.overlay h3{
+
+    color:#fff;
+
+    font-size:clamp(28px,2vw,42px);
+
+    margin:0;
+
+    transform:translateY(35px);
+
+    transition:.6s cubic-bezier(.22,1,.36,1);
+
+}
+
+.featured-card:hover span{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.featured-card:hover h3{
+
+    transform:none;
+
+}
+
+/* ===================================== */
+
+.line{
+
+    width:0;
+
+    height:2px;
+
+    margin-top:20px;
+
+    background:var(--accent);
+
+    transition:
+
+        width .7s cubic-bezier(.22,1,.36,1);
+
+}
+
+.featured-card:hover .line{
+
+    width:90px;
+
+}
+
+/* ===================================== */
+
+@keyframes heroKenBurns{
+
+    from{
+
+        transform:
+
+            scale(1.05);
+
+    }
+
+    to{
+
+        transform:
+
+            scale(1.12)
+
+            translateY(-20px);
+
+    }
+
+}
+
+/* ===================================== */
+
+@media(max-width:991px){
+
+    .featured-grid{
+
+        grid-template-columns:1fr;
+
+        grid-auto-rows:auto;
+
+    }
+
+    .hero-card,
+
+    .featured-card{
+
+        grid-column:auto !important;
+
+        grid-row:auto !important;
+
+        height:420px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .section-heading{
+
+        margin-bottom:55px;
+
+    }
+
+    .overlay{
+
+        padding:28px;
+
+    }
+
+    .overlay h3{
+
+        font-size:28px;
+
+    }
+
+    .hero-card,
+
+    .featured-card{
+
+        height:320px;
+
+    }
+
+}
+</style>
+
+<script is:inline>
+
+const featured=document.querySelector(".featured-projects");
+
+const observer=new IntersectionObserver((entries)=>{
+
+    if(entries[0].isIntersecting){
+
+        featured.classList.add("visible");
+
+        observer.disconnect();
+
+    }
+
+},{threshold:.2});
+
+observer.observe(featured);
+
+</script>

@@ -8,35 +8,77 @@
 
             <div class="stat">
 
-                <h2>30+</h2>
+    <h2>
 
-                <p>Years Experience</p>
+        <span
+            class="counter"
+            data-target="30"
+        >
+            0
+        </span>
 
-            </div>
+        <span class="suffix">+</span>
 
-            <div class="stat">
+    </h2>
 
-                <h2>500+</h2>
+    <p>Years Experience</p>
 
-                <p>Projects</p>
+</div>
 
-            </div>
+<div class="stat">
 
-            <div class="stat">
+    <h2>
 
-                <h2>100+</h2>
+        <span
+            class="counter"
+            data-target="500"
+        >
+            0
+        </span>
 
-                <p>Happy Clients</p>
+        <span class="suffix">+</span>
 
-            </div>
+    </h2>
 
-            <div class="stat">
+    <p>Projects</p>
 
-                <h2>1995</h2>
+</div>
 
-                <p>Established</p>
+<div class="stat">
 
-            </div>
+    <h2>
+
+        <span
+            class="counter"
+            data-target="100"
+        >
+            0
+        </span>
+
+        <span class="suffix">+</span>
+
+    </h2>
+
+    <p>Happy Clients</p>
+
+</div>
+
+<div class="stat">
+
+    <h2>
+
+        <span
+            class="counter"
+            data-target="1995"
+        >
+            0
+        </span>
+
+    </h2>
+
+    <p>Established</p>
+
+</div>
 
         </div>
 
@@ -44,8 +86,80 @@
 
 </section>
 
-<style>
+<script is:inline>
 
+const statsSection = document.querySelector(".statistics");
+
+if (statsSection) {
+
+    const counters = statsSection.querySelectorAll(".counter");
+
+    let started = false;
+
+    const observer = new IntersectionObserver((entries) => {
+
+        if (!entries[0].isIntersecting || started) return;
+
+        started = true;
+
+        statsSection.classList.add("visible");
+
+        counters.forEach((counter, index) => {
+
+            setTimeout(() => {
+
+                animate(counter);
+
+            }, index * 180);
+
+        });
+
+    }, {
+        threshold: 0.35
+    });
+
+    observer.observe(statsSection);
+
+    function animate(counter) {
+
+        const target = Number(counter.dataset.target);
+
+        const duration = 1800;
+
+        const start = performance.now();
+
+        function update(now) {
+
+            const progress = Math.min((now - start) / duration, 1);
+
+            // Ease Out Cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+
+            const value = Math.floor(target * eased);
+
+            counter.textContent = value.toLocaleString();
+
+            if (progress < 1) {
+
+                requestAnimationFrame(update);
+
+            } else {
+
+                counter.textContent = target.toLocaleString();
+
+            }
+
+        }
+
+        requestAnimationFrame(update);
+
+    }
+
+}
+
+</script>
+
+<style>
 .statistics{
 
     position:relative;
@@ -56,13 +170,15 @@
         radial-gradient(circle at top left,
         rgba(255,105,0,.08),
         transparent 40%),
-        linear-gradient(180deg,#191919,#111111);
+        linear-gradient(180deg,#1c1c1c,#111);
 
     color:white;
 
 }
 
-/* Grid Pattern */
+/* -------------------------------- */
+/* Background Grid */
+/* -------------------------------- */
 
 .bg-pattern{
 
@@ -89,7 +205,7 @@
 
 }
 
-/* Decorative Lines */
+/* -------------------------------- */
 
 .statistics::before{
 
@@ -101,9 +217,9 @@
 
     height:1200px;
 
-    right:-500px;
+    right:-450px;
 
-    top:-400px;
+    top:-450px;
 
     border:1px solid rgba(255,255,255,.05);
 
@@ -117,13 +233,13 @@
 
     position:absolute;
 
-    width:800px;
+    width:900px;
 
-    height:800px;
+    height:900px;
 
-    left:-350px;
+    left:-420px;
 
-    bottom:-350px;
+    bottom:-420px;
 
     border:1px solid rgba(255,255,255,.04);
 
@@ -139,59 +255,235 @@
 
 }
 
+/* -------------------------------- */
+
 .stats-grid{
 
     display:grid;
 
     grid-template-columns:repeat(4,1fr);
 
-    gap:40px;
+    gap:32px;
 
 }
+
+/* -------------------------------- */
 
 .stat{
 
-    padding:50px 30px;
+    position:relative;
+
+    padding:55px 35px;
 
     text-align:center;
 
+    overflow:hidden;
+
+    border-radius:24px;
+
     border:1px solid rgba(255,255,255,.08);
 
-    background:rgba(255,255,255,.03);
+    background:rgba(255,255,255,.04);
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(18px);
 
-    transition:var(--transition);
+    -webkit-backdrop-filter:blur(18px);
+
+    transition:
+
+        transform .45s ease,
+
+        border-color .45s ease,
+
+        background .45s ease,
+
+        opacity .8s ease,
+
+        box-shadow .45s ease;
+
+    opacity:0;
+
+    transform:translateY(45px);
 
 }
+
+/* Reveal */
+
+.statistics.visible .stat{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.statistics.visible .stat:nth-child(1){
+
+    transition-delay:.1s;
+
+}
+
+.statistics.visible .stat:nth-child(2){
+
+    transition-delay:.25s;
+
+}
+
+.statistics.visible .stat:nth-child(3){
+
+    transition-delay:.4s;
+
+}
+
+.statistics.visible .stat:nth-child(4){
+
+    transition-delay:.55s;
+
+}
+
+/* Hover */
 
 .stat:hover{
 
-    transform:translateY(-8px);
+    transform:translateY(-10px);
 
-    border-color:rgba(255,105,0,.5);
+    border-color:rgba(255,105,0,.45);
 
-    background:rgba(255,255,255,.05);
+    background:rgba(255,255,255,.06);
+
+    box-shadow:
+
+        0 20px 50px rgba(0,0,0,.18);
 
 }
+
+/* Top Accent */
+
+.stat::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:100%;
+
+    height:3px;
+
+    background:linear-gradient(
+
+        90deg,
+
+        transparent,
+
+        var(--accent),
+
+        transparent
+
+    );
+
+    opacity:.65;
+
+}
+
+/* -------------------------------- */
 
 .stats-grid h2{
 
-    font-size:64px;
+    position:relative;
+
+    margin:0;
+
+    font-size:68px;
 
     font-weight:700;
 
+    line-height:1;
+
     color:var(--accent);
 
-    line-height:1;
+    letter-spacing:-2px;
 
 }
 
+/* Glow */
+
+.stats-grid h2::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:140px;
+
+    height:140px;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,105,0,.18),
+
+            transparent 70%
+
+        );
+
+    z-index:-1;
+
+}
+
+/* -------------------------------- */
+
+.counter{
+
+    display:inline-block;
+
+    min-width:100px;
+
+}
+
+.suffix{
+
+    opacity:0;
+
+    transform:translateY(8px);
+
+    transition:
+
+        opacity .4s ease,
+
+        transform .4s ease;
+
+}
+
+.statistics.visible .suffix{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:1.7s;
+
+}
+
+/* -------------------------------- */
+
 .stats-grid p{
 
-    margin-top:16px;
+    margin-top:18px;
 
-    color:rgba(255,255,255,.75);
+    color:rgba(255,255,255,.72);
 
     text-transform:uppercase;
 
@@ -201,11 +493,23 @@
 
 }
 
-@media(max-width:768px){
+/* -------------------------------- */
+
+@media(max-width:991px){
 
     .stats-grid{
 
         grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+/* -------------------------------- */
+
+@media(max-width:768px){
+
+    .stats-grid{
 
         gap:20px;
 
@@ -213,17 +517,25 @@
 
     .stat{
 
-        padding:35px 20px;
+        padding:40px 20px;
 
     }
 
     .stats-grid h2{
 
-        font-size:44px;
+        font-size:48px;
+
+    }
+
+    .counter{
+
+        min-width:70px;
 
     }
 
 }
+
+/* -------------------------------- */
 
 @media(max-width:560px){
 
@@ -234,5 +546,4 @@
     }
 
 }
-
 </style>

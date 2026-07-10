@@ -1,0 +1,292 @@
+---
+import FooterGrid from "./FooterGrid.astro";
+import FooterCursor from "./FooterCursor.astro";
+
+import FooterLogo from "./FooterLogo.astro";
+import FooterLinks from "./FooterLinks.astro";
+import FooterContact from "./FooterContact.astro";
+import FooterBottom from "./FooterBottom.astro";
+
+import blueprint from "../../assets/footer/blueprint.svg";
+import corner from "../../assets/footer/corner.svg";
+---
+
+<footer class="site-footer">
+
+    <!-- Background -->
+
+    <FooterGrid />
+
+    <!-- Cursor Glow -->
+
+    <FooterCursor />
+
+    <!-- Decorative Corners -->
+
+    <img
+        src={corner.src}
+        alt=""
+        class="corner corner-tl"
+        aria-hidden="true"
+    />
+
+    <img
+        src={corner.src}
+        alt=""
+        class="corner corner-tr"
+        aria-hidden="true"
+    />
+
+    <img
+        src={corner.src}
+        alt=""
+        class="corner corner-bl"
+        aria-hidden="true"
+    />
+
+    <img
+        src={corner.src}
+        alt=""
+        class="corner corner-br"
+        aria-hidden="true"
+    />
+
+    <!-- Blueprint Background -->
+
+    <img
+        src={blueprint.src}
+        alt=""
+        class="blueprint"
+        aria-hidden="true"
+    />
+
+    <div class="container footer-layout">
+
+        <FooterLogo />
+
+        <FooterLinks />
+
+        <FooterContact />
+
+        <FooterBottom />
+
+    </div>
+
+</footer>
+
+<script type="module">
+
+    import "../../scripts/footer";
+
+</script>
+
+<style>
+
+.site-footer{
+
+    position:relative;
+
+    overflow:hidden;
+
+    isolation:isolate;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(255,120,0,.08),
+            transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            #121212,
+            #080808
+        );
+
+    color:white;
+
+    padding:120px 0 40px;
+
+}
+
+/* -------------------------------- */
+
+.footer-layout{
+
+    position:relative;
+
+    z-index:10;
+
+    display:grid;
+
+    grid-template-columns:
+        1.5fr
+        1fr
+        1fr;
+
+    gap:80px;
+
+}
+
+/* -------------------------------- */
+
+.blueprint{
+
+    position:absolute;
+
+    top:-80px;
+
+    right:-140px;
+
+    width:900px;
+
+    opacity:.05;
+
+    pointer-events:none;
+
+    user-select:none;
+
+    z-index:1;
+
+    animation:
+        blueprintFloat 18s ease-in-out infinite;
+
+}
+
+/* -------------------------------- */
+
+.corner{
+
+    position:absolute;
+
+    width:90px;
+
+    opacity:.18;
+
+    pointer-events:none;
+
+    user-select:none;
+
+    z-index:2;
+
+}
+
+.corner-tl{
+
+    top:26px;
+
+    left:26px;
+
+}
+
+.corner-tr{
+
+    top:26px;
+
+    right:26px;
+
+    transform:rotate(90deg);
+
+}
+
+.corner-bl{
+
+    bottom:26px;
+
+    left:26px;
+
+    transform:rotate(-90deg);
+
+}
+
+.corner-br{
+
+    bottom:26px;
+
+    right:26px;
+
+    transform:rotate(180deg);
+
+}
+
+/* -------------------------------- */
+
+@keyframes blueprintFloat{
+
+    0%{
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+    50%{
+
+        transform:
+            translateY(-18px)
+            rotate(.8deg);
+
+    }
+
+    100%{
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+}
+
+/* -------------------------------- */
+
+@media(max-width:1100px){
+
+    .footer-layout{
+
+        grid-template-columns:
+
+            1fr
+            1fr;
+
+        gap:60px;
+
+    }
+
+}
+
+/* -------------------------------- */
+
+@media(max-width:768px){
+
+    .site-footer{
+
+        padding:90px 0 30px;
+
+    }
+
+    .footer-layout{
+
+        grid-template-columns:1fr;
+
+        gap:50px;
+
+    }
+
+    .blueprint{
+
+        width:620px;
+
+        right:-220px;
+
+    }
+
+    .corner{
+
+        width:56px;
+
+    }
+
+}
+
+</style>

@@ -1,7 +1,7 @@
 ---
 const timeline = [
   {
-    year: "1998",
+    year: "1995",
     title: "The Beginning",
     description:
       "Bhandary Architects was founded with a vision to create thoughtful architecture rooted in functionality, craftsmanship and timeless design.",
@@ -13,13 +13,13 @@ const timeline = [
       "Expanded into commercial and institutional projects, delivering spaces that balanced aesthetics with practical efficiency.",
   },
   {
-    year: "2014",
+    year: "2015",
     title: "Design Recognition",
     description:
       "Received recognition for innovative and sustainable architectural solutions across residential and mixed-use developments.",
   },
   {
-    year: "2023",
+    year: "2025",
     title: "Building the Future",
     description:
       "Continuing to shape modern living through architecture, interiors and planning while embracing sustainable design principles.",
@@ -27,7 +27,7 @@ const timeline = [
 ];
 ---
 
-<section class="timeline section">
+<section class="timeline section reveal-timeline">
 
     <div class="container">
 
@@ -51,34 +51,65 @@ const timeline = [
         <div class="timeline-grid">
 
             {
-                timeline.map((item) => (
+  timeline.map((item, index) => (
 
-                    <article class="timeline-item">
+    <article
+      class="timeline-item"
+      style={`--delay:${index * 180}ms`}
+    >
 
-                        <div class="timeline-dot"></div>
+      <div class="timeline-dot"></div>
 
-                        <div class="timeline-year">
-                            {item.year}
-                        </div>
+      <div class="timeline-year">
+        {item.year}
+      </div>
 
-                        <h3>
-                            {item.title}
-                        </h3>
+      <h3>{item.title}</h3>
 
-                        <p>
-                            {item.description}
-                        </p>
+      <p>{item.description}</p>
 
-                    </article>
+    </article>
 
-                ))
-            }
+  ))
+}
 
         </div>
 
     </div>
 
 </section>
+
+<script>
+
+const timelineSection = document.querySelector(".reveal-timeline");
+
+if(timelineSection){
+
+    const observer = new IntersectionObserver((entries)=>{
+
+        entries.forEach(entry=>{
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("visible");
+
+                observer.disconnect();
+
+            }
+
+        });
+
+    },{
+
+        threshold:.25
+
+    });
+
+    observer.observe(timelineSection);
+
+}
+
+</script>
 
 <style>
 
@@ -210,6 +241,100 @@ const timeline = [
         margin-bottom:50px;
 
     }
+
+}
+
+/* ================================================= */
+/* Premium Timeline Animation */
+/* ================================================= */
+
+.timeline-grid::before{
+
+    transform:scaleX(0);
+
+    transform-origin:left;
+
+    transition:transform 1.3s cubic-bezier(.22,1,.36,1);
+
+}
+
+/* ----------------------------- */
+
+.timeline-item{
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+    transition:
+
+        opacity .9s cubic-bezier(.22,1,.36,1),
+
+        transform .9s cubic-bezier(.22,1,.36,1);
+
+    transition-delay:var(--delay);
+
+}
+
+/* ----------------------------- */
+
+.timeline-dot{
+
+    transform:scale(0);
+
+    transition:
+
+        transform .5s cubic-bezier(.34,1.6,.64,1);
+
+    transition-delay:calc(var(--delay) + 250ms);
+
+}
+
+/* ----------------------------- */
+
+.timeline-year{
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+    transition:
+
+        opacity .8s ease,
+
+        transform .8s ease;
+
+    transition-delay:calc(var(--delay) + 350ms);
+
+}
+
+/* ----------------------------- */
+
+.reveal-timeline.visible .timeline-grid::before{
+
+    transform:scaleX(1);
+
+}
+
+.reveal-timeline.visible .timeline-item{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.reveal-timeline.visible .timeline-dot{
+
+    transform:scale(1);
+
+}
+
+.reveal-timeline.visible .timeline-year{
+
+    opacity:1;
+
+    transform:none;
 
 }
 

@@ -1,0 +1,576 @@
+---
+const projects = [
+  {
+    title: "Samudra",
+    location: "Yermal, Karnataka",
+    year: "2025",
+    area: "6400 sq.ft",
+    image: "/images/projects/samudra/samudra.webp",
+    href: "/samudra",
+    featured: true,
+  },
+  {
+    title: "Kutira",
+    location: "Mangalore",
+    year: "2024",
+    area: "4200 sq.ft",
+    image: "/images/projects/kutira/Kuitra.webp",
+    href: "/kutira",
+  },
+  {
+    title: "Courtyard House",
+    location: "Mangalore",
+    year: "2023",
+    area: "3900 sq.ft",
+    image: "/images/project4.webp",
+    href: "#",
+  },
+  {
+    title: "Coastal Villa",
+    location: "Udupi",
+    year: "2025",
+    area: "5200 sq.ft",
+    image: "/images/project5.webp",
+    href: "#",
+  },
+  {
+    title: "Palm Residence",
+    location: "Manipal",
+    year: "2022",
+    area: "3100 sq.ft",
+    image: "/images/project6.webp",
+    href: "#",
+  },
+  {
+    title: "Lake House",
+    location: "Mysore",
+    year: "2021",
+    area: "4600 sq.ft",
+    image: "/images/project3.webp",
+    href: "#",
+  },
+];
+---
+
+<section class="residential-projects section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+                Residential Portfolio
+            </span>
+
+            <h2>
+                Explore Our Homes
+            </h2>
+
+            <p>
+                Every residence is designed around its site,
+                its owners and the way they aspire to live.
+            </p>
+
+        </div>
+
+        <div class="project-grid">
+
+            {
+                projects.map((project,index)=>(
+                    <a
+                        href={project.href}
+                        class={`project-card ${project.featured ? "featured" : ""}`}
+                        style={`--delay:${index * .12}s`}
+                    >
+
+                        <img
+                            src={project.image}
+                            alt={project.title}
+                        />
+
+                        <div class="overlay">
+
+                            <div class="project-meta">
+
+                                <span>
+
+                                    {project.location}
+
+                                </span>
+
+                                <h3>
+
+                                    {project.title}
+
+                                </h3>
+
+                                <div class="details">
+
+                                    <span>{project.area}</span>
+
+                                    <span>{project.year}</span>
+
+                                </div>
+
+                                <div class="line"></div>
+
+                                <div class="view-link">
+
+                                    View Project →
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.residential-projects{
+    position:relative;
+    overflow:hidden;
+    background:#faf8f5;
+    padding:120px 0;
+}
+
+/* ========================================= */
+/* Background */
+/* ========================================= */
+
+.residential-projects::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px);
+    background-size:80px 80px;
+    animation:gridMove 22s linear infinite;
+    opacity:.25;
+}
+
+.residential-projects::after{
+    content:"";
+    position:absolute;
+    width:900px;
+    height:900px;
+    right:-220px;
+    top:-220px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            rgba(255,120,0,.10),
+            transparent 72%
+        );
+    filter:blur(120px);
+    pointer-events:none;
+}
+
+.container{
+    position:relative;
+    z-index:2;
+}
+
+/* ========================================= */
+/* Heading */
+/* ========================================= */
+
+.section-heading{
+    max-width:760px;
+    margin:0 auto 80px;
+    text-align:center;
+}
+
+.section-heading h2{
+    margin:18px 0;
+}
+
+.section-heading p{
+    max-width:640px;
+    margin:auto;
+    color:#666;
+}
+
+/* ========================================= */
+/* Grid */
+/* ========================================= */
+
+.project-grid{
+    display:grid;
+    grid-template-columns:repeat(12,minmax(0,1fr));
+    gap:32px;
+}
+
+.featured{
+    grid-column:span 8;
+    min-height:620px;
+}
+
+.project-card:not(.featured){
+    grid-column:span 4;
+    min-height:460px;
+}
+
+/* ========================================= */
+/* Card */
+/* ========================================= */
+
+.project-card{
+
+    position:relative;
+
+    display:block;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    isolation:isolate;
+
+    opacity:0;
+
+    transform:translateY(70px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s cubic-bezier(.22,1,.36,1),
+        box-shadow .45s,
+        filter .45s;
+
+}
+
+/* reveal */
+
+.residential-projects.visible .project-card{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:var(--delay);
+
+}
+
+/* soft glow */
+
+.project-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-35px;
+
+    border-radius:32px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,120,0,.16),
+            transparent 72%
+        );
+
+    filter:blur(35px);
+
+    opacity:0;
+
+    transition:.45s;
+
+    z-index:-1;
+
+}
+
+.project-card:hover::before{
+
+    opacity:1;
+
+}
+
+.project-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+        0 28px 60px rgba(0,0,0,.12);
+
+}
+
+/* ========================================= */
+/* Image */
+/* ========================================= */
+
+.project-card img{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transform:scale(1.06);
+
+    transition:
+        transform 2s cubic-bezier(.22,1,.36,1),
+        filter .6s;
+
+}
+
+.project-card:hover img{
+
+    transform:scale(1.12);
+
+}
+
+/* ========================================= */
+/* Overlay */
+/* ========================================= */
+
+.overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    padding:38px;
+
+    background:
+        linear-gradient(
+            transparent 20%,
+            rgba(0,0,0,.82)
+        );
+
+}
+
+.project-meta{
+
+    transform:translateY(16px);
+
+    transition:.55s;
+
+}
+
+.project-card:hover .project-meta{
+
+    transform:none;
+
+}
+
+.project-meta>span{
+
+    display:block;
+
+    color:rgba(255,255,255,.72);
+
+    font-size:11px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+.project-meta h3{
+
+    color:#fff;
+
+    margin:12px 0 18px;
+
+    font-size:34px;
+
+}
+
+.details{
+
+    display:flex;
+
+    gap:22px;
+
+    color:rgba(255,255,255,.72);
+
+    font-size:13px;
+
+}
+
+.line{
+
+    width:0;
+
+    height:2px;
+
+    margin:22px 0;
+
+    background:var(--accent);
+
+    transition:.5s;
+
+}
+
+.project-card:hover .line{
+
+    width:90px;
+
+}
+
+.view-link{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:var(--accent);
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.project-card:hover .view-link{
+
+    letter-spacing:2.5px;
+
+}
+
+/* ========================================= */
+/* Animation */
+/* ========================================= */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:80px 80px;
+
+    }
+
+}
+
+/* ========================================= */
+/* Responsive */
+/* ========================================= */
+
+@media(max-width:991px){
+
+    .project-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .featured{
+
+        grid-column:span 2;
+
+        min-height:480px;
+
+    }
+
+    .project-card:not(.featured){
+
+        grid-column:auto;
+
+        min-height:380px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .project-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .featured{
+
+        grid-column:auto;
+
+    }
+
+    .project-card{
+
+        min-height:340px;
+
+    }
+
+    .overlay{
+
+        padding:28px;
+
+    }
+
+    .project-meta h3{
+
+        font-size:28px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".residential-projects");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.2
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

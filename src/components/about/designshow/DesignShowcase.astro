@@ -1,0 +1,236 @@
+---
+import DesignCard from "./DesignCard.astro";
+import DesignNavigation from "./DesignNavigation.astro";
+
+const slides = [
+
+    {
+        title: "Natural Light",
+
+        description:
+            "Every space is designed to maximise daylight and strengthen the connection between indoors and outdoors.",
+
+        image: "/images/projects/kutira/Kuitra.webp",
+    },
+
+    {
+        title: "Material Palette",
+
+        description:
+            "Honest materials chosen for warmth, texture and timeless beauty.",
+
+        image: "/images/projects/samudra/samudra.webp",
+    },
+
+];
+---
+
+<section class="design-showcase">
+
+    <div class="intro container">
+
+        <h2>
+            Designing With Purpose
+        </h2>
+
+
+    </div>
+
+    <div class="slider-wrapper">
+
+        <div
+            class="slider"
+            id="design-slider"
+        >
+
+            {
+                slides.map((slide, index) => (
+
+                    <DesignCard
+
+                        title={slide.title}
+
+                        description={slide.description}
+
+                        image={slide.image}
+
+                        index={index}
+
+                    />
+
+                ))
+            }
+
+        </div>
+
+        <DesignNavigation
+
+            total={slides.length}
+
+        />
+
+    </div>
+
+</section>
+
+<script type="module">
+
+    import "./designShowcase.ts";
+
+</script>
+
+<style>
+
+.design-showcase{
+
+    position:relative;
+
+    height:1200px;
+
+    background:#f5f4f1;
+
+    overflow:hidden;
+
+}
+
+/* ------------------------------ */
+
+.intro{
+
+    position:relative;
+
+    z-index:5;
+
+    max-width:1400px;
+
+    margin:0 auto;
+
+    padding:90px 0px 0px 0px;
+
+}
+
+.intro .small-title{
+
+    display:block;
+
+    margin-bottom:18px;
+
+}
+
+.intro h2{
+
+    max-width:1200px;
+
+    margin:0;
+
+    text-align:left;
+
+    font-size:clamp(4px,5vw,72px);
+
+    line-height:.95;
+
+}
+
+.intro p{
+
+    max-width:620px;
+
+    margin-top:28px;
+
+    text-align:left;
+
+    font-size:20px;
+
+    line-height:1.8;
+
+}
+
+/* ------------------------------ */
+
+.slider-wrapper{
+
+    position:sticky;
+
+    top:0;
+
+    height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+/* ------------------------------ */
+
+.slider{
+
+    position:absolute;
+
+    top:50%;
+
+    left:0;
+
+    display:flex;
+
+    gap:48px;
+
+    padding:0 8vw;
+
+    transform:translateY(-50%);
+
+    will-change:transform;
+
+}
+
+/* ------------------------------ */
+
+@media(max-width:991px){
+
+    .design-showcase{
+
+        height:auto;
+
+        padding-bottom:80px;
+
+    }
+
+    .intro{
+
+        padding-top:80px;
+
+        padding-bottom:50px;
+
+    }
+
+    .slider-wrapper{
+
+        position:relative;
+
+        height:auto;
+
+        overflow:visible;
+
+    }
+
+    .slider{
+
+        position:relative;
+
+        transform:none !important;
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:36px;
+
+        padding:0 20px;
+
+    }
+
+}
+
+</style>

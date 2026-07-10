@@ -1,0 +1,230 @@
+<div class="footer-grid-bg">
+
+    <div class="grid"></div>
+
+    <div class="circle circle-1"></div>
+
+    <div class="circle circle-2"></div>
+
+    <div class="line line-1"></div>
+
+    <div class="line line-2"></div>
+
+    <div class="line line-3"></div>
+
+</div>
+
+<style>
+
+.footer-grid-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+}
+
+/* ------------------------------ */
+
+.grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        );
+
+    background-size:70px 70px;
+
+    animation:gridMove 28s linear infinite;
+
+}
+
+/* ------------------------------ */
+
+.circle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,140,0,.08);
+
+}
+
+.circle-1{
+
+    width:950px;
+    height:950px;
+
+    right:-350px;
+    top:-420px;
+
+    animation:rotateSlow 45s linear infinite;
+
+}
+
+.circle-2{
+
+    width:620px;
+    height:620px;
+
+    left:-250px;
+    bottom:-250px;
+
+    animation:rotateSlowReverse 38s linear infinite;
+
+}
+
+/* ------------------------------ */
+
+.line{
+
+    position:absolute;
+
+    height:1px;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,120,0,.18),
+
+            transparent
+
+        );
+
+}
+
+.line-1{
+
+    width:800px;
+
+    top:18%;
+
+    left:-120px;
+
+    transform:rotate(-18deg);
+
+    animation:floatLine 9s ease-in-out infinite;
+
+}
+
+.line-2{
+
+    width:650px;
+
+    right:-150px;
+
+    bottom:30%;
+
+    transform:rotate(12deg);
+
+    animation:floatLine 12s ease-in-out infinite reverse;
+
+}
+
+.line-3{
+
+    width:1000px;
+
+    left:20%;
+
+    bottom:10%;
+
+    transform:rotate(-8deg);
+
+    animation:floatLine 15s ease-in-out infinite;
+
+}
+
+/* ------------------------------ */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+@keyframes rotateSlow{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+@keyframes rotateSlowReverse{
+
+    from{
+
+        transform:rotate(360deg);
+
+    }
+
+    to{
+
+        transform:rotate(0deg);
+
+    }
+
+}
+
+@keyframes floatLine{
+
+    0%,100%{
+
+        transform:translateY(0) rotate(-18deg);
+
+        opacity:.35;
+
+    }
+
+    50%{
+
+        transform:translateY(-30px) rotate(-18deg);
+
+        opacity:1;
+
+    }
+
+}
+
+</style>

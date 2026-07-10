@@ -1,4 +1,4 @@
-<section class="philosophy section">
+<section class="philosophy section reveal-section">
 
     <div class="container">
 
@@ -6,28 +6,95 @@
 
             <!-- Image -->
 
-            <div class="philosophy-image">
+           <div class="philosophy-image reveal-left">
 
-                <img
-                    src="/images/philosophy.jpg"
-                    alt="Bhandary Architects"
-                />
+    <div class="image-frame">
 
-                <div class="experience-box">
+        <!-- Real Image -->
 
-                    <h3>25+</h3>
+        <img
+            class="stack-image"
+            src="/images/Section2-1.webp"
+            alt="Residential Architecture"
+        />
 
-                    <span>
-                        Years of Excellence
-                    </span>
+        <!-- Blueprint Overlay -->
 
-                </div>
+        <svg
+            class="image-sketch"
+            viewBox="0 0 900 700"
+        >
 
-            </div>
+            <rect
+                x="80"
+                y="120"
+                width="740"
+                height="430"
+            />
+
+            <line x1="80" y1="550" x2="820" y2="550"/>
+
+            <line x1="220" y1="120" x2="220" y2="550"/>
+
+            <line x1="420" y1="120" x2="420" y2="550"/>
+
+            <line x1="620" y1="120" x2="620" y2="550"/>
+
+            <path
+                d="M80 250
+                   L240 170
+                   L420 250
+                   L620 170
+                   L820 250"
+            />
+
+            <rect
+                x="320"
+                y="310"
+                width="120"
+                height="160"
+            />
+
+            <rect
+                x="160"
+                y="320"
+                width="90"
+                height="90"
+            />
+
+            <rect
+                x="620"
+                y="320"
+                width="90"
+                height="90"
+            />
+
+        </svg>
+
+    </div>
+
+    <div class="experience-box reveal-box">
+
+       <h3 class="experience-number">
+    <span
+        class="counter"
+        data-target="25"
+    >
+        0
+    </span><span class="plus">+</span>
+</h3>
+
+<span class="experience-label">
+    Years of Excellence
+</span>
+
+    </div>
+
+</div>
 
             <!-- Content -->
 
-            <div class="philosophy-content">
+            <div class="philosophy-content reveal-right">
 
                 <span class="small-title">
                     Our Philosophy
@@ -55,7 +122,7 @@
 
                 <div class="principles">
 
-                    <div class="principle">
+                    <div class="principle reveal-item">
 
                         <div class="principle-number">
                             01
@@ -76,7 +143,7 @@
 
                     </div>
 
-                    <div class="principle">
+                    <div class="principle reveal-item">
 
                         <div class="principle-number">
                             02
@@ -98,7 +165,7 @@
 
                     </div>
 
-                    <div class="principle">
+                    <div class="principle reveal-item">
 
                         <div class="principle-number">
                             03
@@ -136,6 +203,91 @@
 
 </section>
 
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const observer = new IntersectionObserver((entries, obs) => {
+
+        entries.forEach((entry) => {
+
+            if (!entry.isIntersecting) return;
+
+            // Wait until about 60% of the section is visible
+            if (entry.intersectionRatio < 0.6) return;
+
+            const section = entry.target;
+
+            if (section.classList.contains("visible")) return;
+
+            section.classList.add("visible");
+
+            // Image transition after sketch finishes
+            const imageFrame = section.querySelector(".image-frame");
+
+            if (imageFrame) {
+
+                setTimeout(() => {
+
+                    imageFrame.classList.add("image-colored");
+
+                }, 3200);
+
+            }
+
+            // Counter animation
+            section.querySelectorAll(".counter").forEach(counter => {
+
+                const target = Number(counter.dataset.target);
+
+                const duration = 1800;
+
+                const start = performance.now();
+
+                function animate(now){
+
+                    const progress = Math.min((now - start) / duration,1);
+
+                    const eased = 1 - Math.pow(1 - progress,3);
+
+                    counter.textContent = Math.floor(target * eased);
+
+                    if(progress < 1){
+
+                        requestAnimationFrame(animate);
+
+                    }else{
+
+                        counter.textContent = target;
+
+                    }
+
+                }
+
+                requestAnimationFrame(animate);
+
+            });
+
+            obs.unobserve(section);
+
+        });
+
+    },{
+
+        threshold:0.6
+
+    });
+
+    document.querySelectorAll(".reveal-section").forEach(section=>{
+
+        observer.observe(section);
+
+    });
+
+});
+
+</script>
+
 <style>
 
 .philosophy{
@@ -150,33 +302,219 @@
 }
 
 .philosophy-image{
+
     position:relative;
+
+}
+.image-frame{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:10px;
+
+    background:#050505;
+
+    box-shadow:
+
+        0 40px 90px rgba(0,0,0,.18);
+
 }
 
-.philosophy-image img{
+.stack-image{
+     transform:translateY(70px) scale(.96);
+
     width:100%;
     display:block;
+
+    transform:scale(1.04);
+
+    filter:
+        grayscale(100%)
+        saturate(0%)
+        brightness(.85)
+        contrast(1.2);
+
+    transition:
+
+        filter 2s cubic-bezier(.22,1,.36,1),
+        transform 2s cubic-bezier(.22,1,.36,1);
+
+}
+
+.image-frame.image-colored .stack-image{
+
+    transform:scale(1);
+
+    filter:
+
+        grayscale(0%)
+
+        saturate(100%)
+
+        brightness(1)
+
+        contrast(1);
+
+}
+
+/* -------------------------- */
+
+.image-sketch{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    pointer-events:none;
+
+}
+
+.image-sketch path,
+.image-sketch rect,
+.image-sketch line{
+
+    fill:none;
+
+    stroke:#ff6b00;
+
+    stroke-width:2;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+    stroke-dasharray:1800;
+
+    stroke-dashoffset:1800;
+
+    opacity:.9;
+
+    filter:
+
+        drop-shadow(0 0 10px rgba(255,120,0,.45));
+
+}
+
+/* -------------------------- */
+
+.reveal-section.visible .image-sketch path,
+.reveal-section.visible .image-sketch rect,
+.reveal-section.visible .image-sketch line{
+
+    animation:
+
+        sketchDraw 2.4s ease forwards,
+
+        sketchFade .8s ease forwards;
+
+    animation-delay:
+
+        .2s,
+
+        2.6s;
+
+}
+/* -------------------------- */
+
+@keyframes sketchDraw{
+
+    to{
+
+        stroke-dashoffset:0;
+
+    }
+
+}
+
+@keyframes sketchFade{
+
+    to{
+
+        opacity:0;
+
+    }
+
 }
 
 .experience-box{
+
     position:absolute;
-    left:-30px;
-    bottom:-30px;
-    background:var(--black);
-    color:white;
-    padding:35px;
+
+    right:-40px;
+
+    bottom:-60px;
+
+    background:#111;
+
+    color:#fff;
+
+    min-width:340px;
+
+    padding:38px 42px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.22);
+
+    z-index:20;
+
 }
 
-.experience-box h3{
-    color:white;
-    font-size:56px;
-    margin-bottom:6px;
+.experience-number{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:4px;
+
+    margin:0 0 14px;
+
+    line-height:1;
+
 }
 
-.experience-box span{
+.counter{
+
+    font-size:72px;
+
+    font-weight:700;
+
+    color:var(--accent);
+
+}
+
+.plus{
+
+    font-size:54px;
+
+    font-weight:700;
+
+    color:var(--accent);
+
+    transform:translateY(-6px);
+
+}
+
+.experience-label{
+
+    display:block;
+
+    color:rgba(255,255,255,.75);
+
     font-size:12px;
+
+    letter-spacing:4px;
+
     text-transform:uppercase;
-    letter-spacing:2px;
+
 }
 
 .philosophy-content h2{
@@ -233,8 +571,11 @@
     }
 
     .experience-box{
-        left:20px;
+
+        right:20px;
+
         bottom:20px;
+
     }
 
 }
@@ -250,13 +591,165 @@
         min-width:45px;
     }
 
-    .experience-box{
-        position:relative;
-        left:0;
-        bottom:0;
-        margin-top:20px;
-        display:inline-block;
+ .image-stack img{
+
+        height:180px;
+
     }
+
+    .experience-box{
+
+        position:relative;
+
+        right:auto;
+
+        bottom:auto;
+
+        margin-top:24px;
+
+        display:inline-block;
+
+    }
+
+}
+
+/* ================================================= */
+/* Premium Scroll Reveal */
+/* ================================================= */
+
+.reveal-left,
+.reveal-right,
+.stack-image,
+.reveal-box,
+.reveal-item{
+
+    opacity:0;
+
+    transition:
+        opacity .9s cubic-bezier(.22,1,.36,1),
+        transform .9s cubic-bezier(.22,1,.36,1);
+
+}
+
+.reveal-left{
+
+    transform:translateX(-70px);
+
+}
+
+.reveal-right{
+
+    transform:translateX(70px);
+
+}
+
+.reveal-box{
+
+    transform:translateY(50px) scale(.92);
+
+}
+
+.reveal-item{
+
+    transform:translateY(35px);
+
+}
+
+/* -------------------------------- */
+
+.reveal-section.visible .reveal-left{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.reveal-section.visible .reveal-right{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:.2s;
+
+}
+
+/* -------------------------------- */
+/* Stacked Images */
+/* -------------------------------- */
+
+.reveal-section.visible .stack-image:nth-child(1){
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:.15s;
+
+}
+
+.reveal-section.visible .stack-image:nth-child(2){
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:.35s;
+
+}
+
+.reveal-section.visible .stack-image:nth-child(3){
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:.55s;
+
+}
+
+/* -------------------------------- */
+
+.reveal-section.visible .reveal-box{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:.8s;
+
+}
+
+/* -------------------------------- */
+
+.reveal-section.visible .reveal-item:nth-child(1){
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:.45s;
+
+}
+
+.reveal-section.visible .reveal-item:nth-child(2){
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:.65s;
+
+}
+
+.reveal-section.visible .reveal-item:nth-child(3){
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:.85s;
 
 }
 

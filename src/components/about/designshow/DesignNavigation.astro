@@ -1,0 +1,212 @@
+---
+interface Props {
+    total: number;
+}
+
+const { total } = Astro.props;
+---
+
+<div
+    class="design-navigation"
+    id="design-navigation"
+>
+
+    <div class="counter">
+
+        <span
+            id="design-current"
+            class="current"
+        >
+            01
+        </span>
+
+        <div class="progress-track">
+
+            <div
+                class="progress-fill"
+                id="design-progress"
+            ></div>
+
+        </div>
+
+        <span class="total">
+
+            {String(total).padStart(2, "0")}
+
+        </span>
+
+    </div>
+
+    <div class="scroll-indicator">
+
+        <span>
+
+            Scroll
+
+        </span>
+
+        <svg
+            viewBox="0 0 24 24"
+            class="scroll-icon"
+        >
+
+            <path
+                d="M12 4v14M6 13l6 6 6-6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+
+        </svg>
+
+    </div>
+
+</div>
+
+<style>
+.design-navigation{
+
+    position:absolute;
+
+    right:60px;
+
+    bottom:60px;
+
+    z-index:20;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    color:white;
+
+}
+
+/* ----------------------------- */
+
+.counter{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+}
+
+/* ----------------------------- */
+
+.current,
+.total{
+
+    font-size:13px;
+
+    font-weight:500;
+
+    letter-spacing:2px;
+
+}
+
+/* ----------------------------- */
+
+.progress-track{
+
+    width:120px;
+
+    height:2px;
+
+    background:rgba(255,255,255,.25);
+
+    overflow:hidden;
+
+}
+
+/* ----------------------------- */
+
+.progress-fill{
+
+    width:20%;
+
+    height:100%;
+
+    background:white;
+
+    transition:width .45s ease;
+
+}
+
+/* ----------------------------- */
+
+.scroll-indicator{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-left:10px;
+
+    opacity:.7;
+
+}
+
+/* ----------------------------- */
+
+.scroll-indicator span{
+
+    font-size:11px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+/* ----------------------------- */
+
+.scroll-icon{
+
+    width:16px;
+
+    height:16px;
+
+    animation:floatArrow 1.6s ease-in-out infinite;
+
+}
+
+/* ----------------------------- */
+
+@keyframes floatArrow{
+
+    0%,100%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(5px);
+
+    }
+
+}
+
+/* ----------------------------- */
+
+@media(max-width:768px){
+
+    .design-navigation{
+
+        display:none;
+
+    }
+
+}
+
+</style>

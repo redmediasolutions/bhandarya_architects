@@ -1,0 +1,321 @@
+---
+const faqs = [
+  {
+    question: "How long does a residential project usually take?",
+    answer:
+      "Every project is unique, but a typical residence—from concept design to construction documentation—takes between 4 to 8 months depending on the scale and complexity.",
+  },
+  {
+    question: "Do you undertake projects outside Mangalore?",
+    answer:
+      "Yes. We work across Karnataka and other parts of India, providing architectural design, planning, interior design and construction coordination.",
+  },
+  {
+    question: "Can you design according to Vastu principles?",
+    answer:
+      "Absolutely. We integrate Vastu requirements thoughtfully without compromising aesthetics, functionality or architectural quality.",
+  },
+  {
+    question: "Do you also provide interior design?",
+    answer:
+      "Yes. Our architectural and interior teams work together to create cohesive spaces where every material, finish and detail complements the overall vision.",
+  },
+  {
+    question: "Can you assist during construction?",
+    answer:
+      "Yes. We provide periodic site visits, design clarification, material selection and coordination with contractors to ensure the design intent is maintained.",
+  }
+];
+---
+
+<section class="residential-faq section">
+
+    <div class="container">
+
+        <div class="faq-grid">
+
+            <div class="faq-heading">
+
+                <span class="small-title">
+
+                    Frequently Asked Questions
+
+                </span>
+
+                <h2>
+
+                    Everything You Need
+                    <br>
+                    To Know
+
+                </h2>
+
+                <p>
+
+                    Building a home is a significant investment.
+                    Here are answers to some of the questions our
+                    clients ask before beginning their journey.
+
+                </p>
+
+            </div>
+
+            <div class="faq-list">
+
+                {
+                    faqs.map((faq,index)=>(
+
+                        <article class={`faq-item ${index===0 ? "active" : ""}`}>
+
+                            <button class="faq-question">
+
+                                <span>
+
+                                    {faq.question}
+
+                                </span>
+
+                                <span class="icon">
+
+                                    +
+
+                                </span>
+
+                            </button>
+
+                            <div class="faq-answer">
+
+                                <p>
+
+                                    {faq.answer}
+
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    ))
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.residential-faq{
+
+    background:#fafafa;
+
+}
+
+.faq-grid{
+
+    display:grid;
+
+    grid-template-columns:.9fr 1.1fr;
+
+    gap:80px;
+
+    align-items:start;
+
+}
+
+.faq-heading{
+
+    position:sticky;
+
+    top:120px;
+
+}
+
+.faq-heading h2{
+
+    margin:18px 0 24px;
+
+}
+
+.faq-heading p{
+
+    max-width:420px;
+
+}
+
+/* ---------------- */
+
+.faq-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.faq-item{
+
+    background:#fff;
+
+    border:1px solid rgba(0,0,0,.08);
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+}
+
+.faq-item.active{
+
+    border-color:var(--accent);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.08);
+
+}
+
+.faq-question{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:28px 32px;
+
+    background:none;
+
+    border:none;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+.icon{
+
+    font-size:30px;
+
+    color:var(--accent);
+
+    transition:.35s;
+
+}
+
+.faq-item.active .icon{
+
+    transform:rotate(45deg);
+
+}
+
+.faq-answer{
+
+    max-height:0;
+
+    overflow:hidden;
+
+    transition:max-height .45s ease;
+
+}
+
+.faq-answer p{
+
+    padding:0 32px 30px;
+
+    color:#666;
+
+    line-height:1.8;
+
+}
+
+.faq-item.active .faq-answer{
+
+    max-height:240px;
+
+}
+
+/* ---------------- */
+
+@media(max-width:991px){
+
+    .faq-grid{
+
+        grid-template-columns:1fr;
+
+        gap:50px;
+
+    }
+
+    .faq-heading{
+
+        position:static;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .faq-question{
+
+        padding:22px 24px;
+
+        font-size:16px;
+
+    }
+
+    .faq-answer p{
+
+        padding:0 24px 24px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    document.querySelectorAll(".faq-question").forEach(button=>{
+
+        button.addEventListener("click",()=>{
+
+            const item=button.parentElement;
+
+            const isOpen=item.classList.contains("active");
+
+            document.querySelectorAll(".faq-item").forEach(faq=>{
+
+                faq.classList.remove("active");
+
+            });
+
+            if(!isOpen){
+
+                item.classList.add("active");
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>
