@@ -20,56 +20,51 @@
 
         <!-- Blueprint Overlay -->
 
-        <svg
-            class="image-sketch"
-            viewBox="0 0 900 700"
-        >
+       <svg class="image-sketch" viewBox="0 0 1024 1536" preserveAspectRatio="none">
 
-            <rect
-                x="80"
-                y="120"
-                width="740"
-                height="430"
-            />
+    <!-- Ceiling beam -->
+    <line x1="0" y1="240" x2="1024" y2="240"/>
 
-            <line x1="80" y1="550" x2="820" y2="550"/>
+    <!-- Pipe -->
+    <line x1="620" y1="0" x2="620" y2="420"/>
 
-            <line x1="220" y1="120" x2="220" y2="550"/>
+    <!-- Hanging lamp -->
+    <line x1="690" y1="0" x2="690" y2="460"/>
 
-            <line x1="420" y1="120" x2="420" y2="550"/>
+    <!-- Window -->
+    <line x1="815" y1="0" x2="815" y2="1536"/>
+    <line x1="930" y1="0" x2="930" y2="1536"/>
 
-            <line x1="620" y1="120" x2="620" y2="550"/>
+    <!-- Main column -->
+    <path d="
+        M250 380
+        L250 1120
+        L360 1120
+        L360 380
+    "/>
 
-            <path
-                d="M80 250
-                   L240 170
-                   L420 250
-                   L620 170
-                   L820 250"
-            />
+     Center column
+    <path d="
+        M520 560
+        L520 1030
+        L610 1030
+        L610 560
+    "/>
 
-            <rect
-                x="320"
-                y="310"
-                width="120"
-                height="160"
-            />
+     <!-- Foreground table 
+    <path d="
+        M540 910
+        L815 910
+        L815 1030
+        L540 1030
+        Z
+    "/>
 
-            <rect
-                x="160"
-                y="320"
-                width="90"
-                height="90"
-            />
+     Floor perspective 
+    <line x1="430" y1="780" x2="590" y2="1536"/>
+    <line x1="610" y1="780" x2="790" y2="1536"/>-->
 
-            <rect
-                x="620"
-                y="320"
-                width="90"
-                height="90"
-            />
-
-        </svg>
+</svg>
 
     </div>
 
@@ -364,60 +359,47 @@ document.addEventListener("DOMContentLoaded", () => {
 .image-sketch{
 
     position:absolute;
-
     inset:0;
-
     width:100%;
-
     height:100%;
-
     pointer-events:none;
+    z-index:5;
 
 }
 
-.image-sketch path,
-.image-sketch rect,
-.image-sketch line{
+.image-sketch *{
 
     fill:none;
 
-    stroke:#ff6b00;
+    stroke:#ff7a00;
 
-    stroke-width:2;
+    stroke-width:1.4;
 
     stroke-linecap:round;
 
     stroke-linejoin:round;
 
-    stroke-dasharray:1800;
+    vector-effect:non-scaling-stroke;
 
-    stroke-dashoffset:1800;
+    opacity:.75;
 
-    opacity:.9;
+    stroke-dasharray:1400;
 
-    filter:
+    stroke-dashoffset:1400;
 
-        drop-shadow(0 0 10px rgba(255,120,0,.45));
+    filter:drop-shadow(0 0 8px rgba(255,120,0,.45));
 
 }
 
-/* -------------------------- */
-
-.reveal-section.visible .image-sketch path,
-.reveal-section.visible .image-sketch rect,
-.reveal-section.visible .image-sketch line{
+.reveal-section.visible .image-sketch *{
 
     animation:
-
-        sketchDraw 2.4s ease forwards,
-
+        sketchDraw 2.2s ease forwards,
         sketchFade .8s ease forwards;
 
     animation-delay:
-
         .2s,
-
-        2.6s;
+        2.4s;
 
 }
 /* -------------------------- */
