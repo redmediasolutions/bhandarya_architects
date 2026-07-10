@@ -30,29 +30,28 @@ function initDesignShowcase() {
     let activeIndex = 0;
     let listenersBound = false;
 
+    // Cards sit vertically centered inside the 100vh sticky wrapper, so they
+    // leave the viewport slightly before the wrapper itself finishes
+    // scrolling away. Size the section to exactly close that gap instead of
+    // guessing a fixed vh value.
+    const cardMargin = (window.innerHeight - slides[0].offsetHeight) / 2;
+    section.style.height = `${2 * window.innerHeight - cardMargin}px`;
+
     function getTotalScroll(){
 
         return section!.offsetHeight - window.innerHeight;
 
     }
 
-    function animate() {
+    function getStep(){
 
-        ticking = false;
-
-        const rect = section!.getBoundingClientRect();
-        const totalScroll = getTotalScroll();
-
-        const progressValue = totalScroll > 0
-            ? Math.min(Math.max(-rect.top / totalScroll, 0), 1)
+        return slides.length > 1
+            ? slides[1].offsetLeft - slides[0].offsetLeft
             : 0;
 
-        const maxTranslate =
-            slider!.scrollWidth - window.innerWidth + 200;
+    }
 
-        const translate = progressValue * maxTranslate;
-
-        slider!.style.transform = `translate3d(${-translate}px,-50%,0)`;
+    function updateCards(translate: number) {
 
         let active = 0;
 
@@ -101,6 +100,27 @@ function initDesignShowcase() {
 
     }
 
+    function animate() {
+
+        ticking = false;
+
+        const rect = section!.getBoundingClientRect();
+        const totalScroll = getTotalScroll();
+
+        const progressValue = totalScroll > 0
+            ? Math.min(Math.max(-rect.top / totalScroll, 0), 1)
+            : 0;
+
+        const maxTranslate = getStep() * (slides.length - 1);
+        const translate = progressValue * maxTranslate;
+
+        slider!.style.transition = "none";
+        slider!.style.transform = `translate3d(${-translate}px,-50%,0)`;
+
+        updateCards(translate);
+
+    }
+
     function onScroll(){
 
         if(!ticking){
@@ -115,14 +135,12 @@ function initDesignShowcase() {
     function goToSlide(index: number){
 
         const clamped = Math.min(Math.max(index, 0), slides.length - 1);
-        const totalScroll = getTotalScroll();
-        const progressValue = clamped / (slides.length - 1);
-        const sectionTop = section!.getBoundingClientRect().top + window.scrollY;
+        const translate = getStep() * clamped;
 
-        window.scrollTo({
-            top: sectionTop + progressValue * totalScroll,
-            behavior: "smooth",
-        });
+        slider!.style.transition = "transform .6s cubic-bezier(.22,1,.36,1)";
+        slider!.style.transform = `translate3d(${-translate}px,-50%,0)`;
+
+        updateCards(translate);
 
     }
 
