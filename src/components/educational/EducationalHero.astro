@@ -1,0 +1,513 @@
+---
+import { img } from "../../consts";
+
+const heroImage = img("2026/05/Copy-of-01.webp");
+---
+
+<section class="educational-hero">
+
+    <div
+        class="hero-bg"
+        style={`background-image:url('${heroImage}')`}
+    ></div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-grid"></div>
+
+    <div class="hero-glow"></div>
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <span class="small-title">
+
+                Educational Architecture
+
+            </span>
+
+            <h1>
+
+                Designing
+                <br>
+
+                Inspiring
+                <br>
+
+                Learning Spaces
+
+            </h1>
+
+            <p>
+
+                We create schools, colleges and educational
+                campuses that nurture curiosity, encourage
+                collaboration and provide environments where
+                students thrive for generations.
+
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="/contact"
+                    class="btn"
+                >
+
+                    Discuss Your Project
+
+                </a>
+
+                <a
+                    href="#projects"
+                    class="secondary-btn"
+                >
+
+                    Explore Projects
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-stats">
+
+            <div>
+
+                <strong>20+</strong>
+
+                <span>Institutions</span>
+
+            </div>
+
+            <div>
+
+                <strong>1.5M+</strong>
+
+                <span>Sq.ft Designed</span>
+
+            </div>
+
+            <div>
+
+                <strong>25+</strong>
+
+                <span>Years Experience</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="scroll-indicator">
+
+        <span></span>
+
+    </div>
+
+</section>
+
+<style>
+
+.educational-hero{
+
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    background:#111;
+
+}
+
+/* ========================= */
+
+.hero-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    background-size:cover;
+
+    background-position:center;
+
+    transform:scale(1.08);
+
+    animation:heroZoom 18s linear infinite alternate;
+
+}
+
+/* ========================= */
+
+.hero-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            rgba(0,0,0,.82),
+
+            rgba(0,0,0,.45)
+
+        ),
+
+        linear-gradient(
+
+            180deg,
+
+            rgba(0,0,0,.15),
+
+            rgba(0,0,0,.55)
+
+        );
+
+}
+
+/* ========================= */
+
+.hero-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 22s linear infinite;
+
+}
+
+/* ========================= */
+
+.hero-glow{
+
+    position:absolute;
+
+    right:-250px;
+
+    top:-250px;
+
+    width:900px;
+
+    height:900px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(70,180,120,.18),
+
+            transparent 70%
+
+        );
+
+    filter:blur(120px);
+
+}
+
+/* ========================= */
+
+.container{
+
+    position:relative;
+
+    z-index:5;
+
+}
+
+/* ========================= */
+
+.hero-content{
+
+    max-width:760px;
+
+}
+
+.hero-content h1{
+
+    margin:25px 0;
+
+    color:white;
+
+    font-size:clamp(68px,8vw,110px);
+
+    line-height:.9;
+
+}
+
+.hero-content p{
+
+    max-width:620px;
+
+    color:rgba(255,255,255,.82);
+
+    font-size:18px;
+
+    line-height:1.9;
+
+}
+
+/* ========================= */
+
+.hero-actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:18px;
+
+    margin-top:50px;
+
+}
+
+.secondary-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:16px 34px;
+
+    border:1px solid rgba(255,255,255,.2);
+
+    border-radius:999px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.secondary-btn:hover{
+
+    background:white;
+
+    color:#111;
+
+}
+
+/* ========================= */
+
+.hero-stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:40px;
+
+    margin-top:90px;
+
+    max-width:700px;
+
+}
+
+.hero-stats strong{
+
+    display:block;
+
+    color:white;
+
+    font-size:54px;
+
+    line-height:1;
+
+}
+
+.hero-stats span{
+
+    display:block;
+
+    margin-top:12px;
+
+    color:rgba(255,255,255,.7);
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:11px;
+
+}
+
+/* ========================= */
+
+.scroll-indicator{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:40px;
+
+    transform:translateX(-50%);
+
+    width:28px;
+
+    height:48px;
+
+    border:2px solid rgba(255,255,255,.35);
+
+    border-radius:20px;
+
+}
+
+.scroll-indicator span{
+
+    position:absolute;
+
+    top:8px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:6px;
+
+    height:6px;
+
+    border-radius:50%;
+
+    background:white;
+
+    animation:scroll 2s infinite;
+
+}
+
+/* ========================= */
+
+@keyframes heroZoom{
+
+    from{
+
+        transform:scale(1.08);
+
+    }
+
+    to{
+
+        transform:scale(1.18);
+
+    }
+
+}
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+@keyframes scroll{
+
+    0%{
+
+        opacity:1;
+
+        transform:translate(-50%,0);
+
+    }
+
+    100%{
+
+        opacity:0;
+
+        transform:translate(-50%,18px);
+
+    }
+
+}
+
+/* ========================= */
+
+@media(max-width:991px){
+
+    .hero-stats{
+
+        grid-template-columns:1fr;
+
+        gap:25px;
+
+        margin-top:60px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .educational-hero{
+
+        min-height:90vh;
+
+    }
+
+    .hero-content h1{
+
+        font-size:56px;
+
+    }
+
+    .hero-content p{
+
+        font-size:16px;
+
+    }
+
+    .hero-actions{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+}
+
+</style>

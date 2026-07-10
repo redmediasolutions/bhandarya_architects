@@ -1,0 +1,392 @@
+---
+const faqs = [
+    {
+        question: "What types of educational institutions do you design?",
+        answer: "We design schools, colleges, universities, training institutes, research centres, libraries, hostels and integrated educational campuses tailored to each institution's vision and long-term goals."
+    },
+    {
+        question: "Do you provide campus master planning?",
+        answer: "Yes. We offer comprehensive campus master planning, including academic blocks, circulation, landscape, sports facilities, student amenities and future expansion strategies."
+    },
+    {
+        question: "Can you design campuses in phases?",
+        answer: "Absolutely. Many educational institutions grow over time, so we create phased master plans that allow future academic blocks and facilities to be added without disrupting existing operations."
+    },
+    {
+        question: "How do you ensure sustainability in educational buildings?",
+        answer: "Our designs maximize natural daylight, ventilation, energy efficiency, rainwater harvesting, landscape integration and environmentally responsible materials to create healthier learning environments."
+    },
+    {
+        question: "Do you coordinate with consultants and contractors?",
+        answer: "Yes. We work closely with structural, MEP, landscape and specialist consultants while coordinating with contractors throughout construction to ensure the design intent is successfully realized."
+    },
+    {
+        question: "Can you renovate or expand existing campuses?",
+        answer: "Yes. We undertake renovation, modernization and expansion projects while ensuring the new architecture integrates seamlessly with the existing campus."
+    }
+];
+---
+
+<section class="education-faq section">
+
+    <div class="background-grid"></div>
+
+    <div class="glow"></div>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+
+                Frequently Asked Questions
+
+            </span>
+
+            <h2>
+
+                Educational
+                <br>
+
+                Architecture FAQs
+
+            </h2>
+
+            <p>
+
+                Answers to some of the most common questions
+                institutions ask when planning a new campus
+                or expanding existing facilities.
+
+            </p>
+
+        </div>
+
+        <div class="faq-list">
+
+            {
+                faqs.map((faq,index)=>(
+
+                    <details
+                        class="faq-item"
+                        style={`--delay:${index*.08}s`}
+                    >
+
+                        <summary>
+
+                            <span>
+
+                                {faq.question}
+
+                            </span>
+
+                            <div class="icon">
+
+                                +
+
+                            </div>
+
+                        </summary>
+
+                        <div class="answer">
+
+                            <p>
+
+                                {faq.answer}
+
+                            </p>
+
+                        </div>
+
+                    </details>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.education-faq{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#faf8f5;
+
+}
+
+/* =============================== */
+
+.background-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(0,0,0,.02) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(0,0,0,.02) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 18s linear infinite;
+
+}
+
+.glow{
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    right:-250px;
+
+    top:-250px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(76,175,80,.12),
+
+            transparent 70%
+
+        );
+
+    filter:blur(120px);
+
+}
+
+.container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* =============================== */
+
+.section-heading{
+
+    max-width:760px;
+
+    margin:0 auto 70px;
+
+    text-align:center;
+
+}
+
+.section-heading h2{
+
+    margin:18px 0;
+
+}
+
+.section-heading p{
+
+    color:#666;
+
+}
+
+/* =============================== */
+
+.faq-list{
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+.faq-item{
+
+    margin-bottom:20px;
+
+    background:white;
+
+    border-radius:18px;
+
+    border:1px solid rgba(0,0,0,.06);
+
+    overflow:hidden;
+
+    transition:.35s;
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+}
+
+.education-faq.visible .faq-item{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:var(--delay);
+
+}
+
+.faq-item:hover{
+
+    box-shadow:0 20px 50px rgba(0,0,0,.06);
+
+}
+
+summary{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    list-style:none;
+
+    padding:28px 34px;
+
+    font-size:20px;
+
+    font-weight:600;
+
+}
+
+summary::-webkit-details-marker{
+
+    display:none;
+
+}
+
+.icon{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#4CAF50;
+
+    color:white;
+
+    font-size:24px;
+
+    transition:.35s;
+
+    flex-shrink:0;
+
+}
+
+details[open] .icon{
+
+    transform:rotate(45deg);
+
+}
+
+.answer{
+
+    padding:0 34px 30px;
+
+}
+
+.answer p{
+
+    color:#666;
+
+    line-height:1.9;
+
+    max-width:760px;
+
+}
+
+/* =============================== */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+/* =============================== */
+
+@media(max-width:768px){
+
+    summary{
+
+        padding:22px 24px;
+
+        font-size:18px;
+
+    }
+
+    .answer{
+
+        padding:0 24px 24px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".education-faq");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.2
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

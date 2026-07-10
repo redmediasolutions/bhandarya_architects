@@ -1,0 +1,575 @@
+---
+import { img } from "../../consts";
+
+const project = {
+    title: "St. Mary's Educational Campus",
+    category: "Educational Institution",
+    location: "Mangalore, Karnataka",
+    year: "2025",
+    area: "185,000 sq.ft",
+    image: img("2026/05/Copy-of-01.webp"),
+    href: "/projects/st-marys-campus",
+    features: [
+        "Smart Classrooms",
+        "Central Library",
+        "Sports Facilities",
+        "Landscape Courtyards"
+    ]
+};
+---
+
+<section class="featured-education">
+
+    <div class="grid-bg"></div>
+
+    <div class="glow"></div>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+
+                Featured Campus
+
+            </span>
+
+            <h2>
+
+                Learning Beyond
+                <br>
+                The Classroom
+
+            </h2>
+
+        </div>
+
+        <div class="project-layout">
+
+            <a
+                href={project.href}
+                class="project-image"
+            >
+
+                <img
+                    src={project.image}
+                    alt={project.title}
+                />
+
+                <div class="image-overlay"></div>
+
+                <div class="campus-tag">
+
+                    Signature Project
+
+                </div>
+
+            </a>
+
+            <div class="project-card">
+
+                <span class="category">
+
+                    {project.category}
+
+                </span>
+
+                <h3>
+
+                    {project.title}
+
+                </h3>
+
+                <div class="accent-line"></div>
+
+                <p>
+
+                    Designed around open learning, community
+                    interaction and sustainable planning,
+                    this campus integrates academic spaces,
+                    courtyards, landscape and recreation into
+                    a cohesive educational environment that
+                    inspires both students and educators.
+
+                </p>
+
+                <div class="feature-list">
+
+                    {
+                        project.features.map(feature=>(
+
+                            <span>
+
+                                {feature}
+
+                            </span>
+
+                        ))
+                    }
+
+                </div>
+
+                <div class="project-meta">
+
+                    <div>
+
+                        <small>
+
+                            Location
+
+                        </small>
+
+                        <strong>
+
+                            {project.location}
+
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <small>
+
+                            Area
+
+                        </small>
+
+                        <strong>
+
+                            {project.area}
+
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <small>
+
+                            Completed
+
+                        </small>
+
+                        <strong>
+
+                            {project.year}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <a
+                    href={project.href}
+                    class="btn"
+                >
+
+                    Explore Project
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.featured-education{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#faf8f5;
+
+}
+
+/* ===================================== */
+
+.grid-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+        linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 18s linear infinite;
+
+}
+
+.glow{
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    right:-250px;
+
+    top:-250px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(70,180,120,.14),
+
+            transparent 70%
+
+        );
+
+    filter:blur(120px);
+
+}
+
+.container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* ===================================== */
+
+.section-heading{
+
+    text-align:center;
+
+    margin-bottom:70px;
+
+}
+
+.section-heading h2{
+
+    margin-top:18px;
+
+}
+
+/* ===================================== */
+
+.project-layout{
+
+    display:grid;
+
+    grid-template-columns:1.25fr .95fr;
+
+    gap:80px;
+
+    align-items:center;
+
+}
+
+/* ===================================== */
+
+.project-image{
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:block;
+
+    border-radius:24px;
+
+    box-shadow:0 35px 80px rgba(0,0,0,.12);
+
+    opacity:0;
+
+    transform:translateX(-60px);
+
+    transition:.9s;
+
+}
+
+.project-image img{
+
+    width:100%;
+
+    display:block;
+
+    transform:scale(1.08);
+
+    transition:transform 2.2s;
+
+}
+
+.project-image:hover img{
+
+    transform:scale(1.15);
+
+}
+
+.image-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+
+            transparent,
+
+            rgba(0,0,0,.35)
+
+        );
+
+}
+
+.campus-tag{
+
+    position:absolute;
+
+    top:30px;
+
+    left:30px;
+
+    padding:12px 20px;
+
+    background:white;
+
+    border-left:4px solid #4CAF50;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+/* ===================================== */
+
+.project-card{
+
+    opacity:0;
+
+    transform:translateX(60px);
+
+    transition:.9s;
+
+}
+
+.featured-education.visible .project-image,
+
+.featured-education.visible .project-card{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.featured-education.visible .project-card{
+
+    transition-delay:.2s;
+
+}
+
+/* ===================================== */
+
+.category{
+
+    color:#4CAF50;
+
+    text-transform:uppercase;
+
+    letter-spacing:3px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.project-card h3{
+
+    margin:18px 0;
+
+    font-size:clamp(42px,5vw,60px);
+
+}
+
+.accent-line{
+
+    width:80px;
+
+    height:2px;
+
+    background:#4CAF50;
+
+    margin-bottom:30px;
+
+}
+
+.project-card p{
+
+    color:#666;
+
+    line-height:1.9;
+
+}
+
+/* ===================================== */
+
+.feature-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin:35px 0;
+
+}
+
+.feature-list span{
+
+    padding:10px 18px;
+
+    background:white;
+
+    border-radius:999px;
+
+    border:1px solid rgba(0,0,0,.06);
+
+    font-size:12px;
+
+}
+
+/* ===================================== */
+
+.project-meta{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+    padding:35px 0;
+
+    margin-bottom:35px;
+
+    border-top:1px solid rgba(0,0,0,.08);
+
+    border-bottom:1px solid rgba(0,0,0,.08);
+
+}
+
+.project-meta small{
+
+    display:block;
+
+    color:#888;
+
+    margin-bottom:10px;
+
+    text-transform:uppercase;
+
+    font-size:11px;
+
+    letter-spacing:2px;
+
+}
+
+.project-meta strong{
+
+    font-size:18px;
+
+}
+
+/* ===================================== */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+/* ===================================== */
+
+@media(max-width:991px){
+
+    .project-layout{
+
+        grid-template-columns:1fr;
+
+        gap:50px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .project-meta{
+
+        grid-template-columns:1fr;
+
+        gap:22px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".featured-education");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.25
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

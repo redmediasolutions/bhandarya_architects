@@ -1,0 +1,534 @@
+---
+import { img } from "../../consts";
+
+const project = {
+    title: "Corporate Headquarters",
+    category: "Commercial Architecture",
+    client: "Confidential Client",
+    location: "Mangalore, Karnataka",
+    year: "2025",
+    area: "48,500 sq.ft",
+    image: img("2026/05/Copy-of-01.webp"),
+    href: "/projects/corporate-headquarters",
+};
+---
+
+<section class="featured-commercial">
+
+    <div class="background-grid"></div>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+
+                Featured Commercial Project
+
+            </span>
+
+            <h2>
+
+                A Workplace Designed
+                <br />
+                Around Innovation.
+
+            </h2>
+
+        </div>
+
+        <div class="project-grid">
+
+            <div class="project-content">
+
+                <span class="category">
+
+                    {project.category}
+
+                </span>
+
+                <h3>
+
+                    {project.title}
+
+                </h3>
+
+                <div class="accent-line"></div>
+
+                <p>
+
+                    Designed as a contemporary headquarters,
+                    the building brings together collaborative
+                    workspaces, executive offices and public
+                    engagement areas under one architectural
+                    language.
+
+                </p>
+
+                <p>
+
+                    Natural light, efficient circulation and
+                    flexible planning ensure the workplace
+                    remains adaptable while reinforcing the
+                    client's identity through timeless design.
+
+                </p>
+
+                <div class="meta-grid">
+
+                    <div>
+
+                        <small>Client</small>
+
+                        <strong>
+
+                            {project.client}
+
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <small>Location</small>
+
+                        <strong>
+
+                            {project.location}
+
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <small>Area</small>
+
+                        <strong>
+
+                            {project.area}
+
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <small>Completed</small>
+
+                        <strong>
+
+                            {project.year}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <a
+                    href={project.href}
+                    class="btn"
+                >
+
+                    View Case Study
+
+                </a>
+
+            </div>
+
+            <a
+                href={project.href}
+                class="project-image"
+            >
+
+                <img
+                    src={project.image}
+                    alt={project.title}
+                />
+
+                <div class="image-overlay"></div>
+
+                <div class="image-tag">
+
+                    Featured Project
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.featured-commercial{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#111;
+
+    padding:140px 0;
+
+}
+
+.background-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 18s linear infinite;
+
+}
+
+.container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.section-heading{
+
+    text-align:center;
+
+    margin-bottom:80px;
+
+}
+
+.section-heading h2{
+
+    color:white;
+
+    margin-top:18px;
+
+}
+
+/* ================================= */
+
+.project-grid{
+
+    display:grid;
+
+    grid-template-columns:.95fr 1.1fr;
+
+    gap:80px;
+
+    align-items:center;
+
+}
+
+/* ================================= */
+
+.project-content{
+
+    opacity:0;
+
+    transform:translateX(-60px);
+
+    transition:.9s;
+
+}
+
+.featured-commercial.visible .project-content{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.category{
+
+    color:var(--accent);
+
+    text-transform:uppercase;
+
+    letter-spacing:3px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.project-content h3{
+
+    color:white;
+
+    font-size:clamp(42px,5vw,64px);
+
+    margin:18px 0;
+
+}
+
+.accent-line{
+
+    width:90px;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-bottom:32px;
+
+}
+
+.project-content p{
+
+    color:rgba(255,255,255,.72);
+
+    line-height:1.9;
+
+    margin-bottom:26px;
+
+}
+
+/* ================================= */
+
+.meta-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:30px;
+
+    margin:50px 0;
+
+}
+
+.meta-grid small{
+
+    display:block;
+
+    color:#777;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:11px;
+
+    margin-bottom:10px;
+
+}
+
+.meta-grid strong{
+
+    color:white;
+
+    font-size:18px;
+
+}
+
+/* ================================= */
+
+.project-image{
+
+    position:relative;
+
+    display:block;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    box-shadow:
+
+        0 40px 90px rgba(0,0,0,.35);
+
+    opacity:0;
+
+    transform:translateX(60px);
+
+    transition:.9s;
+
+}
+
+.featured-commercial.visible .project-image{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:.15s;
+
+}
+
+.project-image img{
+
+    width:100%;
+
+    display:block;
+
+    transform:scale(1.08);
+
+    transition:2.4s cubic-bezier(.22,1,.36,1);
+
+}
+
+.project-image:hover img{
+
+    transform:scale(1.15);
+
+}
+
+.image-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+
+            transparent,
+
+            rgba(0,0,0,.45)
+
+        );
+
+}
+
+.image-tag{
+
+    position:absolute;
+
+    top:30px;
+
+    left:30px;
+
+    padding:12px 20px;
+
+    background:rgba(0,0,0,.75);
+
+    backdrop-filter:blur(10px);
+
+    color:white;
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    border-left:3px solid var(--accent);
+
+}
+
+.project-image::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:18px;
+
+    border:1px solid rgba(255,255,255,.22);
+
+    opacity:0;
+
+    transform:scale(.95);
+
+    transition:.55s;
+
+}
+
+.project-image:hover::after{
+
+    opacity:1;
+
+    transform:scale(1);
+
+}
+
+/* ================================= */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+/* ================================= */
+
+@media(max-width:991px){
+
+    .project-grid{
+
+        grid-template-columns:1fr;
+
+        gap:60px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .meta-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".featured-commercial");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.2
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

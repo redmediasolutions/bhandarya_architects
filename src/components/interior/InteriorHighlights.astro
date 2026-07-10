@@ -1,0 +1,447 @@
+---
+const highlights = [
+    {
+        title: "Bespoke Design",
+        text: "Every interior is individually designed around your lifestyle, aspirations and architectural context."
+    },
+    {
+        title: "Material Expertise",
+        text: "Natural stone, timber, metals and handcrafted finishes are carefully curated for timeless elegance."
+    },
+    {
+        title: "Lighting Design",
+        text: "Layered lighting enhances mood, texture and functionality while creating memorable interiors."
+    },
+    {
+        title: "Custom Furniture",
+        text: "Furniture and joinery are designed specifically for each project, ensuring perfect proportion and fit."
+    },
+    {
+        title: "Turnkey Coordination",
+        text: "We collaborate with contractors, craftsmen and vendors to deliver interiors exactly as envisioned."
+    },
+    {
+        title: "Timeless Aesthetics",
+        text: "Our interiors are designed to remain relevant for decades rather than following temporary trends."
+    }
+];
+---
+
+<section class="interior-highlights section">
+
+    <div class="background-grid"></div>
+    <div class="glow"></div>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+
+                Why Choose Us
+
+            </span>
+
+            <h2>
+
+                Crafted With
+                <br />
+                Precision &
+                <br />
+                Purpose.
+
+            </h2>
+
+            <p>
+
+                Every project combines thoughtful planning,
+                premium materials and exceptional craftsmanship
+                to create interiors that feel elegant,
+                functional and enduring.
+
+            </p>
+
+        </div>
+
+        <div class="highlights-grid">
+
+            {
+                highlights.map((item,index)=>(
+
+                    <article
+                        class="highlight-card"
+                        style={`--delay:${index*.12}s`}
+                    >
+
+                        <div class="number">
+
+                            0{index+1}
+
+                        </div>
+
+                        <h3>
+
+                            {item.title}
+
+                        </h3>
+
+                        <p>
+
+                            {item.text}
+
+                        </p>
+
+                        <div class="line"></div>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.interior-highlights{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+}
+
+/* ================================= */
+
+.background-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+        linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 20s linear infinite;
+
+}
+
+.glow{
+
+    position:absolute;
+
+    width:850px;
+
+    height:850px;
+
+    left:-220px;
+
+    top:-220px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            rgba(255,130,0,.12),
+            transparent 70%
+        );
+
+    filter:blur(120px);
+
+}
+
+/* ================================= */
+
+.container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.section-heading{
+
+    max-width:760px;
+
+    text-align:center;
+
+    margin:0 auto 80px;
+
+}
+
+.section-heading h2{
+
+    margin:20px 0;
+
+}
+
+.section-heading p{
+
+    color:#666;
+
+}
+
+/* ================================= */
+
+.highlights-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:30px;
+
+}
+
+/* ================================= */
+
+.highlight-card{
+
+    position:relative;
+
+    padding:45px;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    border:1px solid rgba(0,0,0,.06);
+
+    overflow:hidden;
+
+    transition:.45s;
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+}
+
+.interior-highlights.visible .highlight-card{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:var(--delay);
+
+}
+
+/* blueprint overlay */
+
+.highlight-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+        linear-gradient(rgba(0,0,0,.03) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,0,0,.03) 1px,transparent 1px);
+
+    background-size:36px 36px;
+
+    opacity:.3;
+
+    pointer-events:none;
+
+}
+
+/* orange glow */
+
+.highlight-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-40%;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,130,0,.12),
+
+            transparent 70%
+
+        );
+
+    opacity:0;
+
+    transition:.45s;
+
+}
+
+.highlight-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 30px 70px rgba(0,0,0,.08);
+
+}
+
+.highlight-card:hover::after{
+
+    opacity:1;
+
+}
+
+/* ================================= */
+
+.number{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:68px;
+
+    line-height:1;
+
+    font-weight:700;
+
+    color:rgba(255,120,0,.18);
+
+    margin-bottom:22px;
+
+}
+
+.highlight-card h3{
+
+    position:relative;
+
+    z-index:2;
+
+    margin-bottom:18px;
+
+    font-size:28px;
+
+}
+
+.highlight-card p{
+
+    position:relative;
+
+    z-index:2;
+
+    color:#666;
+
+    line-height:1.8;
+
+}
+
+.line{
+
+    position:relative;
+
+    z-index:2;
+
+    width:0;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-top:28px;
+
+    transition:.45s;
+
+}
+
+.highlight-card:hover .line{
+
+    width:90px;
+
+}
+
+/* ================================= */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+/* ================================= */
+
+@media(max-width:991px){
+
+    .highlights-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .highlights-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .highlight-card{
+
+        padding:34px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".interior-highlights");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.2
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

@@ -1,0 +1,547 @@
+---
+const projects = [
+    {
+        title: "St. Mary's Educational Campus",
+        type: "Integrated Campus",
+        location: "Mangalore",
+        area: "185,000 sq.ft",
+        image: "/images/projects/education/campus.webp",
+        href: "/projects/st-marys-campus",
+        featured: true
+    },
+    {
+        title: "Academic Block",
+        type: "Higher Education",
+        location: "Udupi",
+        area: "58,000 sq.ft",
+        image: "/images/projects/education/academic.webp",
+        href: "#"
+    },
+    {
+        title: "Central Library",
+        type: "Knowledge Centre",
+        location: "Mangalore",
+        area: "24,000 sq.ft",
+        image: "/images/projects/education/library.webp",
+        href: "#"
+    },
+    {
+        title: "Student Hostel",
+        type: "Residential",
+        location: "Manipal",
+        area: "46,000 sq.ft",
+        image: "/images/projects/education/hostel.webp",
+        href: "#"
+    },
+    {
+        title: "Sports Complex",
+        type: "Campus Facility",
+        location: "Mangalore",
+        area: "72,000 sq.ft",
+        image: "/images/projects/education/sports.webp",
+        href: "#"
+    },
+    {
+        title: "Innovation Centre",
+        type: "Research",
+        location: "Bangalore",
+        area: "38,000 sq.ft",
+        image: "/images/projects/education/research.webp",
+        href: "#"
+    }
+];
+---
+
+<section class="education-projects section" id="projects">
+
+    <div class="grid-bg"></div>
+    <div class="glow"></div>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+
+                Educational Portfolio
+
+            </span>
+
+            <h2>
+
+                Spaces Designed
+                <br>
+
+                For Learning
+
+            </h2>
+
+            <p>
+
+                From schools and colleges to libraries,
+                research centres and residential campuses,
+                every project is designed to encourage
+                learning and community.
+
+            </p>
+
+        </div>
+
+        <div class="projects-grid">
+
+            {
+                projects.map((project,index)=>(
+
+                    <a
+                        href={project.href}
+                        class={`project-card ${project.featured ? "featured" : ""}`}
+                        style={`--delay:${index*.12}s`}
+                    >
+
+                        <img
+                            src={project.image}
+                            alt={project.title}
+                        />
+
+                        <div class="overlay">
+
+                            <span>
+
+                                {project.type}
+
+                            </span>
+
+                            <h3>
+
+                                {project.title}
+
+                            </h3>
+
+                            <div class="details">
+
+                                <small>
+
+                                    {project.location}
+
+                                </small>
+
+                                <small>
+
+                                    {project.area}
+
+                                </small>
+
+                            </div>
+
+                            <div class="line"></div>
+
+                            <div class="view">
+
+                                Explore Project →
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.education-projects{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+}
+
+/* ============================= */
+
+.grid-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(0,0,0,.02) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(0,0,0,.02) 1px,transparent 1px);
+
+    background-size:80px 80px;
+
+    animation:gridMove 20s linear infinite;
+
+}
+
+.glow{
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    left:-250px;
+
+    bottom:-250px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(76,175,80,.12),
+
+            transparent 70%
+
+        );
+
+    filter:blur(120px);
+
+}
+
+/* ============================= */
+
+.container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.section-heading{
+
+    text-align:center;
+
+    max-width:760px;
+
+    margin:0 auto 80px;
+
+}
+
+.section-heading h2{
+
+    margin:18px 0;
+
+}
+
+.section-heading p{
+
+    color:#666;
+
+}
+
+/* ============================= */
+
+.projects-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(12,1fr);
+
+    gap:28px;
+
+}
+
+.featured{
+
+    grid-column:span 12;
+
+    aspect-ratio:21/9;
+
+}
+
+.project-card:not(.featured){
+
+    grid-column:span 6;
+
+    aspect-ratio:16/10;
+
+}
+
+/* ============================= */
+
+.project-card{
+
+    position:relative;
+
+    display:block;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    background:#111;
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+    transition:
+
+        opacity .8s,
+
+        transform .8s,
+
+        box-shadow .4s;
+
+}
+
+.education-projects.visible .project-card{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:var(--delay);
+
+}
+
+.project-card img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transform:scale(1.08);
+
+    transition:transform 2s;
+
+}
+
+.project-card:hover img{
+
+    transform:scale(1.14);
+
+}
+
+.project-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+
+            transparent,
+
+            rgba(0,0,0,.88)
+
+        );
+
+}
+
+.project-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:18px;
+
+    border:1px solid rgba(255,255,255,.2);
+
+    opacity:0;
+
+    transform:scale(.96);
+
+    transition:.45s;
+
+}
+
+.project-card:hover::after{
+
+    opacity:1;
+
+    transform:scale(1);
+
+}
+
+.project-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 35px 80px rgba(0,0,0,.15);
+
+}
+
+/* ============================= */
+
+.overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:2;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    padding:38px;
+
+}
+
+.overlay>span{
+
+    color:rgba(255,255,255,.72);
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:11px;
+
+}
+
+.overlay h3{
+
+    color:white;
+
+    margin:14px 0;
+
+    font-size:34px;
+
+}
+
+.details{
+
+    display:flex;
+
+    gap:22px;
+
+}
+
+.details small{
+
+    color:rgba(255,255,255,.7);
+
+}
+
+.line{
+
+    width:0;
+
+    height:2px;
+
+    background:#4CAF50;
+
+    margin:22px 0;
+
+    transition:.45s;
+
+}
+
+.project-card:hover .line{
+
+    width:90px;
+
+}
+
+.view{
+
+    color:#4CAF50;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+/* ============================= */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:80px 80px;
+
+    }
+
+}
+
+@media(max-width:991px){
+
+    .projects-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .featured,
+
+    .project-card:not(.featured){
+
+        grid-column:auto;
+
+        aspect-ratio:16/10;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".education-projects");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.2
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

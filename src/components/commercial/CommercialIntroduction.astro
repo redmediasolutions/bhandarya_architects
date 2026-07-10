@@ -1,0 +1,463 @@
+---
+import { img } from "../../consts";
+
+const image = img("2026/03/Screenshot-2026-03-25-154852.png");
+---
+
+<section class="commercial-introduction">
+
+    <div class="background-grid"></div>
+
+    <div class="container intro-grid">
+
+        <div class="intro-image reveal-left">
+
+            <img
+                src={image}
+                alt="Commercial Architecture"
+            />
+
+            <div class="experience-card">
+
+                <strong>25+</strong>
+
+                <span>Years of Commercial Design Excellence</span>
+
+            </div>
+
+        </div>
+
+        <div class="intro-content reveal-right">
+
+            <span class="small-title">
+
+                Our Commercial Philosophy
+
+            </span>
+
+            <h2>
+
+                Architecture That
+                <br />
+                Works As Hard
+                <br />
+                As Your Business.
+
+            </h2>
+
+            <div class="accent-line"></div>
+
+            <p>
+
+                Every commercial project begins with understanding
+                the way people interact with space. We design
+                workplaces, retail environments and institutional
+                buildings that improve productivity, strengthen
+                identity and remain adaptable for decades.
+
+            </p>
+
+            <p>
+
+                By combining thoughtful planning, efficient circulation,
+                sustainable design strategies and refined detailing,
+                we create buildings that perform exceptionally while
+                leaving a lasting architectural impression.
+
+            </p>
+
+            <div class="intro-stats">
+
+                <div>
+
+                    <strong>31+</strong>
+
+                    <span>Commercial Projects</span>
+
+                </div>
+
+                <div>
+
+                    <strong>1.2M+</strong>
+
+                    <span>Sq.ft Delivered</span>
+
+                </div>
+
+                <div>
+
+                    <strong>95%</strong>
+
+                    <span>Repeat Clients</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.commercial-introduction{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#faf8f5;
+
+    padding:140px 0;
+
+}
+
+/* =============================== */
+
+.background-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 18s linear infinite;
+
+}
+
+/* =============================== */
+
+.intro-grid{
+
+    position:relative;
+
+    z-index:2;
+
+    display:grid;
+
+    grid-template-columns:1.1fr .9fr;
+
+    gap:90px;
+
+    align-items:center;
+
+}
+
+/* =============================== */
+
+.intro-image{
+
+    position:relative;
+
+}
+
+.intro-image img{
+
+    width:100%;
+
+    display:block;
+
+    border-radius:20px;
+
+    box-shadow:
+
+        0 35px 90px rgba(0,0,0,.12);
+
+}
+
+/* =============================== */
+
+.experience-card{
+
+    position:absolute;
+
+    right:-40px;
+
+    bottom:40px;
+
+    width:240px;
+
+    padding:34px;
+
+    border-radius:18px;
+
+    background:#111;
+
+    color:white;
+
+    box-shadow:
+
+        0 25px 60px rgba(0,0,0,.25);
+
+}
+
+.experience-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:18px;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,120,0,.15),
+
+            transparent 70%
+
+        );
+
+}
+
+.experience-card strong{
+
+    position:relative;
+
+    display:block;
+
+    font-size:56px;
+
+    color:var(--accent);
+
+    line-height:1;
+
+    margin-bottom:12px;
+
+}
+
+.experience-card span{
+
+    position:relative;
+
+    color:rgba(255,255,255,.72);
+
+    line-height:1.7;
+
+    font-size:14px;
+
+}
+
+/* =============================== */
+
+.intro-content h2{
+
+    margin:18px 0 26px;
+
+}
+
+.accent-line{
+
+    width:90px;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-bottom:34px;
+
+}
+
+.intro-content p{
+
+    color:#666;
+
+    line-height:1.9;
+
+    margin-bottom:28px;
+
+}
+
+/* =============================== */
+
+.intro-stats{
+
+    margin-top:40px;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:30px;
+
+}
+
+.intro-stats strong{
+
+    display:block;
+
+    color:var(--accent);
+
+    font-size:42px;
+
+}
+
+.intro-stats span{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    color:#777;
+
+}
+
+/* =============================== */
+
+.reveal-left,
+
+.reveal-right{
+
+    opacity:0;
+
+    transition:
+
+        opacity .9s,
+
+        transform .9s cubic-bezier(.22,1,.36,1);
+
+}
+
+.reveal-left{
+
+    transform:translateX(-60px);
+
+}
+
+.reveal-right{
+
+    transform:translateX(60px);
+
+}
+
+.commercial-introduction.visible .reveal-left,
+
+.commercial-introduction.visible .reveal-right{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.commercial-introduction.visible .reveal-right{
+
+    transition-delay:.2s;
+
+}
+
+/* =============================== */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+/* =============================== */
+
+@media(max-width:991px){
+
+    .intro-grid{
+
+        grid-template-columns:1fr;
+
+        gap:60px;
+
+    }
+
+    .experience-card{
+
+        right:20px;
+
+        bottom:20px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .intro-stats{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .experience-card{
+
+        position:relative;
+
+        right:auto;
+
+        bottom:auto;
+
+        width:100%;
+
+        margin-top:20px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".commercial-introduction");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.25
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

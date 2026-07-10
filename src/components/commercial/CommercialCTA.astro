@@ -1,0 +1,507 @@
+---
+import { img } from "../../consts";
+
+const background = img("2026/03/Screenshot-2026-03-25-154852.png");
+---
+
+<section
+    class="commercial-cta"
+    style={`background-image:url('${background}')`}
+>
+
+    <div class="overlay"></div>
+    <div class="grid"></div>
+    <div class="glow"></div>
+
+    <div class="container">
+
+        <div class="cta-content">
+
+            <span class="small-title reveal">
+
+                Let's Build Together
+
+            </span>
+
+            <h2 class="reveal delay-1">
+
+                Ready To Create
+                <br />
+                Your Next Commercial
+                <br />
+                Landmark?
+
+            </h2>
+
+            <p class="reveal delay-2">
+
+                Whether you're planning a corporate office,
+                retail destination, educational campus or
+                mixed-use development, we would love to
+                discuss your vision.
+
+            </p>
+
+            <div class="cta-buttons reveal delay-3">
+
+                <a
+                    href="/contact"
+                    class="btn"
+                >
+
+                    Schedule Consultation
+
+                </a>
+
+                <a
+                    href="https://wa.me/919876543210"
+                    target="_blank"
+                    class="btn-outline"
+                >
+
+                    WhatsApp Us
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="cta-card reveal delay-4">
+
+            <h3>
+
+                Start Your Project
+
+            </h3>
+
+            <div class="line"></div>
+
+            <ul>
+
+                <li>
+
+                    ✓ Commercial Offices
+
+                </li>
+
+                <li>
+
+                    ✓ Retail & Showrooms
+
+                </li>
+
+                <li>
+
+                    ✓ Educational Campuses
+
+                </li>
+
+                <li>
+
+                    ✓ Hospitality Projects
+
+                </li>
+
+                <li>
+
+                    ✓ Mixed-use Developments
+
+                </li>
+
+            </ul>
+
+            <div class="contact-info">
+
+                <span>
+
+                    Email
+
+                </span>
+
+                <strong>
+
+                    studio@bhandaryarchitects.com
+
+                </strong>
+
+            </div>
+
+            <div class="contact-info">
+
+                <span>
+
+                    Phone
+
+                </span>
+
+                <strong>
+
+                    +91 98765 43210
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.commercial-cta{
+
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+}
+
+/* ================================= */
+
+.overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(8,8,8,.82),
+            rgba(8,8,8,.55)
+        ),
+
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.82)
+        );
+
+}
+
+.grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 18s linear infinite;
+
+}
+
+.glow{
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    right:-250px;
+
+    bottom:-250px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,120,0,.18),
+
+            transparent 70%
+
+        );
+
+    filter:blur(120px);
+
+}
+
+/* ================================= */
+
+.container{
+
+    position:relative;
+
+    z-index:3;
+
+    display:grid;
+
+    grid-template-columns:1fr 420px;
+
+    gap:90px;
+
+    align-items:center;
+
+}
+
+.cta-content{
+
+    max-width:720px;
+
+}
+
+.cta-content h2{
+
+    color:#fff;
+
+    font-size:clamp(54px,7vw,90px);
+
+    line-height:.95;
+
+    margin:20px 0 28px;
+
+}
+
+.cta-content p{
+
+    color:rgba(255,255,255,.72);
+
+    font-size:18px;
+
+    line-height:1.9;
+
+    max-width:620px;
+
+}
+
+/* ================================= */
+
+.cta-buttons{
+
+    margin-top:50px;
+
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.btn-outline{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:16px 34px;
+
+    border-radius:999px;
+
+    border:1px solid rgba(255,255,255,.25);
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:.35s;
+
+}
+
+.btn-outline:hover{
+
+    background:white;
+
+    color:#111;
+
+}
+
+/* ================================= */
+
+.cta-card{
+
+    padding:50px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+}
+
+.cta-card h3{
+
+    color:white;
+
+    margin-bottom:18px;
+
+}
+
+.line{
+
+    width:80px;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-bottom:30px;
+
+}
+
+.cta-card ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0 0 40px;
+
+}
+
+.cta-card li{
+
+    color:rgba(255,255,255,.72);
+
+    margin-bottom:16px;
+
+}
+
+.contact-info{
+
+    padding-top:20px;
+
+    margin-top:20px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.contact-info span{
+
+    display:block;
+
+    color:rgba(255,255,255,.45);
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:11px;
+
+    margin-bottom:8px;
+
+}
+
+.contact-info strong{
+
+    color:white;
+
+    font-size:17px;
+
+}
+
+/* ================================= */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    animation:fadeUp 1s cubic-bezier(.22,1,.36,1) forwards;
+
+}
+
+.delay-1{animation-delay:.15s;}
+.delay-2{animation-delay:.35s;}
+.delay-3{animation-delay:.55s;}
+.delay-4{animation-delay:.75s;}
+
+@keyframes fadeUp{
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+/* ================================= */
+
+@media(max-width:991px){
+
+    .container{
+
+        grid-template-columns:1fr;
+
+        gap:60px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .commercial-cta{
+
+        min-height:auto;
+
+        padding:120px 0;
+
+    }
+
+    .cta-content h2{
+
+        font-size:48px;
+
+    }
+
+    .cta-card{
+
+        padding:35px;
+
+    }
+
+}
+
+</style>

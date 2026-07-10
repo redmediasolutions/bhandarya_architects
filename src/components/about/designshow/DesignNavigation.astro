@@ -1,4 +1,5 @@
 ---
+
 interface Props {
     total: number;
 }
@@ -37,21 +38,21 @@ const { total } = Astro.props;
 
     </div>
 
-    <div class="scroll-indicator">
+</div>
 
-        <span>
+<div class="design-arrows">
 
-            Scroll
+    <button
+        type="button"
+        class="arrow-btn"
+        id="design-prev"
+        aria-label="Previous slide"
+    >
 
-        </span>
-
-        <svg
-            viewBox="0 0 24 24"
-            class="scroll-icon"
-        >
+        <svg viewBox="0 0 24 24">
 
             <path
-                d="M12 4v14M6 13l6 6 6-6"
+                d="M15 6l-6 6 6 6"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="1.8"
@@ -61,7 +62,29 @@ const { total } = Astro.props;
 
         </svg>
 
-    </div>
+    </button>
+
+    <button
+        type="button"
+        class="arrow-btn"
+        id="design-next"
+        aria-label="Next slide"
+    >
+
+        <svg viewBox="0 0 24 24">
+
+            <path
+                d="M9 6l6 6-6 6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+
+        </svg>
+
+    </button>
 
 </div>
 
@@ -70,17 +93,11 @@ const { total } = Astro.props;
 
     position:absolute;
 
-    right:60px;
+    left:48px;
 
-    bottom:60px;
+    bottom:40px;
 
     z-index:20;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:18px;
 
     color:white;
 
@@ -100,14 +117,31 @@ const { total } = Astro.props;
 
 /* ----------------------------- */
 
-.current,
+.current{
+
+    font-family: "Noto Serif", serif;
+
+    font-style:italic;
+
+    font-size:20px;
+
+    font-weight:500;
+
+}
+
+/* ----------------------------- */
+
 .total{
 
-    font-size:13px;
+    font-family: "Manrope", sans-serif;
+
+    font-size:12px;
 
     font-weight:500;
 
     letter-spacing:2px;
+
+    color:rgba(255,255,255,.55);
 
 }
 
@@ -115,9 +149,9 @@ const { total } = Astro.props;
 
 .progress-track{
 
-    width:120px;
+    width:90px;
 
-    height:2px;
+    height:1px;
 
     background:rgba(255,255,255,.25);
 
@@ -140,60 +174,94 @@ const { total } = Astro.props;
 }
 
 /* ----------------------------- */
+/* Arrow Buttons
+/* ----------------------------- */
 
-.scroll-indicator{
+.design-arrows{
+
+    position:absolute;
+
+    right:48px;
+
+    bottom:40px;
+
+    z-index:20;
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+/* ----------------------------- */
+
+.arrow-btn{
 
     display:flex;
 
     align-items:center;
 
-    gap:8px;
+    justify-content:center;
 
-    margin-left:10px;
+    width:44px;
 
-    opacity:.7;
+    height:44px;
 
-}
+    border:none;
 
-/* ----------------------------- */
+    border-radius:50%;
 
-.scroll-indicator span{
+    background:rgba(0,0,0,.35);
 
-    font-size:11px;
+    color:white;
 
-    letter-spacing:2px;
+    cursor:pointer;
 
-    text-transform:uppercase;
+    transition:
 
-}
+        background .3s ease,
 
-/* ----------------------------- */
-
-.scroll-icon{
-
-    width:16px;
-
-    height:16px;
-
-    animation:floatArrow 1.6s ease-in-out infinite;
+        transform .3s ease;
 
 }
 
 /* ----------------------------- */
 
-@keyframes floatArrow{
+.arrow-btn:hover{
 
-    0%,100%{
+    background:rgba(0,0,0,.55);
 
-        transform:translateY(0);
+    transform:translateY(-2px);
 
-    }
+}
 
-    50%{
+/* ----------------------------- */
 
-        transform:translateY(5px);
+.arrow-btn:active{
 
-    }
+    transform:translateY(0);
+
+}
+
+/* ----------------------------- */
+
+.arrow-btn:disabled{
+
+    opacity:.35;
+
+    cursor:default;
+
+    transform:none;
+
+}
+
+/* ----------------------------- */
+
+.arrow-btn svg{
+
+    width:18px;
+
+    height:18px;
 
 }
 
@@ -201,7 +269,8 @@ const { total } = Astro.props;
 
 @media(max-width:768px){
 
-    .design-navigation{
+    .design-navigation,
+    .design-arrows{
 
         display:none;
 

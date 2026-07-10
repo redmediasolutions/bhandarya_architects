@@ -1,0 +1,379 @@
+---
+const pillars = [
+  {
+    number: "01",
+    title: "Materiality",
+    text: "Natural stone, warm timber, textured finishes and carefully selected materials define spaces that age gracefully."
+  },
+  {
+    number: "02",
+    title: "Natural Light",
+    text: "Light is treated as a design material, shaping mood, enhancing textures and bringing every interior to life."
+  },
+  {
+    number: "03",
+    title: "Craftsmanship",
+    text: "Every detail is refined through bespoke joinery, custom furniture and precision execution."
+  }
+];
+---
+
+<section class="interior-introduction section">
+
+    <div class="background-word">
+
+        INTERIORS
+
+    </div>
+
+    <div class="container">
+
+        <div class="intro-grid">
+
+            <div class="intro-content">
+
+                <span class="small-title">
+
+                    Our Philosophy
+
+                </span>
+
+                <h2>
+
+                    Interiors Designed
+                    <br />
+                    Around The Way
+                    <br />
+                    You Live.
+
+                </h2>
+
+                <div class="accent-line"></div>
+
+                <p>
+
+                    Interior design is more than selecting finishes or
+                    arranging furniture. It is about creating spaces that
+                    feel comfortable, timeless and deeply personal.
+                    Every project balances architecture, light,
+                    proportion and craftsmanship to create interiors
+                    that enrich everyday life.
+
+                </p>
+
+                <p>
+
+                    From luxury residences to hospitality and commercial
+                    environments, we believe every interior should tell
+                    a unique story while remaining elegant for decades.
+
+                </p>
+
+            </div>
+
+            <div class="pillars">
+
+                {
+                    pillars.map((pillar,index)=>(
+                        <article
+                            class="pillar-card"
+                            style={`--delay:${index*.15}s`}
+                        >
+
+                            <span class="number">
+
+                                {pillar.number}
+
+                            </span>
+
+                            <h3>
+
+                                {pillar.title}
+
+                            </h3>
+
+                            <p>
+
+                                {pillar.text}
+
+                            </p>
+
+                            <div class="line"></div>
+
+                        </article>
+                    ))
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.interior-introduction{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#faf8f5;
+
+}
+
+/* ================================= */
+
+.background-word{
+
+    position:absolute;
+
+    top:30px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    font-size:220px;
+
+    font-weight:700;
+
+    letter-spacing:10px;
+
+    color:rgba(0,0,0,.03);
+
+    white-space:nowrap;
+
+    user-select:none;
+
+    pointer-events:none;
+
+}
+
+/* ================================= */
+
+.intro-grid{
+
+    position:relative;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:80px;
+
+    align-items:center;
+
+}
+
+/* ================================= */
+
+.intro-content{
+
+    max-width:640px;
+
+}
+
+.intro-content h2{
+
+    margin:20px 0;
+
+}
+
+.intro-content p{
+
+    color:#666;
+
+    line-height:1.9;
+
+    margin-bottom:28px;
+
+}
+
+/* ================================= */
+
+.accent-line{
+
+    width:90px;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-bottom:35px;
+
+}
+
+/* ================================= */
+
+.pillars{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:28px;
+
+}
+
+.pillar-card{
+
+    position:relative;
+
+    padding:40px;
+
+    background:white;
+
+    border-radius:18px;
+
+    border:1px solid rgba(0,0,0,.06);
+
+    transition:
+
+        transform .45s,
+
+        box-shadow .45s;
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+}
+
+.interior-introduction.visible .pillar-card{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:var(--delay);
+
+}
+
+.pillar-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+
+        0 20px 50px rgba(0,0,0,.08);
+
+}
+
+/* ================================= */
+
+.number{
+
+    display:block;
+
+    font-size:52px;
+
+    line-height:1;
+
+    font-weight:700;
+
+    color:rgba(255,120,0,.18);
+
+    margin-bottom:18px;
+
+}
+
+.pillar-card h3{
+
+    margin-bottom:15px;
+
+    font-size:26px;
+
+}
+
+.pillar-card p{
+
+    color:#666;
+
+    line-height:1.8;
+
+}
+
+.line{
+
+    width:0;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-top:26px;
+
+    transition:.45s;
+
+}
+
+.pillar-card:hover .line{
+
+    width:90px;
+
+}
+
+/* ================================= */
+
+@media(max-width:991px){
+
+    .intro-grid{
+
+        grid-template-columns:1fr;
+
+        gap:60px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .background-word{
+
+        font-size:110px;
+
+    }
+
+    .pillar-card{
+
+        padding:32px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".interior-introduction");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.2
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

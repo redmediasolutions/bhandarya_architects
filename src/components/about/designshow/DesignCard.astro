@@ -1,4 +1,5 @@
 ---
+
 interface Props {
     title: string;
     description: string;
@@ -15,7 +16,7 @@ const {
 ---
 
 <article
-    class="design-card slide"
+    class:list={["design-card", "slide", { active: index === 0 }]}
     data-index={index}
 >
 
@@ -30,9 +31,9 @@ const {
 
     <div class="content">
 
-        <span class="number">
+        <span class="eyebrow">
 
-            {String(index + 1).padStart(2, "0")}
+            {String(index + 1).padStart(2, "0")} — Designing With Purpose
 
         </span>
 
@@ -58,33 +59,27 @@ const {
 
     position:relative;
 
-    flex:0 0 86vw;
+    flex:0 0 82vw;
 
-    max-width:1500px;
+    max-width:1600px;
 
-    height:78vh;
+    height:86vh;
 
     overflow:hidden;
 
-    border-radius:34px;
+    border-radius:14px;
 
     background:#ececec;
 
-    box-shadow:
+    opacity:.4;
 
-        0 40px 90px rgba(0,0,0,.12);
-
-    opacity:.35;
-
-    transform:scale(.92);
+    transform:scale(.94);
 
     transition:
 
-        transform .7s cubic-bezier(.22,1,.36,1),
+        transform .8s cubic-bezier(.22,1,.36,1),
 
-        opacity .7s cubic-bezier(.22,1,.36,1),
-
-        box-shadow .7s ease;
+        opacity .8s cubic-bezier(.22,1,.36,1);
 
 }
 
@@ -95,10 +90,6 @@ const {
     opacity:1;
 
     transform:scale(1);
-
-    box-shadow:
-
-        0 60px 120px rgba(0,0,0,.18);
 
 }
 
@@ -118,7 +109,7 @@ const {
 
     object-position:center;
 
-    transform:scale(1.08);
+    transform:scale(1.06);
 
     transition:
 
@@ -128,13 +119,15 @@ const {
 
     will-change:transform;
 
+    filter:saturate(.96);
+
 }
 
 /* ----------------------------- */
 
 .design-card.active img{
 
-    transform:scale(1.14);
+    transform:scale(1.1);
 
 }
 
@@ -150,13 +143,13 @@ const {
 
         linear-gradient(
 
-            to top,
+            to bottom,
 
-            rgba(0,0,0,.72),
+            rgba(0,0,0,.55),
 
-            rgba(0,0,0,.22),
+            rgba(0,0,0,.05) 32%,
 
-            transparent 50%
+            transparent 55%
 
         );
 
@@ -168,25 +161,27 @@ const {
 
     position:absolute;
 
-    left:56px;
+    left:48px;
 
-    bottom:56px;
+    top:48px;
+
+    right:48px;
 
     z-index:5;
 
-    max-width:500px;
+    max-width:640px;
 
     color:white;
 
     opacity:0;
 
-    transform:translateY(50px);
+    transform:translateY(-24px);
 
     transition:
 
-        opacity .7s ease,
+        opacity .8s ease,
 
-        transform .7s cubic-bezier(.22,1,.36,1);
+        transform .8s cubic-bezier(.22,1,.36,1);
 
 }
 
@@ -202,19 +197,23 @@ const {
 
 /* ----------------------------- */
 
-.number{
+.eyebrow{
 
     display:block;
 
-    margin-bottom:20px;
+    margin-bottom:22px;
 
-    font-size:14px;
+    font-family: "Manrope", sans-serif;
 
-    letter-spacing:4px;
+    font-size:12px;
+
+    font-weight:600;
+
+    letter-spacing:3px;
 
     text-transform:uppercase;
 
-    color:rgba(255,255,255,.65);
+    color:rgba(255,255,255,.75);
 
 }
 
@@ -222,13 +221,19 @@ const {
 
 .content h3{
 
-    font-size:clamp(36px,3vw,54px);
+    font-family: "Noto Serif", serif;
 
-    line-height:1.05;
+    font-style:italic;
 
-    font-weight:600;
+    font-weight:500;
 
-    margin-bottom:18px;
+    font-size:clamp(40px,5.5vw,88px);
+
+    line-height:1.02;
+
+    letter-spacing:-.01em;
+
+    margin-bottom:20px;
 
 }
 
@@ -236,11 +241,15 @@ const {
 
 .content p{
 
-    font-size:18px;
+    font-family: "Manrope", sans-serif;
 
-    line-height:1.8;
+    font-size:16px;
 
-    color:rgba(255,255,255,.82);
+    line-height:1.7;
+
+    max-width:420px;
+
+    color:rgba(255,255,255,.8);
 
 }
 
@@ -250,33 +259,33 @@ const {
 
     .design-card{
 
-        flex:0 0 94vw;
+        flex:0 0 92vw;
 
-        height:65vh;
+        height:70vh;
 
-        border-radius:24px;
+        border-radius:10px;
 
     }
 
     .content{
 
-        left:32px;
+        left:28px;
 
-        right:32px;
+        top:28px;
 
-        bottom:32px;
+        right:28px;
 
     }
 
     .content h3{
 
-        font-size:32px;
+        font-size:34px;
 
     }
 
     .content p{
 
-        font-size:16px;
+        font-size:15px;
 
     }
 
@@ -290,7 +299,7 @@ const {
 
         flex:0 0 100%;
 
-        height:420px;
+        height:460px;
 
         transform:none;
 
@@ -308,13 +317,13 @@ const {
 
     .content h3{
 
-        font-size:28px;
+        font-size:30px;
 
     }
 
     .content p{
 
-        font-size:15px;
+        font-size:14px;
 
         line-height:1.6;
 

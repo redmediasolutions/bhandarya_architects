@@ -1,0 +1,452 @@
+---
+const types = [
+    {
+        number: "01",
+        title: "Schools",
+        text: "Learning environments designed to encourage creativity, safety and holistic development from early education through higher secondary."
+    },
+    {
+        number: "02",
+        title: "Colleges",
+        text: "Academic campuses that balance flexible learning spaces, student interaction and long-term institutional growth."
+    },
+    {
+        number: "03",
+        title: "Universities",
+        text: "Large-scale master planned campuses integrating academic blocks, research centres, hostels and public spaces."
+    },
+    {
+        number: "04",
+        title: "Libraries",
+        text: "Quiet, inspiring knowledge centres designed for concentration, collaboration and digital learning."
+    },
+    {
+        number: "05",
+        title: "Research Centres",
+        text: "Innovation-driven environments that support laboratories, collaborative workspaces and future technologies."
+    },
+    {
+        number: "06",
+        title: "Training Institutes",
+        text: "Skill development campuses with flexible classrooms, workshops and industry-focused learning environments."
+    }
+];
+---
+
+<section class="educational-typologies section">
+
+    <div class="grid-bg"></div>
+
+    <div class="glow"></div>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+
+                Educational Expertise
+
+            </span>
+
+            <h2>
+
+                Spaces For Every
+                <br>
+
+                Learning Journey
+
+            </h2>
+
+            <p>
+
+                From neighbourhood schools to university campuses,
+                we create environments that inspire learning,
+                collaboration and innovation.
+
+            </p>
+
+        </div>
+
+        <div class="typology-grid">
+
+            {
+                types.map((item,index)=>(
+
+                    <article
+                        class="typology-card"
+                        style={`--delay:${index*.1}s`}
+                    >
+
+                        <div class="number">
+
+                            {item.number}
+
+                        </div>
+
+                        <h3>
+
+                            {item.title}
+
+                        </h3>
+
+                        <p>
+
+                            {item.text}
+
+                        </p>
+
+                        <div class="line"></div>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.educational-typologies{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+}
+
+/* ================================= */
+
+.grid-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 18s linear infinite;
+
+}
+
+.glow{
+
+    position:absolute;
+
+    right:-220px;
+
+    top:-220px;
+
+    width:900px;
+
+    height:900px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(70,180,120,.12),
+
+            transparent 70%
+
+        );
+
+    filter:blur(120px);
+
+}
+
+/* ================================= */
+
+.container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.section-heading{
+
+    max-width:760px;
+
+    margin:0 auto 80px;
+
+    text-align:center;
+
+}
+
+.section-heading h2{
+
+    margin:18px 0;
+
+}
+
+.section-heading p{
+
+    color:#666;
+
+}
+
+/* ================================= */
+
+.typology-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:30px;
+
+}
+
+/* ================================= */
+
+.typology-card{
+
+    position:relative;
+
+    padding:45px;
+
+    background:#fff;
+
+    border-radius:20px;
+
+    border:1px solid rgba(0,0,0,.06);
+
+    overflow:hidden;
+
+    transition:.45s;
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+}
+
+.educational-typologies.visible .typology-card{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:var(--delay);
+
+}
+
+.typology-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(0,0,0,.03) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(0,0,0,.03) 1px,transparent 1px);
+
+    background-size:36px 36px;
+
+    opacity:.3;
+
+}
+
+.typology-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-40%;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(70,180,120,.10),
+
+            transparent 70%
+
+        );
+
+    opacity:0;
+
+    transition:.45s;
+
+}
+
+.typology-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 30px 70px rgba(0,0,0,.08);
+
+}
+
+.typology-card:hover::after{
+
+    opacity:1;
+
+}
+
+/* ================================= */
+
+.number{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:64px;
+
+    font-weight:700;
+
+    color:rgba(70,180,120,.18);
+
+    line-height:1;
+
+    margin-bottom:24px;
+
+}
+
+.typology-card h3{
+
+    position:relative;
+
+    z-index:2;
+
+    margin-bottom:18px;
+
+}
+
+.typology-card p{
+
+    position:relative;
+
+    z-index:2;
+
+    color:#666;
+
+    line-height:1.8;
+
+}
+
+.line{
+
+    position:relative;
+
+    z-index:2;
+
+    width:0;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-top:28px;
+
+    transition:.45s;
+
+}
+
+.typology-card:hover .line{
+
+    width:90px;
+
+}
+
+/* ================================= */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+/* ================================= */
+
+@media(max-width:991px){
+
+    .typology-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .typology-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .typology-card{
+
+        padding:34px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".educational-typologies");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.2
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

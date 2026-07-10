@@ -1,0 +1,459 @@
+---
+import { img } from "../../consts";
+
+const testimonials = [
+    {
+        quote:
+            "Our home feels calm, elegant and incredibly personal. Every room has been thoughtfully designed around the way we live.",
+        client: "Priya & Arun Rao",
+        location: "Mangalore",
+        image: img("2026/05/Copy-of-01.webp"),
+    },
+    {
+        quote:
+            "The attention to detail, custom furniture and material palette exceeded every expectation. The interiors continue to impress every visitor.",
+        client: "Rakesh Shetty",
+        location: "Udupi",
+        image: img("2026/05/Copy-of-01.png"),
+    },
+    {
+        quote:
+            "Working with Bhandary Architects was effortless. The final interiors are timeless, functional and beautifully crafted.",
+        client: "Anjali Nair",
+        location: "Manipal",
+        image: img("2026/03/Screenshot-2026-03-25-154852.png"),
+    },
+];
+---
+
+<section class="interior-testimonials">
+
+    <div class="glow"></div>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+
+                Client Stories
+
+            </span>
+
+            <h2>
+
+                Spaces Our
+                <br />
+                Clients Love
+
+            </h2>
+
+        </div>
+
+        <div class="slider">
+
+            {
+                testimonials.map((item,index)=>(
+
+                    <article
+                        class={`testimonial ${index===0 ? "active" : ""}`}
+                    >
+
+                        <div class="image">
+
+                            <img
+                                src={item.image}
+                                alt={item.client}
+                            />
+
+                        </div>
+
+                        <div class="content">
+
+                            <div class="quote">
+
+                                “
+
+                            </div>
+
+                            <blockquote>
+
+                                {item.quote}
+
+                            </blockquote>
+
+                            <div class="line"></div>
+
+                            <div class="client">
+
+                                <strong>
+
+                                    {item.client}
+
+                                </strong>
+
+                                <span>
+
+                                    {item.location}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+        <div class="dots">
+
+            {
+                testimonials.map((_,index)=>(
+
+                    <button
+                        class={`dot ${index===0 ? "active" : ""}`}
+                        data-slide={index}
+                    ></button>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.interior-testimonials{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#faf8f5;
+
+    padding:140px 0;
+
+}
+
+.glow{
+
+    position:absolute;
+
+    width:700px;
+
+    height:700px;
+
+    right:-180px;
+
+    top:-180px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,140,0,.12),
+
+            transparent 70%
+
+        );
+
+    filter:blur(100px);
+
+}
+
+.container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.section-heading{
+
+    text-align:center;
+
+    margin-bottom:70px;
+
+}
+
+.section-heading h2{
+
+    margin-top:18px;
+
+}
+
+/* =============================== */
+
+.slider{
+
+    position:relative;
+
+    min-height:560px;
+
+}
+
+.testimonial{
+
+    position:absolute;
+
+    inset:0;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:70px;
+
+    align-items:center;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.7s;
+
+}
+
+.testimonial.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+/* =============================== */
+
+.image{
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    box-shadow:
+
+        0 30px 70px rgba(0,0,0,.12);
+
+}
+
+.image img{
+
+    width:100%;
+
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+    transition:transform 2s ease;
+
+}
+
+.testimonial:hover img{
+
+    transform:scale(1.08);
+
+}
+
+/* =============================== */
+
+.content{
+
+    position:relative;
+
+}
+
+.quote{
+
+    font-size:120px;
+
+    color:rgba(255,120,0,.18);
+
+    line-height:1;
+
+}
+
+blockquote{
+
+    margin:-40px 0 40px;
+
+    font-size:34px;
+
+    line-height:1.6;
+
+    color:#222;
+
+    font-weight:300;
+
+}
+
+.line{
+
+    width:80px;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-bottom:28px;
+
+}
+
+.client strong{
+
+    display:block;
+
+    font-size:22px;
+
+}
+
+.client span{
+
+    color:#777;
+
+    margin-top:8px;
+
+    display:block;
+
+}
+
+/* =============================== */
+
+.dots{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:14px;
+
+    margin-top:60px;
+
+}
+
+.dot{
+
+    width:12px;
+
+    height:12px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#ccc;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+.dot.active{
+
+    background:var(--accent);
+
+    transform:scale(1.35);
+
+}
+
+/* =============================== */
+
+@media(max-width:991px){
+
+    .testimonial{
+
+        grid-template-columns:1fr;
+
+        gap:40px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .slider{
+
+        min-height:auto;
+
+    }
+
+    .testimonial{
+
+        position:relative;
+
+        opacity:1;
+
+        visibility:visible;
+
+        display:none;
+
+    }
+
+    .testimonial.active{
+
+        display:grid;
+
+    }
+
+    blockquote{
+
+        font-size:24px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const slides=document.querySelectorAll(".testimonial");
+
+    const dots=document.querySelectorAll(".dot");
+
+    let current=0;
+
+    function show(index){
+
+        slides.forEach(s=>s.classList.remove("active"));
+
+        dots.forEach(d=>d.classList.remove("active"));
+
+        slides[index].classList.add("active");
+
+        dots[index].classList.add("active");
+
+        current=index;
+
+    }
+
+    dots.forEach((dot,index)=>{
+
+        dot.addEventListener("click",()=>show(index));
+
+    });
+
+    setInterval(()=>{
+
+        show((current+1)%slides.length);
+
+    },6000);
+
+});
+
+</script>

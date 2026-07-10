@@ -1,0 +1,407 @@
+---
+const steps = [
+  {
+    number: "01",
+    title: "Discovery",
+    text: "Understanding business objectives, operational workflows and long-term growth plans before design begins."
+  },
+  {
+    number: "02",
+    title: "Planning",
+    text: "Master planning, circulation studies and spatial strategies that maximize efficiency and user experience."
+  },
+  {
+    number: "03",
+    title: "Design Development",
+    text: "Refining architecture through materiality, sustainability and detailed technical coordination."
+  },
+  {
+    number: "04",
+    title: "Execution",
+    text: "Collaborating closely with consultants and contractors to deliver exceptional built outcomes."
+  }
+];
+---
+
+<section class="commercial-process">
+
+    <div class="background-grid"></div>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+
+                Our Process
+
+            </span>
+
+            <h2>
+
+                A Collaborative Journey
+                <br />
+                From Vision To Reality
+
+            </h2>
+
+            <p>
+
+                Every commercial project follows a structured
+                architectural process that balances creativity,
+                technical precision and business objectives.
+
+            </p>
+
+        </div>
+
+        <div class="process-line"></div>
+
+        <div class="process-grid">
+
+            {
+                steps.map((step,index)=>(
+
+                    <article
+                        class="process-card"
+                        style={`--delay:${index*.15}s`}
+                    >
+
+                        <div class="step-number">
+
+                            {step.number}
+
+                        </div>
+
+                        <div class="dot"></div>
+
+                        <h3>
+
+                            {step.title}
+
+                        </h3>
+
+                        <p>
+
+                            {step.text}
+
+                        </p>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.commercial-process{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    padding:140px 0;
+
+}
+
+/* ========================= */
+
+.background-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 18s linear infinite;
+
+}
+
+/* ========================= */
+
+.container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.section-heading{
+
+    max-width:760px;
+
+    text-align:center;
+
+    margin:0 auto 90px;
+
+}
+
+.section-heading h2{
+
+    margin:18px 0;
+
+}
+
+/* ========================= */
+
+.process-line{
+
+    position:absolute;
+
+    left:8%;
+
+    right:8%;
+
+    margin-top:54px;
+
+    height:2px;
+
+    background:rgba(0,0,0,.08);
+
+}
+
+.process-grid{
+
+    position:relative;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:34px;
+
+}
+
+/* ========================= */
+
+.process-card{
+
+    position:relative;
+
+    padding:60px 35px 40px;
+
+    border-radius:18px;
+
+    background:white;
+
+    border:1px solid rgba(0,0,0,.06);
+
+    transition:.45s;
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+}
+
+.commercial-process.visible .process-card{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:var(--delay);
+
+}
+
+/* ========================= */
+
+.process-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:18px;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,120,0,.14),
+
+            transparent 70%
+
+        );
+
+    opacity:0;
+
+    transition:.45s;
+
+}
+
+.process-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+
+        0 25px 60px rgba(0,0,0,.08);
+
+}
+
+.process-card:hover::before{
+
+    opacity:1;
+
+}
+
+/* ========================= */
+
+.dot{
+
+    position:absolute;
+
+    top:-16px;
+
+    left:40px;
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    background:var(--accent);
+
+    border:5px solid white;
+
+    box-shadow:
+
+        0 0 0 2px var(--accent);
+
+}
+
+/* ========================= */
+
+.step-number{
+
+    font-size:58px;
+
+    font-weight:700;
+
+    line-height:1;
+
+    color:rgba(255,120,0,.18);
+
+    margin-bottom:20px;
+
+}
+
+.process-card h3{
+
+    margin-bottom:18px;
+
+}
+
+.process-card p{
+
+    color:#666;
+
+    line-height:1.8;
+
+}
+
+/* ========================= */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+/* ========================= */
+
+@media(max-width:991px){
+
+    .process-line{
+
+        display:none;
+
+    }
+
+    .process-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .process-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .dot{
+
+        display:none;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".commercial-process");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.25
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

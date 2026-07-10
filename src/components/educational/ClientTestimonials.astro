@@ -1,0 +1,501 @@
+---
+const testimonials = [
+  {
+    quote:
+      "Bhandary Architects understood our educational vision and transformed it into a campus that inspires students every day. The planning, natural light and circulation have elevated the entire learning experience.",
+    name: "Dr. Arun D'Souza",
+    role: "Principal",
+    organisation: "St. Mary's College"
+  },
+  {
+    quote:
+      "Their master planning approach helped us create a future-ready campus while allowing room for expansion. Every building feels connected to the landscape and student life.",
+    name: "Fr. Joseph Pereira",
+    role: "Campus Director",
+    organisation: "Educational Trust"
+  },
+  {
+    quote:
+      "The attention to detail, functionality and sustainability exceeded our expectations. The completed campus has become a benchmark for educational infrastructure in our region.",
+    name: "Ms. Nandini Rao",
+    role: "Trustee",
+    organisation: "Learning Foundation"
+  }
+];
+---
+
+<section class="education-testimonials section">
+
+    <div class="grid-bg"></div>
+
+    <div class="glow"></div>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+
+                Client Testimonials
+
+            </span>
+
+            <h2>
+
+                Trusted By
+                <br>
+
+                Educational Leaders
+
+            </h2>
+
+            <p>
+
+                Every campus is built through collaboration.
+                Here's what institution leaders say about
+                working with Bhandary Architects.
+
+            </p>
+
+        </div>
+
+        <div class="testimonial-grid">
+
+            {
+                testimonials.map((item,index)=>(
+
+                    <article
+                        class="testimonial-card"
+                        style={`--delay:${index*.15}s`}
+                    >
+
+                        <div class="quote-mark">
+
+                            “
+
+                        </div>
+
+                        <p class="quote">
+
+                            {item.quote}
+
+                        </p>
+
+                        <div class="line"></div>
+
+                        <div class="author">
+
+                            <div class="avatar">
+
+                                {item.name.charAt(0)}
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+
+                                    {item.name}
+
+                                </strong>
+
+                                <span>
+
+                                    {item.role}
+
+                                </span>
+
+                                <small>
+
+                                    {item.organisation}
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.education-testimonials{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#faf8f5;
+
+}
+
+/* ============================= */
+
+.grid-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(0,0,0,.02) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(0,0,0,.02) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 20s linear infinite;
+
+}
+
+.glow{
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    left:-250px;
+
+    bottom:-250px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(76,175,80,.12),
+
+            transparent 70%
+
+        );
+
+    filter:blur(120px);
+
+}
+
+.container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* ============================= */
+
+.section-heading{
+
+    max-width:760px;
+
+    margin:0 auto 80px;
+
+    text-align:center;
+
+}
+
+.section-heading h2{
+
+    margin:18px 0;
+
+}
+
+.section-heading p{
+
+    color:#666;
+
+}
+
+/* ============================= */
+
+.testimonial-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:30px;
+
+}
+
+/* ============================= */
+
+.testimonial-card{
+
+    position:relative;
+
+    padding:45px;
+
+    background:white;
+
+    border-radius:22px;
+
+    border:1px solid rgba(0,0,0,.06);
+
+    overflow:hidden;
+
+    transition:.45s;
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+}
+
+.education-testimonials.visible .testimonial-card{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:var(--delay);
+
+}
+
+.testimonial-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(0,0,0,.03) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(0,0,0,.03) 1px,transparent 1px);
+
+    background-size:36px 36px;
+
+    opacity:.25;
+
+}
+
+.testimonial-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-40%;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(76,175,80,.10),
+
+            transparent 70%
+
+        );
+
+    opacity:0;
+
+    transition:.45s;
+
+}
+
+.testimonial-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 30px 70px rgba(0,0,0,.08);
+
+}
+
+.testimonial-card:hover::after{
+
+    opacity:1;
+
+}
+
+/* ============================= */
+
+.quote-mark{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:80px;
+
+    color:rgba(76,175,80,.18);
+
+    line-height:1;
+
+    margin-bottom:10px;
+
+}
+
+.quote{
+
+    position:relative;
+
+    z-index:2;
+
+    color:#555;
+
+    line-height:1.9;
+
+}
+
+.line{
+
+    position:relative;
+
+    z-index:2;
+
+    width:60px;
+
+    height:2px;
+
+    background:#4CAF50;
+
+    margin:28px 0;
+
+}
+
+.author{
+
+    position:relative;
+
+    z-index:2;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.avatar{
+
+    width:58px;
+
+    height:58px;
+
+    border-radius:50%;
+
+    background:#4CAF50;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:700;
+
+    font-size:22px;
+
+    flex-shrink:0;
+
+}
+
+.author strong{
+
+    display:block;
+
+    margin-bottom:4px;
+
+}
+
+.author span{
+
+    display:block;
+
+    color:#666;
+
+    font-size:14px;
+
+}
+
+.author small{
+
+    display:block;
+
+    color:#999;
+
+    margin-top:3px;
+
+}
+
+/* ============================= */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+/* ============================= */
+
+@media(max-width:991px){
+
+    .testimonial-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const section=document.querySelector(".education-testimonials");
+
+    if(!section) return;
+
+    const observer=new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.2
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

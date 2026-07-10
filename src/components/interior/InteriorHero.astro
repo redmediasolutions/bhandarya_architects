@@ -1,0 +1,363 @@
+---
+import { img } from "../../consts";
+
+const hero = img("2026/03/Screenshot-2026-03-25-154852.png");
+// Replace with your best interior image
+---
+
+<section
+    class="interior-hero"
+    style={`background-image:url('${hero}')`}
+>
+
+    <div class="hero-overlay"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+
+    <div class="container hero-container">
+
+        <div class="hero-content">
+
+            <span class="small-title reveal">
+
+                Interior Design
+
+            </span>
+
+            <h1 class="reveal delay-1">
+
+                Spaces That
+                <br />
+                Feel As Beautiful
+                <br />
+                As They Look.
+
+            </h1>
+
+            <p class="reveal delay-2">
+
+                We create timeless interiors where
+                architecture, craftsmanship, materials and
+                natural light come together to elevate the
+                everyday experience.
+
+            </p>
+
+            <div class="hero-buttons reveal delay-3">
+
+                <a
+                    href="#featured"
+                    class="btn"
+                >
+
+                    Explore Interior Projects
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="scroll-indicator">
+
+        <span></span>
+
+    </div>
+
+</section>
+
+<style>
+
+.interior-hero{
+
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+}
+
+/* =============================== */
+
+.hero-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(18,16,14,.78),
+            rgba(18,16,14,.45)
+        ),
+
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.08),
+            rgba(0,0,0,.68)
+        );
+
+}
+
+/* =============================== */
+
+.hero-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    opacity:.35;
+
+    animation:gridMove 18s linear infinite;
+
+}
+
+/* =============================== */
+
+.hero-glow{
+
+    position:absolute;
+
+    right:-200px;
+
+    top:-200px;
+
+    width:900px;
+
+    height:900px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,180,80,.22),
+
+            transparent 70%
+
+        );
+
+    filter:blur(120px);
+
+    animation:floatGlow 8s ease-in-out infinite alternate;
+
+}
+
+/* =============================== */
+
+.hero-container{
+
+    position:relative;
+
+    z-index:3;
+
+}
+
+.hero-content{
+
+    max-width:760px;
+
+}
+
+.hero-content h1{
+
+    color:white;
+
+    font-size:clamp(58px,8vw,110px);
+
+    line-height:.94;
+
+    margin:20px 0 28px;
+
+    letter-spacing:-2px;
+
+}
+
+.hero-content p{
+
+    color:rgba(255,255,255,.76);
+
+    max-width:620px;
+
+    font-size:18px;
+
+    line-height:1.9;
+
+}
+
+.hero-buttons{
+
+    margin-top:48px;
+
+}
+
+/* =============================== */
+
+.scroll-indicator{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:40px;
+
+    transform:translateX(-50%);
+
+    width:30px;
+
+    height:52px;
+
+    border:2px solid rgba(255,255,255,.35);
+
+    border-radius:50px;
+
+    display:flex;
+
+    justify-content:center;
+
+    padding-top:10px;
+
+    z-index:5;
+
+}
+
+.scroll-indicator span{
+
+    width:5px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:white;
+
+    animation:scroll 2s infinite;
+
+}
+
+/* =============================== */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    animation:fadeUp 1s cubic-bezier(.22,1,.36,1) forwards;
+
+}
+
+.delay-1{animation-delay:.15s;}
+.delay-2{animation-delay:.35s;}
+.delay-3{animation-delay:.55s;}
+
+/* =============================== */
+
+@keyframes fadeUp{
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+@keyframes floatGlow{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(40px);
+
+    }
+
+}
+
+@keyframes scroll{
+
+    0%{
+
+        transform:translateY(0);
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:translateY(18px);
+
+        opacity:0;
+
+    }
+
+}
+
+/* =============================== */
+
+@media(max-width:768px){
+
+    .hero-content h1{
+
+        font-size:50px;
+
+    }
+
+    .hero-content p{
+
+        font-size:16px;
+
+    }
+
+}
+
+</style>
