@@ -1,0 +1,513 @@
+---
+interface Props{
+
+    title?:string;
+
+    content:string[];
+
+    image:string;
+
+}
+
+const{
+
+    title="Design Story",
+
+    content=[],
+
+    image
+
+}=Astro.props;
+---
+
+<section class="design-story section">
+
+    <div class="background-word">
+
+        DESIGN
+
+    </div>
+
+    <div class="container">
+
+        <div class="story-grid">
+
+            <!-- Left -->
+
+            <div class="story-content">
+
+                <span class="small-title">
+
+                    Design Narrative
+
+                </span>
+
+                <h2>
+
+                    {title}
+
+                </h2>
+
+                <div class="story-line"></div>
+
+                {
+
+                    content.map((paragraph,index)=>(
+
+                        <p
+                            style={`--delay:${index*.15}s`}
+                            class="story-paragraph"
+                        >
+
+                            {paragraph}
+
+                        </p>
+
+                    ))
+
+                }
+
+            </div>
+
+            <!-- Right -->
+
+            <aside class="story-image">
+
+                <div class="image-wrapper">
+
+                    <img
+                        src={image}
+                        alt=""
+                    />
+
+                    <div class="image-grid"></div>
+
+                    <div class="image-outline"></div>
+
+                </div>
+
+                <div class="quote-card">
+
+                    <span>
+
+                        Design Principle
+
+                    </span>
+
+                    <h3>
+
+                        Architecture begins by listening.
+
+                    </h3>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.design-story{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#fff;
+
+}
+
+/* ============================ */
+
+.background-word{
+
+    position:absolute;
+
+    top:60px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    font-size:220px;
+
+    font-weight:700;
+
+    color:rgba(0,0,0,.03);
+
+    letter-spacing:12px;
+
+    pointer-events:none;
+
+}
+
+/* ============================ */
+
+.story-grid{
+
+    display:grid;
+
+    grid-template-columns:1.1fr .9fr;
+
+    gap:90px;
+
+    align-items:start;
+
+}
+
+/* ============================ */
+
+.story-content{
+
+    max-width:760px;
+
+}
+
+.story-content h2{
+
+    margin:20px 0 28px;
+
+}
+
+.story-line{
+
+    width:90px;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-bottom:40px;
+
+}
+
+.story-content p{
+
+    color:#555;
+
+    line-height:2;
+
+    font-size:18px;
+
+    margin-bottom:34px;
+
+}
+
+/* First paragraph */
+
+.story-content p:first-of-type{
+
+    font-size:24px;
+
+    color:#111;
+
+    line-height:1.8;
+
+}
+
+.story-content p:first-of-type::first-letter{
+
+    float:left;
+
+    font-size:82px;
+
+    line-height:.82;
+
+    padding-right:12px;
+
+    color:var(--accent);
+
+    font-weight:700;
+
+}
+
+/* ============================ */
+
+.story-image{
+
+    position:sticky;
+
+    top:120px;
+
+}
+
+.image-wrapper{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+}
+
+.image-wrapper img{
+
+    width:100%;
+
+    display:block;
+
+    aspect-ratio:4/5;
+
+    object-fit:cover;
+
+    transition:transform 2s cubic-bezier(.22,1,.36,1);
+
+}
+
+.image-wrapper:hover img{
+
+    transform:scale(1.05);
+
+}
+
+/* Grid */
+
+.image-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+
+    background-size:50px 50px;
+
+    animation:gridMove 18s linear infinite;
+
+}
+
+/* Outline */
+
+.image-outline{
+
+    position:absolute;
+
+    inset:22px;
+
+    border:1px solid rgba(255,255,255,.35);
+
+}
+
+/* ============================ */
+
+.quote-card{
+
+    margin-top:28px;
+
+    padding:34px;
+
+    background:#111;
+
+    color:white;
+
+    border-radius:18px;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.quote-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+
+    height:240px;
+
+    right:-100px;
+
+    top:-100px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,120,0,.25),
+
+            transparent 70%
+
+        );
+
+}
+
+.quote-card span{
+
+    display:block;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:11px;
+
+    color:rgba(255,255,255,.65);
+
+    margin-bottom:18px;
+
+}
+
+.quote-card h3{
+
+    font-size:30px;
+
+    line-height:1.4;
+
+    margin:0;
+
+}
+
+/* ============================ */
+
+.story-paragraph{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:
+
+        opacity .8s,
+
+        transform .8s;
+
+}
+
+.design-story.visible .story-paragraph{
+
+    opacity:1;
+
+    transform:none;
+
+    transition-delay:var(--delay);
+
+}
+
+.story-image{
+
+    opacity:0;
+
+    transform:translateX(60px);
+
+    transition:.9s;
+
+}
+
+.design-story.visible .story-image{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+/* ============================ */
+
+@keyframes gridMove{
+
+from{
+
+background-position:0 0;
+
+}
+
+to{
+
+background-position:50px 50px;
+
+}
+
+}
+
+/* ============================ */
+
+@media(max-width:991px){
+
+.story-grid{
+
+grid-template-columns:1fr;
+
+gap:60px;
+
+}
+
+.story-image{
+
+position:relative;
+
+top:auto;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.background-word{
+
+font-size:100px;
+
+}
+
+.story-content p:first-of-type{
+
+font-size:20px;
+
+}
+
+.story-content p:first-of-type::first-letter{
+
+font-size:64px;
+
+}
+
+.quote-card h3{
+
+font-size:24px;
+
+}
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+const section=document.querySelector(".design-story");
+
+if(!section)return;
+
+const observer=new IntersectionObserver(entries=>{
+
+if(entries[0].isIntersecting){
+
+section.classList.add("visible");
+
+observer.disconnect();
+
+}
+
+},{threshold:.25});
+
+observer.observe(section);
+
+});
+
+</script>

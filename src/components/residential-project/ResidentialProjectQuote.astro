@@ -1,0 +1,285 @@
+---
+interface Props{
+
+    quote:string;
+
+    author?:string;
+
+}
+
+const{
+
+    quote,
+
+    author="Bhandary Architects"
+
+}=Astro.props;
+---
+
+<section class="project-quote">
+
+    <div class="background-grid"></div>
+
+    <div class="container">
+
+        <div class="quote-wrapper">
+
+            <span class="quote-mark">
+
+                “
+
+            </span>
+
+            <blockquote>
+
+                {quote}
+
+            </blockquote>
+
+            <div class="quote-line"></div>
+
+            <p>
+
+                {author}
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.project-quote{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:180px 0;
+
+    background:#111;
+
+}
+
+/* ======================================= */
+
+.background-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    opacity:.35;
+
+    animation:gridMove 18s linear infinite;
+
+}
+
+/* Orange Glow */
+
+.project-quote::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    left:-250px;
+
+    top:-250px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,120,0,.16),
+
+            transparent 72%
+
+        );
+
+    filter:blur(120px);
+
+}
+
+/* ======================================= */
+
+.quote-wrapper{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    text-align:center;
+
+}
+
+/* ======================================= */
+
+.quote-mark{
+
+    display:block;
+
+    font-size:170px;
+
+    color:rgba(255,120,0,.18);
+
+    line-height:.7;
+
+    margin-bottom:30px;
+
+}
+
+blockquote{
+
+    margin:0;
+
+    color:white;
+
+    font-size:clamp(40px,4vw,72px);
+
+    line-height:1.25;
+
+    font-weight:300;
+
+    letter-spacing:-1px;
+
+}
+
+/* ======================================= */
+
+.quote-line{
+
+    width:120px;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin:55px auto 30px;
+
+}
+
+.quote-wrapper p{
+
+    color:rgba(255,255,255,.7);
+
+    text-transform:uppercase;
+
+    letter-spacing:4px;
+
+    font-size:12px;
+
+}
+
+/* ======================================= */
+
+.quote-wrapper{
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+    transition:
+
+        opacity .9s,
+
+        transform .9s;
+
+}
+
+.project-quote.visible .quote-wrapper{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+/* ======================================= */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .project-quote{
+
+        padding:120px 0;
+
+    }
+
+    .quote-mark{
+
+        font-size:110px;
+
+    }
+
+    blockquote{
+
+        font-size:34px;
+
+    }
+
+}
+
+</style>
+
+<script is:inline>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+const section=document.querySelector(".project-quote");
+
+if(!section)return;
+
+const observer=new IntersectionObserver(entries=>{
+
+if(entries[0].isIntersecting){
+
+section.classList.add("visible");
+
+observer.disconnect();
+
+}
+
+},{threshold:.25});
+
+observer.observe(section);
+
+});
+
+</script>

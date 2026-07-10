@@ -1,16 +1,19 @@
 ---
-import { img } from "../../consts";
 
-const project = {
-    title: "Samudra",
-    category: "Luxury Residence",
-    location: "Yermal, Karnataka",
-    year: "2025",
-    area: "6,400 sq.ft",
-    image: img("2026/05/Copy-of-01.webp"),
-    href: "/projects/samudra",
-};
+import projects from "../../content/residential";
+
+import { getResidentialImages } from "../../lib/residentialImages";
+
+const project =
+
+    projects.find((p) => p.featured) ?? projects[0];
+
+const { hero } = getResidentialImages(project.folder);
+
+const href = `/projects/residences/${project.slug}`;
+
 ---
+
 
 <section class="featured-residence section" id="featured">
 
@@ -37,14 +40,17 @@ const project = {
             <!-- Image -->
 
             <a
-                href={project.href}
+                href={href}
                 class="featured-image"
             >
 
-                <img
-                    src={project.image}
-                    alt={project.title}
-                />
+               <img
+
+    src={hero.src}
+
+    alt={project.title}
+
+/>
 
                 <div class="image-overlay"></div>
 
@@ -137,7 +143,7 @@ const project = {
                 </div>
 
                 <a
-                    href={project.href}
+                    href={href}
                     class="btn"
                 >
 

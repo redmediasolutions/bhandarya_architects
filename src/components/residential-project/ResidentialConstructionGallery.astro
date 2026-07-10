@@ -1,0 +1,464 @@
+---
+import type { ImageMetadata } from "astro";
+
+interface Props {
+    title?: string;
+    images: ImageMetadata[];
+}
+
+const {
+    title = "Construction Journey",
+    images = []
+} = Astro.props;
+---
+
+<section class="construction-gallery section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <span class="small-title">
+                Behind The Build
+            </span>
+
+            <h2>
+                {title}
+            </h2>
+
+            <p>
+                Every completed residence is the result of months of
+                craftsmanship, coordination and careful execution.
+                These images capture the process behind the finished home.
+            </p>
+
+        </div>
+
+        <div class="timeline">
+
+            <div class="timeline-line"></div>
+
+            {
+                images.map((image, index) => (
+
+                    <article
+                        class={`construction-card ${index % 2 === 0 ? "left" : "right"}`}
+                    >
+
+                        <div class="timeline-dot"></div>
+
+                        <a
+                            href={image.src}
+                            class="construction-image"
+                            data-pswp-width={image.width}
+                            data-pswp-height={image.height}
+                        >
+
+                            <img
+                                src={image.src}
+                                width={image.width}
+                                height={image.height}
+                                alt={`Construction ${index + 1}`}
+                                loading="lazy"
+                            />
+
+                            <div class="overlay">
+
+                                <span>
+
+                                    View Image
+
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.construction-gallery{
+
+    position:relative;
+
+    background:#111;
+
+    overflow:hidden;
+
+}
+
+/* ====================================== */
+
+.construction-gallery::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    opacity:.35;
+
+}
+
+/* ====================================== */
+
+.construction-gallery::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    right:-260px;
+
+    top:-220px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,120,0,.15),
+
+            transparent 70%
+
+        );
+
+    filter:blur(120px);
+
+}
+
+/* ====================================== */
+
+.section-header{
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    max-width:760px;
+
+    margin:0 auto 100px;
+
+}
+
+.section-header h2{
+
+    color:#fff;
+
+    margin:18px 0;
+
+}
+
+.section-header p{
+
+    color:rgba(255,255,255,.72);
+
+}
+
+/* ====================================== */
+
+.timeline{
+
+    position:relative;
+
+    max-width:1200px;
+
+    margin:auto;
+
+}
+
+.timeline-line{
+
+    position:absolute;
+
+    left:50%;
+
+    top:0;
+
+    bottom:0;
+
+    width:2px;
+
+    background:rgba(255,255,255,.08);
+
+    transform:translateX(-50%);
+
+}
+
+/* ====================================== */
+
+.construction-card{
+
+    position:relative;
+
+    width:calc(50% - 60px);
+
+    margin-bottom:90px;
+
+}
+
+.left{
+
+    margin-right:auto;
+
+}
+
+.right{
+
+    margin-left:auto;
+
+}
+
+.timeline-dot{
+
+    position:absolute;
+
+    top:50%;
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    background:var(--accent);
+
+    box-shadow:0 0 20px rgba(255,120,0,.6);
+
+}
+
+.left .timeline-dot{
+
+    right:-70px;
+
+}
+
+.right .timeline-dot{
+
+    left:-70px;
+
+}
+
+/* ====================================== */
+
+.construction-image{
+
+    display:block;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    box-shadow:
+
+        0 25px 60px rgba(0,0,0,.35);
+
+}
+
+.construction-image img{
+
+    width:100%;
+
+    display:block;
+
+    aspect-ratio:4/3;
+
+    object-fit:cover;
+
+    transition:transform 2s cubic-bezier(.22,1,.36,1);
+
+}
+
+.construction-image:hover img{
+
+    transform:scale(1.08);
+
+}
+
+.overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.45);
+
+    opacity:0;
+
+    transition:.4s;
+
+}
+
+.construction-image:hover .overlay{
+
+    opacity:1;
+
+}
+
+.overlay span{
+
+    padding:15px 30px;
+
+    border-radius:999px;
+
+    backdrop-filter:blur(16px);
+
+    background:rgba(255,255,255,.16);
+
+    color:white;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:12px;
+
+}
+
+/* ====================================== */
+
+.construction-card{
+
+    opacity:0;
+
+    transition:
+
+        opacity .8s,
+
+        transform .8s;
+
+}
+
+.left{
+
+    transform:translateX(-80px);
+
+}
+
+.right{
+
+    transform:translateX(80px);
+
+}
+
+.construction-gallery.visible .construction-card{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+.construction-card:nth-child(2){transition-delay:.1s;}
+.construction-card:nth-child(3){transition-delay:.2s;}
+.construction-card:nth-child(4){transition-delay:.3s;}
+.construction-card:nth-child(5){transition-delay:.4s;}
+.construction-card:nth-child(6){transition-delay:.5s;}
+
+/* ====================================== */
+
+@media(max-width:900px){
+
+    .timeline-line{
+
+        display:none;
+
+    }
+
+    .construction-card{
+
+        width:100%;
+
+        margin-bottom:40px;
+
+        transform:none!important;
+
+    }
+
+    .timeline-dot{
+
+        display:none;
+
+    }
+
+}
+
+</style>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    const { default: PhotoSwipeLightbox } = await import("photoswipe/lightbox");
+
+    const lightbox = new PhotoSwipeLightbox({
+
+        gallery: ".timeline",
+
+        children: "a",
+
+        pswpModule: () => import("photoswipe")
+
+    });
+
+    lightbox.init();
+
+    const section = document.querySelector(".construction-gallery");
+
+    if(!section) return;
+
+    const observer = new IntersectionObserver((entries)=>{
+
+        if(entries[0].isIntersecting){
+
+            section.classList.add("visible");
+
+            observer.disconnect();
+
+        }
+
+    },{
+
+        threshold:.2
+
+    });
+
+    observer.observe(section);
+
+});
+
+</script>

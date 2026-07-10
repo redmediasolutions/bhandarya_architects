@@ -1,0 +1,397 @@
+---
+interface Props {
+
+  project: {
+
+    title: string;
+
+    subtitle: string;
+
+    description: string[];
+
+    location: string;
+
+    area: string;
+
+    year: string;
+
+    status?: string;
+
+  };
+
+}
+
+const { project } = Astro.props;
+---
+
+<section class="project-overview section">
+
+    <div class="container">
+
+        <div class="overview-grid">
+
+            <!-- Left -->
+
+            <aside class="overview-sidebar">
+
+                <span class="small-title">
+
+                    Project Overview
+
+                </span>
+
+                <h2>
+
+                    {project.title}
+
+                </h2>
+
+                <div class="sidebar-line"></div>
+
+                <ul class="project-details">
+
+                    <li>
+
+                        <span>Location</span>
+
+                        <strong>{project.location}</strong>
+
+                    </li>
+
+                    <li>
+
+                        <span>Built Up Area</span>
+
+                        <strong>{project.area}</strong>
+
+                    </li>
+
+                    <li>
+
+    <span>Status</span>
+
+    <strong class={`status ${project.status === "Completed" ? "completed" : "construction"}`}>
+
+        {project.status}
+
+    </strong>
+
+</li>
+
+<li>
+
+    <span>
+
+        {project.status === "Completed" ? "Completed" : "Expected Completion"}
+
+    </span>
+
+    <strong>
+
+        {project.year}
+
+    </strong>
+
+</li>
+
+                    <li>
+
+                        <span>Services</span>
+
+                        <strong>{project.subtitle}</strong>
+
+                    </li>
+
+                </ul>
+
+            </aside>
+
+            <!-- Right -->
+
+            <div class="overview-content">
+
+                {
+                    project.description.map((paragraph) => (
+
+                        <p>
+
+                            {paragraph}
+
+                        </p>
+
+                    ))
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.project-overview{
+
+    position:relative;
+
+    background:#fff;
+
+}
+
+/* ============================= */
+
+.overview-grid{
+
+    display:grid;
+
+    grid-template-columns:380px 1fr;
+
+    gap:120px;
+
+    align-items:start;
+
+}
+
+/* ============================= */
+
+.overview-sidebar{
+
+    position:sticky;
+
+    top:120px;
+
+}
+
+.overview-sidebar h2{
+
+    margin:18px 0 28px;
+
+    font-size:clamp(42px,5vw,62px);
+
+    line-height:.95;
+
+}
+
+.sidebar-line{
+
+    width:80px;
+
+    height:2px;
+
+    background:var(--accent);
+
+    margin-bottom:40px;
+
+}
+
+.project-details{
+
+    list-style:none;
+
+    margin:0;
+
+    padding:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:26px;
+
+}
+
+.project-details li{
+
+    padding-bottom:20px;
+
+    border-bottom:1px solid rgba(0,0,0,.08);
+
+}
+
+.project-details span{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    color:#999;
+
+}
+
+.project-details strong{
+
+    font-size:17px;
+
+    font-weight:600;
+
+    color:#111;
+
+}
+
+/* ============================= */
+
+.overview-content{
+
+    max-width:760px;
+
+}
+
+.overview-content p{
+
+    margin:0 0 42px;
+
+    color:#444;
+
+    font-size:20px;
+
+    line-height:2;
+
+}
+
+.overview-content p:first-child{
+
+    font-size:26px;
+
+    line-height:1.8;
+
+    color:#111;
+
+}
+
+/* Decorative Quote */
+
+.overview-content p:first-child::first-letter{
+
+    float:left;
+
+    font-size:88px;
+
+    line-height:.8;
+
+    padding-right:12px;
+
+    color:var(--accent);
+
+    font-weight:700;
+
+}
+
+/* ============================= */
+
+@media(max-width:1100px){
+
+    .overview-grid{
+
+        gap:70px;
+
+    }
+
+}
+
+@media(max-width:991px){
+
+    .overview-grid{
+
+        grid-template-columns:1fr;
+
+        gap:50px;
+
+    }
+
+    .overview-sidebar{
+
+        position:relative;
+
+        top:auto;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .overview-content p{
+
+        font-size:18px;
+
+        line-height:1.9;
+
+    }
+
+    .overview-content p:first-child{
+
+        font-size:22px;
+
+    }
+
+    .overview-content p:first-child::first-letter{
+
+        font-size:68px;
+
+    }
+
+}
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-weight:600;
+
+}
+
+.status::before{
+
+    content:"";
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    flex-shrink:0;
+
+}
+
+.status.completed{
+
+    color:#2e7d32;
+
+}
+
+.status.completed::before{
+
+    background:#2e7d32;
+
+    box-shadow:0 0 12px rgba(46,125,50,.35);
+
+}
+
+.status.construction{
+
+    color:#e67e22;
+
+}
+
+.status.construction::before{
+
+    background:#e67e22;
+
+    box-shadow:0 0 12px rgba(230,126,34,.35);
+
+}
+
+</style>

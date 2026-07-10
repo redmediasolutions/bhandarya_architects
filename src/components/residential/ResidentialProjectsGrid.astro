@@ -1,55 +1,11 @@
 ---
-const projects = [
-  {
-    title: "Samudra",
-    location: "Yermal, Karnataka",
-    year: "2025",
-    area: "6400 sq.ft",
-    image: "/images/projects/samudra/samudra.webp",
-    href: "/samudra",
-    featured: true,
-  },
-  {
-    title: "Kutira",
-    location: "Mangalore",
-    year: "2024",
-    area: "4200 sq.ft",
-    image: "/images/projects/kutira/Kuitra.webp",
-    href: "/kutira",
-  },
-  {
-    title: "Courtyard House",
-    location: "Mangalore",
-    year: "2023",
-    area: "3900 sq.ft",
-    image: "/images/project4.webp",
-    href: "#",
-  },
-  {
-    title: "Coastal Villa",
-    location: "Udupi",
-    year: "2025",
-    area: "5200 sq.ft",
-    image: "/images/project5.webp",
-    href: "#",
-  },
-  {
-    title: "Palm Residence",
-    location: "Manipal",
-    year: "2022",
-    area: "3100 sq.ft",
-    image: "/images/project6.webp",
-    href: "#",
-  },
-  {
-    title: "Lake House",
-    location: "Mysore",
-    year: "2021",
-    area: "4600 sq.ft",
-    image: "/images/project3.webp",
-    href: "#",
-  },
-];
+import { getResidentialImages } from "../../lib/residentialImages";
+
+interface Props {
+    projects: any[];
+}
+
+const { projects } = Astro.props;
 ---
 
 <section class="residential-projects section">
@@ -76,56 +32,73 @@ const projects = [
         <div class="project-grid">
 
             {
-                projects.map((project,index)=>(
-                    <a
-                        href={project.href}
-                        class={`project-card ${project.featured ? "featured" : ""}`}
-                        style={`--delay:${index * .12}s`}
-                    >
+                projects.map((project, index) => {
 
-                        <img
-                            src={project.image}
-                            alt={project.title}
-                        />
+                    const { hero } = getResidentialImages(project.folder);
 
-                        <div class="overlay">
+                    return (
 
-                            <div class="project-meta">
+                        <a
+                            href={`/projects/residences/${project.slug}`}
+                            class={`project-card ${project.featured ? "featured" : ""}`}
+                            style={`--delay:${index * .12}s`}
+                        >
 
-                                <span>
+                            <img
+                                src={hero.src}
+                                alt={project.title}
+                                loading="lazy"
+                            />
 
-                                    {project.location}
+                            <div class="overlay">
 
-                                </span>
+                                <div class="project-meta">
 
-                                <h3>
+                                    <span>
 
-                                    {project.title}
+                                        {project.location}
 
-                                </h3>
+                                    </span>
 
-                                <div class="details">
+                                    <h3>
 
-                                    <span>{project.area}</span>
+                                        {project.title}
 
-                                    <span>{project.year}</span>
+                                    </h3>
 
-                                </div>
+                                    <div class="details">
 
-                                <div class="line"></div>
+                                        <span>{project.area}</span>
 
-                                <div class="view-link">
+                                        <span>
 
-                                    View Project →
+                                            {
+                                                project.status === "Under Construction"
+                                                    ? "Under Construction"
+                                                    : project.year
+                                            }
+
+                                        </span>
+
+                                    </div>
+
+                                    <div class="line"></div>
+
+                                    <div class="view-link">
+
+                                        View Project →
+
+                                    </div>
 
                                 </div>
 
                             </div>
 
-                        </div>
+                        </a>
 
-                    </a>
-                ))
+                    );
+
+                })
             }
 
         </div>
@@ -143,8 +116,6 @@ const projects = [
     padding:120px 0;
 }
 
-/* ========================================= */
-/* Background */
 /* ========================================= */
 
 .residential-projects::before{
@@ -182,8 +153,6 @@ const projects = [
 }
 
 /* ========================================= */
-/* Heading */
-/* ========================================= */
 
 .section-heading{
     max-width:760px;
@@ -202,8 +171,6 @@ const projects = [
 }
 
 /* ========================================= */
-/* Grid */
-/* ========================================= */
 
 .project-grid{
     display:grid;
@@ -221,8 +188,6 @@ const projects = [
     min-height:460px;
 }
 
-/* ========================================= */
-/* Card */
 /* ========================================= */
 
 .project-card{
@@ -246,12 +211,9 @@ const projects = [
     transition:
         opacity .8s ease,
         transform .8s cubic-bezier(.22,1,.36,1),
-        box-shadow .45s,
-        filter .45s;
+        box-shadow .45s;
 
 }
-
-/* reveal */
 
 .residential-projects.visible .project-card{
 
@@ -262,8 +224,6 @@ const projects = [
     transition-delay:var(--delay);
 
 }
-
-/* soft glow */
 
 .project-card::before{
 
@@ -308,8 +268,6 @@ const projects = [
 }
 
 /* ========================================= */
-/* Image */
-/* ========================================= */
 
 .project-card img{
 
@@ -326,8 +284,7 @@ const projects = [
     transform:scale(1.06);
 
     transition:
-        transform 2s cubic-bezier(.22,1,.36,1),
-        filter .6s;
+        transform 2s cubic-bezier(.22,1,.36,1);
 
 }
 
@@ -337,8 +294,6 @@ const projects = [
 
 }
 
-/* ========================================= */
-/* Overlay */
 /* ========================================= */
 
 .overlay{
@@ -437,8 +392,6 @@ const projects = [
 
     align-items:center;
 
-    gap:8px;
-
     color:var(--accent);
 
     text-transform:uppercase;
@@ -449,62 +402,38 @@ const projects = [
 
     font-weight:600;
 
-    transition:.35s;
-
 }
 
-.project-card:hover .view-link{
-
-    letter-spacing:2.5px;
-
-}
-
-/* ========================================= */
-/* Animation */
 /* ========================================= */
 
 @keyframes gridMove{
 
     from{
-
         background-position:0 0;
-
     }
 
     to{
-
         background-position:80px 80px;
-
     }
 
 }
 
 /* ========================================= */
-/* Responsive */
-/* ========================================= */
 
 @media(max-width:991px){
 
     .project-grid{
-
         grid-template-columns:repeat(2,1fr);
-
     }
 
     .featured{
-
         grid-column:span 2;
-
         min-height:480px;
-
     }
 
     .project-card:not(.featured){
-
         grid-column:auto;
-
         min-height:380px;
-
     }
 
 }
@@ -512,33 +441,23 @@ const projects = [
 @media(max-width:768px){
 
     .project-grid{
-
         grid-template-columns:1fr;
-
     }
 
     .featured{
-
         grid-column:auto;
-
     }
 
     .project-card{
-
         min-height:340px;
-
     }
 
     .overlay{
-
         padding:28px;
-
     }
 
     .project-meta h3{
-
         font-size:28px;
-
     }
 
 }

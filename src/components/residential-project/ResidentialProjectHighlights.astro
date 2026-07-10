@@ -1,0 +1,418 @@
+---
+interface Props {
+  project: {
+    area: string;
+    year: string;
+    location: string;
+    services: string;
+  };
+}
+
+const { project } = Astro.props;
+
+const highlights = [
+  {
+    title: "Location",
+    value: project.location,
+    icon: "⌂",
+  },
+  {
+    title: "Built Up Area",
+    value: project.area,
+    icon: "▣",
+  },
+  {
+    title: "Completion",
+    value: project.year,
+    icon: "◉",
+  },
+  {
+    title: "Scope",
+    value: project.services,
+    icon: "✦",
+  },
+];
+---
+
+<section class="project-highlights section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+
+                Project Information
+
+            </span>
+
+            <h2>
+
+                At a Glance
+
+            </h2>
+
+        </div>
+
+        <div class="highlights-grid">
+
+            {
+                highlights.map((item,index)=>(
+
+                    <article
+                        class="highlight-card"
+                        style={`--delay:${index*.12}s`}
+                    >
+
+                        <div class="grid-overlay"></div>
+
+                        <span class="highlight-icon">
+
+                            {item.icon}
+
+                        </span>
+
+                        <span class="highlight-label">
+
+                            {item.title}
+
+                        </span>
+
+                        <h3>
+
+                            {item.value}
+
+                        </h3>
+
+                        <div class="accent-line"></div>
+
+                    </article>
+
+                ))
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.project-highlights{
+
+    position:relative;
+
+    background:#faf8f5;
+
+    overflow:hidden;
+
+}
+
+/* ======================================= */
+
+.project-highlights::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    left:-280px;
+
+    top:-240px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,120,0,.10),
+
+            transparent 72%
+
+        );
+
+    filter:blur(110px);
+
+    pointer-events:none;
+
+}
+
+/* ======================================= */
+
+.section-heading{
+
+    text-align:center;
+
+    margin-bottom:70px;
+
+}
+
+.section-heading h2{
+
+    margin-top:18px;
+
+}
+
+/* ======================================= */
+
+.highlights-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:28px;
+
+}
+
+/* ======================================= */
+
+.highlight-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:45px;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    border:1px solid rgba(0,0,0,.06);
+
+    transition:
+
+        transform .45s,
+
+        box-shadow .45s,
+
+        border-color .45s;
+
+}
+
+.highlight-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:rgba(255,120,0,.18);
+
+    box-shadow:
+
+        0 28px 60px rgba(0,0,0,.08);
+
+}
+
+/* ======================================= */
+
+.grid-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(0,0,0,.03) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(0,0,0,.03) 1px,transparent 1px);
+
+    background-size:38px 38px;
+
+    opacity:.55;
+
+    animation:gridMove 14s linear infinite;
+
+    pointer-events:none;
+
+}
+
+/* ======================================= */
+
+.highlight-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    right:-80px;
+
+    top:-80px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,120,0,.18),
+
+            transparent 70%
+
+        );
+
+    opacity:0;
+
+    transition:.45s;
+
+}
+
+.highlight-card:hover::before{
+
+    opacity:1;
+
+}
+
+/* ======================================= */
+
+.highlight-icon{
+
+    position:relative;
+
+    z-index:2;
+
+    display:inline-flex;
+
+    width:58px;
+
+    height:58px;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,120,0,.08);
+
+    color:var(--accent);
+
+    font-size:24px;
+
+    margin-bottom:26px;
+
+}
+
+.highlight-label{
+
+    position:relative;
+
+    z-index:2;
+
+    display:block;
+
+    margin-bottom:14px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:11px;
+
+    color:#888;
+
+}
+
+.highlight-card h3{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:32px;
+
+    line-height:1.25;
+
+    margin:0;
+
+    color:#111;
+
+}
+
+.accent-line{
+
+    position:relative;
+
+    z-index:2;
+
+    width:0;
+
+    height:2px;
+
+    margin-top:28px;
+
+    background:var(--accent);
+
+    transition:.45s;
+
+}
+
+.highlight-card:hover .accent-line{
+
+    width:90px;
+
+}
+
+/* ======================================= */
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:38px 38px;
+
+    }
+
+}
+
+/* ======================================= */
+
+@media(max-width:1100px){
+
+    .highlights-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .highlights-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .highlight-card{
+
+        padding:34px;
+
+    }
+
+    .highlight-card h3{
+
+        font-size:28px;
+
+    }
+
+}
+
+</style>

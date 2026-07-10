@@ -13,7 +13,7 @@ const hero = img("2026/03/Screenshot-2026-03-25-154852.png");
     <div class="hero-grid"></div>
     <div class="hero-glow"></div>
 
-    <div class="container hero-container">
+    <div class="hero-container">
 
         <div class="hero-content">
 
@@ -25,11 +25,11 @@ const hero = img("2026/03/Screenshot-2026-03-25-154852.png");
 
             <h1 class="reveal delay-1">
 
-                Spaces That
+                Spaces That Power
                 <br />
-                Power Business
+                Business Growth.
                 <br />
-                Growth.
+                
 
             </h1>
 
@@ -86,35 +86,6 @@ const hero = img("2026/03/Screenshot-2026-03-25-154852.png");
         </aside>
 
     </div>
-
-    <div class="sector-nav">
-
-        <a href="#offices">
-
-            Offices
-
-        </a>
-
-        <a href="#retail">
-
-            Retail
-
-        </a>
-
-        <a href="#institutional">
-
-            Institutional
-
-        </a>
-
-        <a href="#hospitality">
-
-            Hospitality
-
-        </a>
-
-    </div>
-
     <div class="scroll-indicator">
 
         <span></span>
@@ -122,3 +93,534 @@ const hero = img("2026/03/Screenshot-2026-03-25-154852.png");
     </div>
 
 </section>
+
+<style>
+
+.commercial-hero{
+
+    position:relative;
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+
+    overflow:hidden;
+
+    background-size:cover;
+    background-position:65% center;
+    background-repeat:no-repeat;
+
+}
+
+/* ===================================== */
+/* Background */
+/* ===================================== */
+
+.hero-overlay{
+
+    position:absolute;
+    inset:0;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(5,5,5,.92) 0%,
+            rgba(5,5,5,.78) 28%,
+            rgba(5,5,5,.42) 60%,
+            rgba(5,5,5,.15) 100%
+        ),
+
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.75)
+        );
+
+    z-index:1;
+
+}
+
+.hero-grid{
+
+    position:absolute;
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    animation:gridMove 22s linear infinite;
+
+    opacity:.35;
+
+    z-index:2;
+
+}
+
+.hero-glow{
+
+    position:absolute;
+
+    width:900px;
+    height:900px;
+
+    right:-250px;
+    top:-250px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(255,120,0,.18),
+
+            transparent 70%
+
+        );
+
+    filter:blur(90px);
+
+    animation:glow 10s ease-in-out infinite alternate;
+
+    z-index:2;
+
+}
+
+/* ===================================== */
+/* Layout */
+/* ===================================== */
+
+.hero-container{
+
+    position:relative;
+
+    z-index:5;
+
+    width:min(1280px,92vw);
+
+    margin:0 auto;
+
+    display:grid;
+
+    grid-template-columns:560px 220px;
+
+    justify-content:space-between;
+
+    align-items:end;
+
+    gap:140px;
+
+}
+
+.hero-content{
+
+    width:760px;
+
+}
+
+.hero-content .small-title{
+
+    color:rgba(255,255,255,.82);
+
+    letter-spacing:4px;
+
+}
+
+.hero-content h1{
+
+    color:white;
+
+    font-size:clamp(58px,6vw,96px);
+
+    line-height:.92;
+
+    letter-spacing:-2px;
+
+    margin:24px 0 28px;
+
+}
+
+.hero-content p{
+
+    max-width:470px;
+
+    color:rgba(255,255,255,.75);
+
+    font-size:18px;
+
+    line-height:1.9;
+
+}
+
+.hero-buttons{
+
+    margin-top:48px;
+
+}
+
+/* ===================================== */
+/* Stats */
+/* ===================================== */
+
+.hero-stats{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:42px;
+
+    width:220px;
+
+}
+
+.hero-stats div{
+
+    padding-left:24px;
+
+    border-left:2px solid rgba(255,255,255,.08);
+
+}
+
+.hero-stats strong{
+
+    display:block;
+
+    font-size:54px;
+
+    line-height:1;
+
+    color:#fff;
+
+    margin-bottom:8px;
+
+}
+
+.hero-stats span{
+
+    color:rgba(255,255,255,.65);
+
+    font-size:11px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+}
+
+/* ===================================== */
+/* Bottom Navigation */
+/* ===================================== */
+
+.sector-nav{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:82px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:70px;
+
+    background:rgba(0,0,0,.28);
+
+    backdrop-filter:blur(18px);
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    z-index:10;
+
+}
+
+.sector-nav a{
+
+    position:relative;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:12px;
+
+    transition:.35s;
+
+}
+
+.sector-nav a:hover{
+
+    color:var(--accent);
+
+}
+
+.sector-nav a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:2px;
+
+    background:var(--accent);
+
+    transition:.35s;
+
+}
+
+.sector-nav a:hover::after{
+
+    width:100%;
+
+}
+
+/* ===================================== */
+/* Scroll */
+/* ===================================== */
+
+.scroll-indicator{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:105px;
+
+    transform:translateX(-50%);
+
+    width:28px;
+
+    height:48px;
+
+    border:2px solid rgba(255,255,255,.35);
+
+    border-radius:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    z-index:20;
+
+}
+
+.scroll-indicator span{
+
+    width:4px;
+
+    height:10px;
+
+    margin-top:8px;
+
+    border-radius:20px;
+
+    background:var(--accent);
+
+    animation:scrollDown 2s infinite;
+
+}
+
+/* ===================================== */
+/* Reveal */
+/* ===================================== */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    animation:fadeUp .9s cubic-bezier(.22,1,.36,1) forwards;
+
+}
+
+.delay-1{animation-delay:.15s;}
+.delay-2{animation-delay:.35s;}
+.delay-3{animation-delay:.55s;}
+.delay-4{animation-delay:.75s;}
+
+/* ===================================== */
+/* Animations */
+/* ===================================== */
+
+@keyframes fadeUp{
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes glow{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(40px);
+
+    }
+
+}
+
+@keyframes gridMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:70px 70px;
+
+    }
+
+}
+
+@keyframes scrollDown{
+
+    0%{
+
+        opacity:0;
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        opacity:0;
+
+        transform:translateY(18px);
+
+    }
+
+}
+
+/* ===================================== */
+/* Responsive */
+/* ===================================== */
+
+@media(max-width:1100px){
+
+    .hero-container{
+
+        width:92vw;
+
+        grid-template-columns:1fr;
+
+        gap:70px;
+
+    }
+
+    .hero-content{
+
+        max-width:650px;
+
+    }
+
+    .hero-stats{
+
+        width:100%;
+
+        flex-direction:row;
+
+        justify-content:space-between;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .commercial-hero{
+
+        min-height:90vh;
+
+        padding:120px 0;
+
+        background-position:center;
+
+    }
+
+    .hero-content h1{
+
+        font-size:52px;
+
+    }
+
+    .hero-content p{
+
+        font-size:16px;
+
+        max-width:100%;
+
+    }
+
+    .hero-stats{
+
+        flex-direction:column;
+
+        gap:28px;
+
+    }
+
+    .sector-nav{
+
+        gap:22px;
+
+        height:auto;
+
+        padding:20px;
+
+        flex-wrap:wrap;
+
+    }
+
+    .scroll-indicator{
+
+        display:none;
+
+    }
+
+}
+
+</style>

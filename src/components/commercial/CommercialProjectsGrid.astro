@@ -1,44 +1,7 @@
 ---
 import { img } from "../../consts";
-
-const projects = [
-  {
-    title: "Corporate Headquarters",
-    category: "Corporate Office",
-    location: "Mangalore",
-    area: "48,500 sq.ft",
-    year: "2025",
-    image: img("2026/05/Copy-of-01.webp"),
-    href: "/projects/corporate-headquarters"
-  },
-  {
-    title: "Retail Experience Centre",
-    category: "Retail",
-    location: "Udupi",
-    area: "18,200 sq.ft",
-    year: "2024",
-    image: img("2026/05/Copy-of-01.png"),
-    href: "#"
-  },
-  {
-    title: "Business Park",
-    category: "Commercial Campus",
-    location: "Bangalore",
-    area: "72,000 sq.ft",
-    year: "2023",
-    image: img("2026/03/Screenshot-2026-03-25-154852.png"),
-    href: "#"
-  },
-  {
-    title: "Educational Campus",
-    category: "Institutional",
-    location: "Mangalore",
-    area: "96,000 sq.ft",
-    year: "2022",
-    image: img("2026/05/Copy-of-01.webp"),
-    href: "#"
-  }
-];
+import projects from "../../content/commercial";
+import { getCommercialImages } from "../../lib/commercialImages";
 ---
 
 <section class="commercial-projects">
@@ -71,65 +34,69 @@ const projects = [
         <div class="projects-list">
 
             {
-                projects.map((project,index)=>(
+    projects.map((project, index) => {
 
-                    <article
-                        class={`project-row ${index%2 ? "reverse" : ""}`}
-                    >
+        const { hero } = getCommercialImages(project.folder);
 
-                        <a
-                            href={project.href}
-                            class="project-image"
-                        >
+        return (
 
-                            <img
-                                src={project.image}
-                                alt={project.title}
-                            />
+            <article
+                class={`project-row ${index % 2 ? "reverse" : ""}`}
+            >
 
-                        </a>
+                <a
+                    href={`/projects/commercial/${project.slug}`}
+                    class="project-image"
+                >
 
-                        <div class="project-content">
+                    <img
+                        src={hero.src}
+                        alt={project.title}
+                        loading="lazy"
+                    />
 
-                            <span class="project-category">
+                </a>
 
-                                {project.category}
+                <div class="project-content">
 
-                            </span>
+                    <span class="project-category">
 
-                            <h3>
+                        {project.subtitle}
 
-                                {project.title}
+                    </span>
 
-                            </h3>
+                    <h3>
 
-                            <p>
+                        {project.title}
 
-                                Thoughtfully designed to balance
-                                operational efficiency with timeless
-                                architectural expression, creating
-                                spaces that elevate both business and
-                                user experience.
+                    </h3>
 
-                            </p>
+                    <p>
 
-                            <div class="meta">
+                        {project.description[0]}
 
-                                <div>
+                    </p>
 
-                                    <small>
+                    <div class="meta">
 
-                                        Location
+                        <div>
 
-                                    </small>
+                            <small>
 
-                                    <strong>
+                                Location
 
-                                        {project.location}
+                            </small>
 
-                                    </strong>
+                            <strong>
 
-                                </div>
+                                {project.location}
+
+                            </strong>
+
+                        </div>
+
+                        {
+                            project.area && (
 
                                 <div>
 
@@ -147,39 +114,48 @@ const projects = [
 
                                 </div>
 
-                                <div>
+                            )
+                        }
 
-                                    <small>
+                        <div>
 
-                                        Year
+                            <small>
 
-                                    </small>
+                                {project.status === "Completed" ? "Completed" : "Status"}
 
-                                    <strong>
+                            </small>
 
-                                        {project.year}
+                            <strong>
 
-                                    </strong>
+                                {
+                                    project.status === "Completed"
+                                        ? project.year
+                                        : project.status
+                                }
 
-                                </div>
-
-                            </div>
-
-                            <a
-                                href={project.href}
-                                class="project-link"
-                            >
-
-                                View Project →
-
-                            </a>
+                            </strong>
 
                         </div>
 
-                    </article>
+                    </div>
 
-                ))
-            }
+                    <a
+                        href={`/projects/commercial/${project.slug}`}
+                        class="project-link"
+                    >
+
+                        View Project →
+
+                    </a>
+
+                </div>
+
+            </article>
+
+        );
+
+    })
+}
 
         </div>
 
@@ -213,7 +189,7 @@ const projects = [
 
 }
 
-/* ============================ */
+/* ====================================== */
 
 .projects-list{
 
@@ -225,7 +201,7 @@ const projects = [
 
 }
 
-/* ============================ */
+/* ====================================== */
 
 .project-row{
 
@@ -257,17 +233,24 @@ const projects = [
 
 }
 
-/* ============================ */
+/* ====================================== */
 
 .project-image{
 
     position:relative;
 
+    display:block;
+
     overflow:hidden;
 
-    border-radius:20px;
+    border-radius:22px;
 
-    display:block;
+    aspect-ratio:16/10;
+
+    background:#ececec;
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.08);
 
 }
 
@@ -275,17 +258,20 @@ const projects = [
 
     width:100%;
 
+    height:100%;
+
+    object-fit:cover;
+
     display:block;
 
-    transform:scale(1.08);
-
-    transition:2s cubic-bezier(.22,1,.36,1);
+    transition:
+        transform 2s cubic-bezier(.22,1,.36,1);
 
 }
 
 .project-image:hover img{
 
-    transform:scale(1.15);
+    transform:scale(1.08);
 
 }
 
@@ -298,14 +284,12 @@ const projects = [
     inset:0;
 
     background:
-
         linear-gradient(
-
             transparent,
-
-            rgba(0,0,0,.12)
-
+            rgba(0,0,0,.15)
         );
+
+    z-index:1;
 
 }
 
@@ -315,15 +299,17 @@ const projects = [
 
     position:absolute;
 
-    inset:20px;
+    inset:18px;
 
     border:1px solid rgba(255,255,255,.35);
 
     opacity:0;
 
-    transform:scale(.95);
+    transform:scale(.96);
 
-    transition:.5s;
+    transition:.45s;
+
+    z-index:2;
 
 }
 
@@ -335,15 +321,25 @@ const projects = [
 
 }
 
-/* ============================ */
+/* ====================================== */
+
+.project-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
 
 .project-category{
 
     color:var(--accent);
 
-    letter-spacing:2px;
-
     text-transform:uppercase;
+
+    letter-spacing:2px;
 
     font-size:12px;
 
@@ -353,9 +349,11 @@ const projects = [
 
 .project-content h3{
 
-    margin:16px 0 24px;
+    margin:16px 0 22px;
 
-    font-size:48px;
+    font-size:clamp(38px,5vw,58px);
+
+    line-height:1.05;
 
 }
 
@@ -369,7 +367,7 @@ const projects = [
 
 }
 
-/* ============================ */
+/* ====================================== */
 
 .meta{
 
@@ -381,11 +379,11 @@ const projects = [
 
     padding:34px 0;
 
+    margin-bottom:34px;
+
     border-top:1px solid rgba(0,0,0,.08);
 
     border-bottom:1px solid rgba(0,0,0,.08);
-
-    margin-bottom:34px;
 
 }
 
@@ -409,11 +407,21 @@ const projects = [
 
     font-size:16px;
 
+    font-weight:600;
+
+    color:#111;
+
 }
 
-/* ============================ */
+/* ====================================== */
 
 .project-link{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
 
     color:var(--accent);
 
@@ -437,17 +445,19 @@ const projects = [
 
 }
 
-/* ============================ */
+/* ====================================== */
 /* Reveal Animation */
-/* ============================ */
+/* ====================================== */
 
 .project-row{
 
     opacity:0;
 
-    transform:translateY(70px);
+    transform:translateY(60px);
 
-    transition:.9s cubic-bezier(.22,1,.36,1);
+    transition:
+        opacity .8s,
+        transform .8s cubic-bezier(.22,1,.36,1);
 
 }
 
@@ -459,31 +469,43 @@ const projects = [
 
 }
 
-.commercial-projects.visible .project-row:nth-child(1){
+.project-row:nth-child(1){
 
-    transition-delay:.1s;
+    transition-delay:.05s;
 
 }
 
-.commercial-projects.visible .project-row:nth-child(2){
+.project-row:nth-child(2){
+
+    transition-delay:.15s;
+
+}
+
+.project-row:nth-child(3){
 
     transition-delay:.25s;
 
 }
 
-.commercial-projects.visible .project-row:nth-child(3){
+.project-row:nth-child(4){
 
-    transition-delay:.4s;
+    transition-delay:.35s;
 
 }
 
-.commercial-projects.visible .project-row:nth-child(4){
+.project-row:nth-child(5){
+
+    transition-delay:.45s;
+
+}
+
+.project-row:nth-child(6){
 
     transition-delay:.55s;
 
 }
 
-/* ============================ */
+/* ====================================== */
 
 @media(max-width:991px){
 
@@ -493,7 +515,7 @@ const projects = [
 
         grid-template-columns:1fr;
 
-        gap:40px;
+        gap:50px;
 
     }
 
@@ -505,9 +527,27 @@ const projects = [
 
     }
 
+    .project-image{
+
+        aspect-ratio:4/3;
+
+    }
+
 }
 
 @media(max-width:768px){
+
+    .commercial-projects{
+
+        padding:90px 0;
+
+    }
+
+    .projects-list{
+
+        gap:70px;
+
+    }
 
     .project-content h3{
 
@@ -519,12 +559,13 @@ const projects = [
 
         grid-template-columns:1fr;
 
+        gap:18px;
+
     }
 
 }
 
 </style>
-
 <script is:inline>
 
 document.addEventListener("DOMContentLoaded",()=>{
