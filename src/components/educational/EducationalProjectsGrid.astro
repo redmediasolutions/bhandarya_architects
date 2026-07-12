@@ -1,55 +1,6 @@
 ---
-const projects = [
-    {
-        title: "St. Mary's Educational Campus",
-        type: "Integrated Campus",
-        location: "Mangalore",
-        area: "185,000 sq.ft",
-        image: "/images/projects/education/campus.webp",
-        href: "/projects/st-marys-campus",
-        featured: true
-    },
-    {
-        title: "Academic Block",
-        type: "Higher Education",
-        location: "Udupi",
-        area: "58,000 sq.ft",
-        image: "/images/projects/education/academic.webp",
-        href: "#"
-    },
-    {
-        title: "Central Library",
-        type: "Knowledge Centre",
-        location: "Mangalore",
-        area: "24,000 sq.ft",
-        image: "/images/projects/education/library.webp",
-        href: "#"
-    },
-    {
-        title: "Student Hostel",
-        type: "Residential",
-        location: "Manipal",
-        area: "46,000 sq.ft",
-        image: "/images/projects/education/hostel.webp",
-        href: "#"
-    },
-    {
-        title: "Sports Complex",
-        type: "Campus Facility",
-        location: "Mangalore",
-        area: "72,000 sq.ft",
-        image: "/images/projects/education/sports.webp",
-        href: "#"
-    },
-    {
-        title: "Innovation Centre",
-        type: "Research",
-        location: "Bangalore",
-        area: "38,000 sq.ft",
-        image: "/images/projects/education/research.webp",
-        href: "#"
-    }
-];
+import projects from "../../content/educational";
+import { getEducationalImages } from "../../lib/educationalImages";
 ---
 
 <section class="education-projects section" id="projects">
@@ -90,40 +41,49 @@ const projects = [
         <div class="projects-grid">
 
             {
-                projects.map((project,index)=>(
+    projects.map((project, index) => {
 
-                    <a
-                        href={project.href}
-                        class={`project-card ${project.featured ? "featured" : ""}`}
-                        style={`--delay:${index*.12}s`}
-                    >
+        const { hero } = getEducationalImages(project.folder);
 
-                        <img
-                            src={project.image}
-                            alt={project.title}
-                        />
+        return (
 
-                        <div class="overlay">
+            <a
+                href={`/projects/educational/${project.slug}`}
+                class={`project-card ${project.featured ? "featured" : ""}`}
+                style={`--delay:${index * .12}s`}
+            >
 
-                            <span>
+                <img
+                    src={hero.src}
+                    alt={project.title}
+                    loading="lazy"
+                />
 
-                                {project.type}
+                <div class="overlay">
 
-                            </span>
+                    <span>
 
-                            <h3>
+                        {project.subtitle}
 
-                                {project.title}
+                    </span>
 
-                            </h3>
+                    <h3>
 
-                            <div class="details">
+                        {project.title}
 
-                                <small>
+                    </h3>
 
-                                    {project.location}
+                    <div class="details">
 
-                                </small>
+                        <small>
+
+                            {project.location}
+
+                        </small>
+
+                        {
+
+                            project.area && (
 
                                 <small>
 
@@ -131,22 +91,28 @@ const projects = [
 
                                 </small>
 
-                            </div>
+                            )
 
-                            <div class="line"></div>
+                        }
 
-                            <div class="view">
+                    </div>
 
-                                Explore Project →
+                    <div class="line"></div>
 
-                            </div>
+                    <div class="view">
 
-                        </div>
+                        Explore Project →
 
-                    </a>
+                    </div>
 
-                ))
-            }
+                </div>
+
+            </a>
+
+        );
+
+    })
+}
 
         </div>
 

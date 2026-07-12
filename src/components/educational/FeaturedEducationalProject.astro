@@ -1,21 +1,11 @@
 ---
-import { img } from "../../consts";
+import projects from "../../content/educational";
+import { getEducationalImages } from "../../lib/educationalImages";
 
-const project = {
-    title: "St. Mary's Educational Campus",
-    category: "Educational Institution",
-    location: "Mangalore, Karnataka",
-    year: "2025",
-    area: "185,000 sq.ft",
-    image: img("2026/05/Copy-of-01.webp"),
-    href: "/projects/st-marys-campus",
-    features: [
-        "Smart Classrooms",
-        "Central Library",
-        "Sports Facilities",
-        "Landscape Courtyards"
-    ]
-};
+const project =
+    projects.find((p) => p.featured) ?? projects[0];
+
+const { hero } = getEducationalImages(project.folder);
 ---
 
 <section class="featured-education">
@@ -52,9 +42,10 @@ const project = {
             >
 
                 <img
-                    src={project.image}
-                    alt={project.title}
-                />
+    src={hero.src}
+    alt={project.title}
+    loading="lazy"
+/>
 
                 <div class="image-overlay"></div>
 

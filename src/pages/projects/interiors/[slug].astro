@@ -1,0 +1,101 @@
+---
+import projects from "../../../content/interiors";
+
+import { getInteriorImages } from "../../../lib/interiorImages";
+
+import ResidentialProjectHero from "../../../components/residential-project/ResidentialProjectHero.astro";
+import ResidentialProjectOverview from "../../../components/residential-project/ResidentialProjectOverview.astro";
+import ResidentialProjectHighlights from "../../../components/residential-project/ResidentialProjectHighlights.astro";
+import ResidentialProjectGallery from "../../../components/residential-project/ResidentialProjectGallery.astro";
+import ResidentialConstructionGallery from "../../../components/residential-project/ResidentialConstructionGallery.astro";
+import ResidentialProjectDownloads from "../../../components/residential-project/ResidentialProjectDownloads.astro";
+import ResidentialRelatedProjects from "../../../components/residential-project/ResidentialRelated.astro";
+
+import Base from "../../../layouts/Base.astro";
+import Headers from "../../../layouts/Header.astro";
+import Footer from "../../../layouts/Footer.astro";
+
+export async function getStaticPaths() {
+
+    return projects.map((project) => ({
+
+        params: {
+
+            slug: project.slug
+
+        },
+
+        props: {
+
+            project
+
+        }
+
+    }));
+
+}
+
+const { project } = Astro.props;
+
+const {
+
+    hero,
+
+    gallery,
+
+    construction
+
+} = getInteriorImages(project.folder);
+---
+
+<Base
+    title={`${project.title} | Bhandary Architects`}
+    description={project.seoDescription}
+>
+
+    <Headers delayed />
+
+    <ResidentialProjectHero
+        project={project}
+        hero={hero}
+    />
+
+    <ResidentialProjectOverview
+        project={project}
+    />
+
+    <ResidentialProjectHighlights
+        project={project}
+    />
+
+    <ResidentialProjectGallery
+        images={gallery}
+    />
+
+    {
+        construction.length > 0 && (
+
+            <ResidentialConstructionGallery
+                images={construction}
+            />
+
+        )
+    }
+
+    {
+        project.downloads?.length > 0 && (
+
+            <ResidentialProjectDownloads
+                downloads={project.downloads}
+            />
+
+        )
+    }
+
+    <ResidentialRelatedProjects
+        project={project}
+    />
+
+    <Footer />
+
+</Base>
