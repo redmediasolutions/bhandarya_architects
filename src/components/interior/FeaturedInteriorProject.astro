@@ -1,21 +1,11 @@
 ---
-import { img } from "../../consts";
+import projects from "../../content/interiors";
+import { getInteriorImages } from "../../lib/interiorImages";
 
-const project = {
-    title: "Samudra Interiors",
-    category: "Luxury Interior Design",
-    location: "Yermal, Karnataka",
-    year: "2025",
-    area: "6,400 sq.ft",
-    image: img("2026/05/Copy-of-01.webp"),
-    href: "/projects/samudra",
-    materials: [
-        "Natural Stone",
-        "Solid Wood",
-        "Brass",
-        "Ambient Lighting"
-    ]
-};
+const project =
+    projects.find((p) => p.featured) ?? projects[0];
+
+const { hero } = getInteriorImages(project.folder);
 ---
 
 <section class="featured-interior" id="featured">
@@ -45,14 +35,15 @@ const project = {
         <div class="project-wrapper">
 
             <a
-                href={project.href}
+                href={`/projects/interiors/${project.slug}`}
                 class="project-image"
             >
 
                 <img
-                    src={project.image}
-                    alt={project.title}
-                />
+    src={hero.src}
+    alt={project.title}
+    loading="lazy"
+/>
 
                 <div class="image-overlay"></div>
 
@@ -62,7 +53,7 @@ const project = {
 
                 <span class="project-category">
 
-                    {project.category}
+                   {project.subtitle}
 
                 </span>
 
@@ -86,74 +77,90 @@ const project = {
 
                 <div class="materials">
 
-                    {
-                        project.materials.map(material=>(
+    {
+        project.highlights
+            .slice(0, 4)
+            .map((highlight) => (
 
-                            <span>
+                <span>
 
-                                {material}
+                    {highlight}
 
-                            </span>
+                </span>
 
-                        ))
-                    }
+            ))
+    }
 
-                </div>
+</div>
 
                 <div class="meta">
 
-                    <div>
+    <div>
 
-                        <small>
+        <small>
 
-                            Location
+            Location
 
-                        </small>
+        </small>
 
-                        <strong>
+        <strong>
 
-                            {project.location}
+            {project.location}
 
-                        </strong>
+        </strong>
 
-                    </div>
+    </div>
 
-                    <div>
+    {
+        project.area && (
 
-                        <small>
+            <div>
 
-                            Area
+                <small>
 
-                        </small>
+                    Area
 
-                        <strong>
+                </small>
 
-                            {project.area}
+                <strong>
 
-                        </strong>
+                    {project.area}
 
-                    </div>
+                </strong>
 
-                    <div>
+            </div>
 
-                        <small>
+        )
+    }
 
-                            Completed
+    <div>
 
-                        </small>
+        <small>
 
-                        <strong>
+            {
+                project.status === "Completed"
+                    ? "Completed"
+                    : "Status"
+            }
 
-                            {project.year}
+        </small>
 
-                        </strong>
+        <strong>
 
-                    </div>
+            {
+                project.status === "Completed"
+                    ? project.year
+                    : project.status
+            }
 
-                </div>
+        </strong>
+
+    </div>
+
+</div>
 
                 <a
-                    href={project.href}
+                    href={`/projects/interiors/${project.slug}`}
                     class="btn"
                 >
 

@@ -36,124 +36,124 @@ const { hero } = getCommercialImages(project.folder);
 
             <div class="project-content">
 
-                <span class="category">
+    <span class="category">
 
-                    {project.subtitle}
+        {project.subtitle}
 
-                </span>
+    </span>
 
-                <h3>
+    <h3>
 
-                    {project.title}
+        {project.title}
 
-                </h3>
+    </h3>
 
-                <div class="accent-line"></div>
+    <div class="accent-line"></div>
 
-                {
-                    project.description.slice(0, 2).map((paragraph) => (
+    {
+        project.description.slice(0, 2).map((paragraph) => (
 
-                        <p>
+            <p>
 
-                            {paragraph}
+                {paragraph}
 
-                        </p>
+            </p>
 
-                    ))
-                }
+        ))
+    }
 
-                <div class="meta-grid">
+    <div class="meta-grid">
 
-                    <div>
+        <div>
 
-                        <small>
+            <small>
 
-                            Project Type
+                Project Type
 
-                        </small>
+            </small>
 
-                        <strong>
+            <strong>
 
-                            {project.subtitle}
+                {project.subtitle}
 
-                        </strong>
+            </strong>
 
-                    </div>
+        </div>
 
-                    <div>
+        <div>
 
-                        <small>
+            <small>
 
-                            Location
+                Location
 
-                        </small>
+            </small>
 
-                        <strong>
+            <strong>
 
-                            {project.location}
+                {project.location}
 
-                        </strong>
+            </strong>
 
-                    </div>
+        </div>
 
-                    {
-                        project.area && (
+        {
+            project.area && (
 
-                            <div>
+                <div>
 
-                                <small>
+                    <small>
 
-                                    Area
+                        Area
 
-                                </small>
+                    </small>
 
-                                <strong>
+                    <strong>
 
-                                    {project.area}
+                        {project.area}
 
-                                </strong>
-
-                            </div>
-
-                        )
-                    }
-
-                    <div>
-
-                        <small>
-
-                            {
-                                project.status === "Completed"
-                                    ? "Completed"
-                                    : "Status"
-                            }
-
-                        </small>
-
-                        <strong>
-
-                            {
-                                project.status === "Completed"
-                                    ? project.year
-                                    : project.status
-                            }
-
-                        </strong>
-
-                    </div>
+                    </strong>
 
                 </div>
 
-                <a
-                    href={`/projects/commercial/${project.slug}`}
-                    class="btn"
-                >
+            )
+        }
 
-                    View Project
+        <div>
 
-                </a>
+            <small>
 
-            </div>
+                {
+                    project.status === "Completed"
+                        ? "Completed"
+                        : "Status"
+                }
+
+            </small>
+
+            <strong>
+
+                {
+                    project.status === "Completed"
+                        ? project.year
+                        : project.status
+                }
+
+            </strong>
+
+        </div>
+
+    </div>
+
+    <a
+        href={`/projects/educational/${project.slug}`}
+        class="btn"
+    >
+
+        View Project
+
+    </a>
+
+</div>
 
             <!-- Image -->
 

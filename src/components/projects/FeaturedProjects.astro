@@ -1,36 +1,64 @@
 ---
+import residential from "../../content/residential";
+import commercial from "../../content/commercial";
+import interior from "../../content/interiors";
+import educational from "../../content/educational";
+
+import { getResidentialImages } from "../../lib/residentialImages";
+import { getCommercialImages } from "../../lib/commercialImages";
+import { getInteriorImages } from "../../lib/interiorImages";
+import { getEducationalImages } from "../../lib/educationalImages";
+
 const projects = [
-  {
-    title:"Samudra",
-    category:"Luxury Residence",
-    image:"/images/projects/samudra/samudra.webp",
-    href:"/samudra",
-    featured:true
-  },
-  {
-    title:"Kutira",
-    category:"Residential",
-    image:"/images/projects/kutira/Kuitra.webp",
-    href:"/kutira"
-  },
-  {
-    title:"Serenity Villa",
-    category:"Residential",
-    image:"/images/project3.webp",
-    href:"#"
-  },
-  {
-    title:"Courtyard House",
-    category:"Residential",
-    image:"/images/project4.webp",
-    href:"#"
-  },
-  {
-    title:"Urban Pavilion",
-    category:"Commercial",
-    image:"/images/project5.webp",
-    href:"#"
-  }
+
+    ...residential.map(project => ({
+
+        title: project.title,
+
+        category: "Residential",
+
+        image: getResidentialImages(project.folder).hero.src,
+
+        href: `/projects/residences/${project.slug}`,
+
+    })),
+
+    ...commercial.map(project => ({
+
+        title: project.title,
+
+        category: "Commercial",
+
+        image: getCommercialImages(project.folder).hero.src,
+
+        href: `/projects/commercial/${project.slug}`,
+
+    })),
+
+    ...interior.map(project => ({
+
+        title: project.title,
+
+        category: "Interior",
+
+        image: getInteriorImages(project.folder).hero.src,
+
+        href: `/projects/interiors/${project.slug}`,
+
+    })),
+
+    ...educational.map(project => ({
+
+        title: project.title,
+
+        category: "Educational",
+
+        image: getEducationalImages(project.folder).hero.src,
+
+        href: `/projects/educational/${project.slug}`,
+
+    }))
+
 ];
 ---
 
@@ -48,7 +76,7 @@ const projects = [
 
             <h2>
 
-                Selected Works
+                Our Projects
 
             </h2>
 
@@ -64,27 +92,32 @@ const projects = [
 
         <div class="featured-grid">
 
+    {
+        projects.map((project, index) => (
+
             <a
-                href={projects[0].href}
-                class="featured-card hero-card"
+                href={project.href}
+                class={`featured-card ${index === 0 ? "hero-card" : ""}`}
+                style={`--delay:${index * .08}s`}
             >
 
                 <img
-                    src={projects[0].image}
-                    alt={projects[0].title}
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
                 />
 
                 <div class="overlay">
 
                     <span>
 
-                        {projects[0].category}
+                        {project.category}
 
                     </span>
 
                     <h3>
 
-                        {projects[0].title}
+                        {project.title}
 
                     </h3>
 
@@ -94,50 +127,17 @@ const projects = [
 
             </a>
 
-            {
-                projects.slice(1).map(project => (
+        ))
+    }
 
-                    <a
-                        href={project.href}
-                        class="featured-card"
-                    >
-
-                        <img
-                            src={project.image}
-                            alt={project.title}
-                        />
-
-                        <div class="overlay">
-
-                            <span>
-
-                                {project.category}
-
-                            </span>
-
-                            <h3>
-
-                                {project.title}
-
-                            </h3>
-
-                            <div class="line"></div>
-
-                        </div>
-
-                    </a>
-
-                ))
-            }
-
-        </div>
+</div>
 
     </div>
 
 </section>
 
 <style>
-    .featured-projects{
+  .featured-projects{
 
     background:var(--white);
 
@@ -174,6 +174,8 @@ const projects = [
 }
 
 /* ===================================== */
+/* Grid */
+/* ===================================== */
 
 .featured-grid{
 
@@ -181,53 +183,23 @@ const projects = [
 
     grid-template-columns:repeat(12,minmax(0,1fr));
 
-    grid-auto-rows:110px;
-
     gap:26px;
 
 }
 
-/* ===================================== */
-/* Layout */
-/* ===================================== */
-
 .hero-card{
 
-    grid-column:1/-1;
+    grid-column:span 8;
 
-    grid-row:span 6;
-
-}
-
-.featured-card:nth-child(2){
-
-    grid-column:1/span 5;
-
-    grid-row:span 4;
+    min-height:620px;
 
 }
 
-.featured-card:nth-child(3){
+.featured-card:not(.hero-card){
 
-    grid-column:6/-1;
+    grid-column:span 4;
 
-    grid-row:span 4;
-
-}
-
-.featured-card:nth-child(4){
-
-    grid-column:1/span 4;
-
-    grid-row:span 3;
-
-}
-
-.featured-card:nth-child(5){
-
-    grid-column:5/-1;
-
-    grid-row:span 3;
+    min-height:360px;
 
 }
 
@@ -237,9 +209,9 @@ const projects = [
 
     position:relative;
 
-    overflow:hidden;
-
     display:block;
+
+    overflow:hidden;
 
     isolation:isolate;
 
@@ -257,17 +229,17 @@ const projects = [
 
     transform:
 
-        translateY(70px)
+        translateY(60px)
 
-        scale(.97);
+        scale(.98);
 
     transition:
 
-        opacity .9s ease,
+        opacity .8s,
 
-        transform .9s cubic-bezier(.22,1,.36,1),
+        transform .8s cubic-bezier(.22,1,.36,1),
 
-        box-shadow .5s;
+        box-shadow .45s;
 
 }
 
@@ -277,38 +249,12 @@ const projects = [
 
     transform:none;
 
-}
-
-.featured-projects.visible .featured-card:nth-child(1){
-
-    transition-delay:.1s;
+    transition-delay:var(--delay);
 
 }
 
-.featured-projects.visible .featured-card:nth-child(2){
-
-    transition-delay:.25s;
-
-}
-
-.featured-projects.visible .featured-card:nth-child(3){
-
-    transition-delay:.4s;
-
-}
-
-.featured-projects.visible .featured-card:nth-child(4){
-
-    transition-delay:.55s;
-
-}
-
-.featured-projects.visible .featured-card:nth-child(5){
-
-    transition-delay:.7s;
-
-}
-
+/* ===================================== */
+/* Image */
 /* ===================================== */
 
 .featured-card img{
@@ -323,19 +269,19 @@ const projects = [
 
     object-fit:cover;
 
-    transform:scale(1.06);
+    transform:scale(1.08);
 
     filter:
 
-        brightness(.88)
+        brightness(.9)
 
-        saturate(.82);
+        saturate(.9);
 
     transition:
 
         transform 2s cubic-bezier(.22,1,.36,1),
 
-        filter .7s;
+        filter .6s;
 
 }
 
@@ -349,9 +295,7 @@ const projects = [
 
 .featured-card:hover img{
 
-    transform:
-
-        scale(1.13);
+    transform:scale(1.12);
 
     filter:
 
@@ -361,6 +305,8 @@ const projects = [
 
 }
 
+/* ===================================== */
+/* Hover */
 /* ===================================== */
 
 .featured-card::before{
@@ -379,13 +325,13 @@ const projects = [
 
             rgba(255,120,0,.18),
 
-            transparent 70%
+            transparent 72%
 
         );
 
     opacity:0;
 
-    transition:.7s;
+    transition:.6s;
 
     z-index:2;
 
@@ -405,13 +351,13 @@ const projects = [
 
     inset:18px;
 
-    border:1px solid rgba(255,140,0,.4);
+    border:1px solid rgba(255,140,0,.35);
 
     opacity:0;
 
     transform:scale(.96);
 
-    transition:.5s;
+    transition:.45s;
 
     z-index:4;
 
@@ -426,6 +372,8 @@ const projects = [
 }
 
 /* ===================================== */
+/* Overlay */
+/* ===================================== */
 
 .overlay{
 
@@ -433,29 +381,27 @@ const projects = [
 
     inset:0;
 
+    z-index:5;
+
     display:flex;
 
     flex-direction:column;
 
     justify-content:flex-end;
 
-    padding:42px;
+    padding:34px;
 
     background:
 
         linear-gradient(
 
-            180deg,
-
             transparent 25%,
 
-            rgba(0,0,0,.82) 100%
+            rgba(0,0,0,.82)
 
         );
 
-    z-index:5;
-
-    transition:.5s;
+    transition:.45s;
 
 }
 
@@ -465,17 +411,13 @@ const projects = [
 
         linear-gradient(
 
-            180deg,
-
             transparent 15%,
 
-            rgba(0,0,0,.92) 100%
+            rgba(0,0,0,.92)
 
         );
 
 }
-
-/* ===================================== */
 
 .overlay span{
 
@@ -491,7 +433,7 @@ const projects = [
 
     text-transform:uppercase;
 
-    transform:translateY(18px);
+    transform:translateY(14px);
 
     opacity:0;
 
@@ -503,13 +445,15 @@ const projects = [
 
     color:#fff;
 
-    font-size:clamp(28px,2vw,42px);
-
     margin:0;
 
-    transform:translateY(35px);
+    font-size:clamp(26px,2vw,40px);
 
-    transition:.6s cubic-bezier(.22,1,.36,1);
+    line-height:1.2;
+
+    transform:translateY(24px);
+
+    transition:.55s cubic-bezier(.22,1,.36,1);
 
 }
 
@@ -527,21 +471,17 @@ const projects = [
 
 }
 
-/* ===================================== */
-
 .line{
 
     width:0;
 
     height:2px;
 
-    margin-top:20px;
+    margin-top:18px;
 
     background:var(--accent);
 
-    transition:
-
-        width .7s cubic-bezier(.22,1,.36,1);
+    transition:.55s;
 
 }
 
@@ -551,15 +491,25 @@ const projects = [
 
 }
 
+.featured-card:hover{
+
+    transform:
+
+        translateY(-8px);
+
+    box-shadow:
+
+        0 30px 70px rgba(0,0,0,.15);
+
+}
+
 /* ===================================== */
 
 @keyframes heroKenBurns{
 
     from{
 
-        transform:
-
-            scale(1.05);
+        transform:scale(1.05);
 
     }
 
@@ -569,33 +519,53 @@ const projects = [
 
             scale(1.12)
 
-            translateY(-20px);
+            translateY(-16px);
 
     }
 
 }
 
 /* ===================================== */
+/* Responsive */
+/* ===================================== */
+
+@media(max-width:1200px){
+
+    .hero-card{
+
+        grid-column:span 12;
+
+    }
+
+    .featured-card:not(.hero-card){
+
+        grid-column:span 6;
+
+    }
+
+}
 
 @media(max-width:991px){
 
     .featured-grid{
 
-        grid-template-columns:1fr;
-
-        grid-auto-rows:auto;
+        grid-template-columns:repeat(2,1fr);
 
     }
 
-    .hero-card,
+    .hero-card{
 
-    .featured-card{
+        grid-column:1/-1;
 
-        grid-column:auto !important;
+        min-height:500px;
 
-        grid-row:auto !important;
+    }
 
-        height:420px;
+    .featured-card:not(.hero-card){
+
+        grid-column:auto;
+
+        min-height:320px;
 
     }
 
@@ -605,19 +575,15 @@ const projects = [
 
     .section-heading{
 
-        margin-bottom:55px;
+        margin-bottom:50px;
 
     }
 
-    .overlay{
+    .featured-grid{
 
-        padding:28px;
+        grid-template-columns:1fr;
 
-    }
-
-    .overlay h3{
-
-        font-size:28px;
+        gap:20px;
 
     }
 
@@ -625,7 +591,27 @@ const projects = [
 
     .featured-card{
 
-        height:320px;
+        grid-column:auto;
+
+        min-height:300px;
+
+    }
+
+    .hero-card{
+
+        min-height:380px;
+
+    }
+
+    .overlay{
+
+        padding:24px;
+
+    }
+
+    .overlay h3{
+
+        font-size:24px;
 
     }
 

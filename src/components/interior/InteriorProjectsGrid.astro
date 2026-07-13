@@ -1,49 +1,24 @@
 ---
-const projects = [
-    {
-        title: "Samudra Interiors",
-        category: "Luxury Residence",
-        image: "/images/projects/samudra/samudra.webp",
-        href: "/samudra",
-        featured: true,
-        area: "6400 sq.ft"
-    },
-    {
-        title: "Kutira",
-        category: "Residence",
-        image: "/images/projects/kutira/Kuitra.webp",
-        href: "/kutira",
-        area: "4200 sq.ft"
-    },
-    {
-        title: "Urban Apartment",
-        category: "Apartment",
-        image: "/images/project3.webp",
-        href: "#",
-        area: "2200 sq.ft"
-    },
-    {
-        title: "Corporate Office",
-        category: "Office",
-        image: "/images/project4.webp",
-        href: "#",
-        area: "9500 sq.ft"
-    },
-    {
-        title: "Boutique Hotel",
-        category: "Hospitality",
-        image: "/images/project5.webp",
-        href: "#",
-        area: "15000 sq.ft"
-    },
-    {
-        title: "Luxury Villa",
-        category: "Residence",
-        image: "/images/project6.webp",
-        href: "#",
-        area: "5800 sq.ft"
-    }
-];
+import projects from "../../content/interiors";
+import { getInteriorImages } from "../../lib/interiorImages";
+
+const interiorProjects = projects.map((project, index) => {
+
+    const { hero } = getInteriorImages(project.folder);
+
+    return {
+
+        ...project,
+
+        image: hero.src,
+
+        href: `/projects/interiors/${project.slug}`,
+
+        featured: index === 0
+
+    };
+
+});
 ---
 
 <section class="interior-projects section">
@@ -78,33 +53,37 @@ const projects = [
 
         <div class="projects-grid">
 
-            {
-                projects.map((project,index)=>(
+    {
+        interiorProjects.map((project, index) => (
 
-                    <a
-                        href={project.href}
-                        class={`project-card ${project.featured ? "featured" : ""}`}
-                        style={`--delay:${index*.12}s`}
-                    >
+            <a
+                href={project.href}
+                class={`project-card ${project.featured ? "featured" : ""}`}
+                style={`--delay:${index * .12}s`}
+            >
 
-                        <img
-                            src={project.image}
-                            alt={project.title}
-                        />
+                <img
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
+                />
 
-                        <div class="overlay">
+                <div class="overlay">
 
-                            <span>
+                    <span>
 
-                                {project.category}
+                        {project.subtitle}
 
-                            </span>
+                    </span>
 
-                            <h3>
+                    <h3>
 
-                                {project.title}
+                        {project.title}
 
-                            </h3>
+                    </h3>
+
+                    {
+                        project.area && (
 
                             <small>
 
@@ -112,22 +91,25 @@ const projects = [
 
                             </small>
 
-                            <div class="line"></div>
+                        )
+                    }
 
-                            <div class="view">
+                    <div class="line"></div>
 
-                                View Project →
+                    <div class="view">
 
-                            </div>
+                        View Project →
 
-                        </div>
+                    </div>
 
-                    </a>
+                </div>
 
-                ))
-            }
+            </a>
 
-        </div>
+        ))
+    }
+
+</div>
 
     </div>
 

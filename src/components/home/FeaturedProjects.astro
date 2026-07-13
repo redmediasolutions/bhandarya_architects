@@ -1,41 +1,42 @@
 ---
-const projects = [
-  {
-    title: "Samudra Residence",
-    category: "Luxury Residence",
-    image: "/images/projects/samudra/samudra.webp",
-    class: "featured",
-  },
-  {
-    title: "Kutira",
-    category: "Residential",
-    image: "/images/projects/kutira/Kuitra.webp",
-    class: "vertical",
-  },
-  {
-    title: "Serenity Villa",
-    category: "Luxury Residence",
-    image: "/images/project3.webp",
-    class: "square",
-  },
-  {
-    title: "Courtyard House",
-    category: "Private Residence",
-    image: "/images/slides/(1).webp",
-    class: "square",
-  },
-  {
-    title: "Urban Pavilion",
-    category: "Commercial",
-    image: "/images/slides/(2).webp",
-    class: "vertical",
-  },
-  {
-    title: "Hillside Retreat",
-    category: "Residential",
-    image: "/images/slides/(3).webp",
-    class: "wide",
-  },
+import residential from "../../content/residential";
+import commercial from "../../content/commercial";
+import interior from "../../content/interiors";
+import educational from "../../content/educational";
+
+import { getResidentialImages } from "../../lib/residentialImages";
+import { getCommercialImages } from "../../lib/commercialImages";
+import { getInteriorImages } from "../../lib/interiorImages";
+import { getEducationalImages } from "../../lib/educationalImages";
+
+const latestProjects = [
+    ...residential.slice(0, 3).map(project => ({
+        ...project,
+        category: "Residential",
+        href: `/projects/residences/${project.slug}`,
+        image: getResidentialImages(project.folder).hero.src
+    })),
+
+    ...commercial.slice(0, 3).map(project => ({
+        ...project,
+        category: "Commercial",
+        href: `/projects/commercial/${project.slug}`,
+        image: getCommercialImages(project.folder).hero.src
+    })),
+
+    ...interior.slice(0, 3).map(project => ({
+        ...project,
+        category: "Interior",
+        href: `/projects/interiors/${project.slug}`,
+        image: getInteriorImages(project.folder).hero.src
+    })),
+
+    ...educational.slice(0, 3).map(project => ({
+        ...project,
+        category: "Educational",
+        href: `/projects/educational/${project.slug}`,
+        image: getEducationalImages(project.folder).hero.src
+    }))
 ];
 ---
 
@@ -54,14 +55,26 @@ const projects = [
        <div class="projects-grid">
 
     {
-        projects.map((project) => (
+        latestProjects.map((project, index) => (
 
-            <article class={`project-card ${project.class}`}>
+            <a
+    href={project.href}
+    class={`project-card ${
+        index === 0
+            ? "featured"
+            : index % 3 === 0
+            ? "wide"
+            : index % 3 === 0
+            ? "square"
+            : "vertical"
+    }`}
+>
 
-                <img
-                    src={project.image}
-                    alt={project.title}
-                />
+               <img
+    src={project.image}
+    alt={project.title}
+    loading="lazy"
+/>
 
                 <div class="project-overlay">
 
@@ -69,15 +82,14 @@ const projects = [
 
                         <span class="project-category">
 
-                            {project.category}
+    {project.category}
 
-                        </span>
-
+</span>
                         <h3>
 
-                            {project.title}
+    {project.title}
 
-                        </h3>
+</h3>
 
                         <div class="project-line"></div>
 
@@ -85,7 +97,7 @@ const projects = [
 
                 </div>
 
-            </article>
+            </a>
 
         ))
     }

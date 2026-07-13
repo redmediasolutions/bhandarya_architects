@@ -26,9 +26,7 @@ const { hero } = getEducationalImages(project.folder);
 
             <h2>
 
-                Learning Beyond
-                <br>
-                The Classroom
+                Featured Project
 
             </h2>
 
@@ -36,32 +34,13 @@ const { hero } = getEducationalImages(project.folder);
 
         <div class="project-layout">
 
-            <a
-                href={project.href}
-                class="project-image"
-            >
-
-                <img
-    src={hero.src}
-    alt={project.title}
-    loading="lazy"
-/>
-
-                <div class="image-overlay"></div>
-
-                <div class="campus-tag">
-
-                    Signature Project
-
-                </div>
-
-            </a>
+            <!-- Content -->
 
             <div class="project-card">
 
                 <span class="category">
 
-                    {project.category}
+                    {project.subtitle}
 
                 </span>
 
@@ -73,34 +52,37 @@ const { hero } = getEducationalImages(project.folder);
 
                 <div class="accent-line"></div>
 
-                <p>
+                {
+                    project.description
+                        .slice(0, 2)
+                        .map((paragraph) => (
 
-                    Designed around open learning, community
-                    interaction and sustainable planning,
-                    this campus integrates academic spaces,
-                    courtyards, landscape and recreation into
-                    a cohesive educational environment that
-                    inspires both students and educators.
+                            <p>
 
-                </p>
+                                {paragraph}
 
-                <div class="feature-list">
-
-                    {
-                        project.features.map(feature=>(
-
-                            <span>
-
-                                {feature}
-
-                            </span>
+                            </p>
 
                         ))
-                    }
-
-                </div>
+                }
 
                 <div class="project-meta">
+
+                    <div>
+
+                        <small>
+
+                            Project Type
+
+                        </small>
+
+                        <strong>
+
+                            {project.subtitle}
+
+                        </strong>
+
+                    </div>
 
                     <div>
 
@@ -118,33 +100,47 @@ const { hero } = getEducationalImages(project.folder);
 
                     </div>
 
+                    {
+                        project.area && (
+
+                            <div>
+
+                                <small>
+
+                                    Area
+
+                                </small>
+
+                                <strong>
+
+                                    {project.area}
+
+                                </strong>
+
+                            </div>
+
+                        )
+                    }
+
                     <div>
 
                         <small>
 
-                            Area
+                            {
+                                project.status === "Completed"
+                                    ? "Completed"
+                                    : "Status"
+                            }
 
                         </small>
 
                         <strong>
 
-                            {project.area}
-
-                        </strong>
-
-                    </div>
-
-                    <div>
-
-                        <small>
-
-                            Completed
-
-                        </small>
-
-                        <strong>
-
-                            {project.year}
+                            {
+                                project.status === "Completed"
+                                    ? project.year
+                                    : project.status
+                            }
 
                         </strong>
 
@@ -153,7 +149,7 @@ const { hero } = getEducationalImages(project.folder);
                 </div>
 
                 <a
-                    href={project.href}
+                    href={`/projects/educational/${project.slug}`}
                     class="btn"
                 >
 
@@ -162,6 +158,29 @@ const { hero } = getEducationalImages(project.folder);
                 </a>
 
             </div>
+
+            <!-- Image -->
+
+            <a
+                href={`/projects/educational/${project.slug}`}
+                class="project-image"
+            >
+
+                <img
+                    src={hero.src}
+                    alt={project.title}
+                    loading="eager"
+                />
+
+                <div class="image-overlay"></div>
+
+                <div class="campus-tag">
+
+                    Featured Project
+
+                </div>
+
+            </a>
 
         </div>
 
