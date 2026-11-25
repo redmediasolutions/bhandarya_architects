@@ -3,6 +3,7 @@ import { slides } from "./heroData";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 const first = slides[0];
+const lines = first.title.split("\n");
 ---
 
 <section class="hero on-dark" id="hero" aria-roledescription="carousel" aria-label="Featured work">
@@ -22,22 +23,45 @@ const first = slides[0];
     </div>
     <div class="hero-shade" aria-hidden="true"></div>
 
+    <!-- architectural column lines -->
+    <div class="hero-lines wrap" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
     <div class="wrap hero-inner">
-        <div class="hero-content" id="hero-content" aria-live="polite">
-            <span class="label hero-subtitle">{first.subtitle}</span>
-            <h1 class="hero-title" id="hero-title">{first.title}</h1>
-            <p class="hero-description" id="hero-description">{first.description}</p>
-            <div class="hero-buttons btn-row">
-                {first.buttons.map((button) => (
-                    <a href={button.href} class:list={["btn", button.outline && "btn--ghost"]}>{button.text}</a>
-                ))}
+        <div class="hero-main">
+            <div class="hero-content" id="hero-content" aria-live="polite">
+                <span class="label hero-subtitle"><i></i><span id="hero-subtitle">{first.subtitle}</span></span>
+                <h1 class="hero-title" id="hero-title">
+                    {lines.map((line, i) => (
+                        <span class="ln"><span style={`--li:${i}`}>{line}</span></span>
+                    ))}
+                </h1>
+                <p class="hero-description" id="hero-description">{first.description}</p>
+                <div class="hero-buttons btn-row" id="hero-buttons">
+                    {first.buttons.map((button) => (
+                        <a href={button.href} class:list={["btn", button.outline && "btn--ghost"]}>{button.text}</a>
+                    ))}
+                </div>
             </div>
+
+            <ol class="hero-index" aria-label="Slides">
+                {slides.map((slide, i) => (
+                    <li>
+                        <button type="button" class:list={["hero-index-btn", i === 0 && "active"]} data-goto={i} aria-label={`Show slide ${i + 1}`}>
+                            <span class="hi-n">{pad(i + 1)}</span>
+                            <span class="hi-t">{slide.subtitle}</span>
+                            <span class="hi-bar"><i></i></span>
+                        </button>
+                    </li>
+                ))}
+            </ol>
         </div>
 
         <div class="hero-bar">
             <div class="hero-counter">
-                <span id="hero-current">{pad(1)}</span>
-                <span class="sep">/</span>
+                <span class="hc-current"><span id="hero-current">{pad(1)}</span></span>
+                <span class="sep"></span>
                 <span>{pad(slides.length)}</span>
             </div>
             <div class="hero-progress"><span id="hero-progress-fill"></span></div>
@@ -60,95 +84,210 @@ const first = slides[0];
 
 <style>
     .hero {
+        --dur: 7000ms;
         position: relative;
         height: 100svh;
-        min-height: 640px;
+        min-height: 680px;
         background: var(--night);
         color: rgba(255,255,255,.8);
         overflow: hidden;
         isolation: isolate;
     }
 
-    .hero-media { position: absolute; inset: 0; z-index: -2; }
+    /* ---------- media ---------- */
+    .hero-media {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        animation: hero-open 1.9s cubic-bezier(.77, 0, .18, 1) both;
+    }
+    @keyframes hero-open {
+        from { clip-path: inset(18% 14% 18% 14%); }
+        to   { clip-path: inset(0 0 0 0); }
+    }
     .hero-slide {
         position: absolute;
         inset: 0;
         opacity: 0;
         transition: opacity 1.6s var(--ease);
     }
-    .hero-slide.active { opacity: 1; }
+    .hero-slide.active { opacity: 1; z-index: 1; }
     .hero-slide img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transform: scale(1.08);
-        transition: transform 8s linear;
+        transform: scale(1.12);
+        transition: transform 9s cubic-bezier(.2, .6, .3, 1);
     }
-    .hero-slide.active img { transform: scale(1); }
+    .hero-slide.active img { transform: scale(1.02); }
 
     .hero-shade {
         position: absolute;
         inset: 0;
         z-index: -1;
         background:
-            linear-gradient(180deg, rgba(10,10,10,.5) 0%, rgba(10,10,10,0) 24%),
-            linear-gradient(0deg, rgba(10,10,10,.82) 0%, rgba(10,10,10,.3) 48%, rgba(10,10,10,.05) 100%);
+            linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,0) 26%),
+            linear-gradient(90deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.08) 55%, rgba(10,10,10,.5) 100%),
+            linear-gradient(0deg, rgba(10,10,10,.75) 0%, rgba(10,10,10,0) 55%);
     }
 
+    /* ---------- column lines ---------- */
+    .hero-lines {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+    }
+    .hero-lines span {
+        width: 1px;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.09) 30%, rgba(255,255,255,.09) 70%, rgba(255,255,255,0));
+        transform-origin: top;
+        animation: line-draw 1.8s var(--ease) both;
+    }
+    .hero-lines span:nth-child(2) { animation-delay: .1s; }
+    .hero-lines span:nth-child(3) { animation-delay: .2s; }
+    .hero-lines span:nth-child(4) { animation-delay: .3s; }
+    .hero-lines span:nth-child(5) { animation-delay: .4s; }
+    @keyframes line-draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+    /* ---------- layout ---------- */
     .hero-inner {
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        padding-bottom: 36px;
+        padding-bottom: 32px;
     }
+    .hero-main {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        align-items: end;
+        padding-bottom: clamp(40px, 6vh, 80px);
+    }
+    .hero-content { grid-column: 1 / span 8; }
 
-    .hero-content { max-width: 880px; padding-bottom: clamp(48px, 7vh, 96px); }
-    .hero-subtitle { display: block; color: rgba(255,255,255,.72); margin-bottom: 28px; }
-    .hero-title { color: #fff; white-space: pre-line; max-width: 12ch; }
-    .hero-description { margin-top: 30px; max-width: 46ch; font-size: var(--fs-lead); line-height: 1.6; }
-    .hero-buttons { margin-top: 42px; }
+    .hero-subtitle { display: inline-flex; align-items: center; gap: 14px; color: rgba(255,255,255,.75); margin-bottom: 30px; }
+    .hero-subtitle i { display: block; width: 32px; height: 1px; background: currentColor; transform-origin: left; }
 
-    .hero-content > * { transition: opacity .5s ease, transform .7s var(--ease); }
-    .hero-content.fade-out > * { opacity: 0; transform: translateY(-10px); }
-    .hero-content.animating > * { animation: hero-in 1s var(--ease) both; }
-    .hero-content.animating > :nth-child(2) { animation-delay: .08s; }
-    .hero-content.animating > :nth-child(3) { animation-delay: .16s; }
-    .hero-content.animating > :nth-child(4) { animation-delay: .24s; }
-    @keyframes hero-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+    .hero-title { color: #fff; font-size: clamp(2.8rem, 1.6rem + 5vw, 6.6rem); max-width: 13ch; }
+    .ln { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+    .ln > span { display: inline-block; }
 
+    .hero-description { margin-top: 30px; max-width: 44ch; font-size: var(--fs-lead); line-height: 1.6; }
+    .hero-buttons { margin-top: 40px; }
+
+    /* ---------- text transitions ---------- */
+    :global(.js) .hero-content.is-entering .ln > span { animation: ln-in 1.2s var(--ease) both; animation-delay: calc(.25s + var(--li) * .09s); }
+    :global(.js) .hero-content.is-entering .hero-subtitle,
+    :global(.js) .hero-content.is-entering .hero-description,
+    :global(.js) .hero-content.is-entering .hero-buttons { animation: fade-up 1s var(--ease) both; }
+    :global(.js) .hero-content.is-entering .hero-subtitle { animation-delay: .15s; }
+    :global(.js) .hero-content.is-entering .hero-subtitle i { animation: grow 1s var(--ease) .2s both; }
+    :global(.js) .hero-content.is-entering .hero-description { animation-delay: .55s; }
+    :global(.js) .hero-content.is-entering .hero-buttons { animation-delay: .65s; }
+    :global(.js) .hero-content.first.is-entering .ln > span { animation-delay: calc(1.1s + var(--li) * .1s); }
+    :global(.js) .hero-content.first.is-entering .hero-subtitle { animation-delay: 1s; }
+    :global(.js) .hero-content.first.is-entering .hero-subtitle i { animation-delay: 1s; }
+    :global(.js) .hero-content.first.is-entering .hero-description { animation-delay: 1.45s; }
+    :global(.js) .hero-content.first.is-entering .hero-buttons { animation-delay: 1.55s; }
+
+    .hero-content.is-leaving .ln > span { animation: ln-out .55s cubic-bezier(.6, 0, .8, .4) both; animation-delay: calc(var(--li) * .04s); }
+    .hero-content.is-leaving .hero-subtitle,
+    .hero-content.is-leaving .hero-description,
+    .hero-content.is-leaving .hero-buttons { transition: opacity .4s ease; opacity: 0; }
+
+    @keyframes ln-in { from { transform: translate3d(0, 110%, 0); } to { transform: none; } }
+    @keyframes ln-out { to { transform: translate3d(0, -110%, 0); } }
+    @keyframes fade-up { from { opacity: 0; transform: translate3d(0, 16px, 0); } to { opacity: 1; transform: none; } }
+    @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    /* ---------- slide index ---------- */
+    .hero-index {
+        grid-column: 10 / -1;
+        display: grid;
+        gap: 2px;
+        animation: fade-up 1.2s var(--ease) 1.6s both;
+    }
+    .hero-index-btn {
+        position: relative;
+        display: grid;
+        grid-template-columns: 30px 1fr;
+        align-items: center;
+        width: 100%;
+        padding: 6px 0;
+        text-align: left;
+        font-size: var(--fs-label);
+        font-weight: 600;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,.5);
+        transition: color .4s ease;
+    }
+    .hero-index-btn:hover { color: rgba(255,255,255,.75); }
+    .hero-index-btn.active { color: #fff; }
+    .hi-n { font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+    .hi-t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: transform .5s var(--ease); }
+    .hero-index-btn.active .hi-t { transform: translateX(10px); }
+    .hi-bar { position: absolute; left: 0; bottom: 0; width: 22px; height: 1px; background: rgba(255,255,255,.18); opacity: 0; }
+    .hi-bar i { display: block; height: 100%; width: 100%; background: #fff; transform-origin: left; transform: scaleX(0); }
+    .hero-index-btn.active .hi-bar { opacity: 1; }
+    .hero-index-btn.active .hi-bar i { animation: bar var(--dur) linear both; }
+    .hero.paused .hero-index-btn.active .hi-bar i { animation-play-state: paused; }
+    @keyframes bar { to { transform: scaleX(1); } }
+
+    /* ---------- bottom bar ---------- */
     .hero-bar {
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
         gap: clamp(20px, 3vw, 48px);
-        padding-top: 24px;
-        border-top: 1px solid rgba(255,255,255,.2);
+        padding-top: 22px;
+        border-top: 1px solid rgba(255,255,255,.18);
+        animation: fade-up 1.2s var(--ease) 1.4s both;
     }
     .hero-counter {
         display: flex;
-        gap: 10px;
+        align-items: center;
+        gap: 12px;
         font-size: var(--fs-label);
         font-weight: 600;
-        letter-spacing: .16em;
+        letter-spacing: .14em;
         font-variant-numeric: tabular-nums;
-        color: #fff;
+        color: rgba(255,255,255,.45);
     }
-    .hero-counter .sep, .hero-counter span:last-child { color: rgba(255,255,255,.45); }
+    .hc-current { display: inline-block; overflow: hidden; height: 1.5em; color: #fff; }
+    .hc-current span { display: inline-block; }
+    .hc-current span.tick { animation: ln-in .8s var(--ease) both; }
+    .hero-counter .sep { width: 18px; height: 1px; background: rgba(255,255,255,.4); }
 
-    .hero-progress { height: 1px; background: rgba(255,255,255,.2); overflow: hidden; }
-    .hero-progress span { display: block; height: 100%; width: 0; background: #fff; }
+    .hero-progress { height: 1px; background: rgba(255,255,255,.14); overflow: hidden; }
+    .hero-progress span { display: block; height: 100%; width: 100%; background: rgba(255,255,255,.8); transform-origin: left; transform: scaleX(0); }
+    .hero-progress span.run { animation: bar var(--dur) linear both; }
+    .hero.paused .hero-progress span.run { animation-play-state: paused; }
 
     .hero-controls { display: flex; gap: 4px; }
     .hero-nav {
-        width: 44px;
-        height: 44px;
+        width: 46px;
+        height: 46px;
         display: grid;
         place-items: center;
+        border: 1px solid rgba(255,255,255,.22);
+        border-radius: 50%;
         color: #fff;
-        opacity: .7;
-        transition: opacity .3s ease;
+        transition: background .4s ease, color .4s ease, border-color .4s ease;
     }
-    .hero-nav:hover { opacity: 1; }
-    .hero-nav svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.2; }
+    .hero-nav:hover { background: #fff; color: var(--ink); border-color: #fff; }
+    .hero-nav svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.3; }
+
+    @media (max-width: 1099px) {
+        .hero-content { grid-column: 1 / -1; }
+        .hero-index { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .hero-media, .hero-lines span, .hero-index, .hero-bar { animation: none !important; }
+    }
 </style>

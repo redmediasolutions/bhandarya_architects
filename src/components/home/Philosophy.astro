@@ -1,5 +1,4 @@
 ---
-import SectionHead from "../ui/SectionHead.astro";
 import Rows from "../ui/Rows.astro";
 import Btn from "../ui/Btn.astro";
 
@@ -21,32 +20,39 @@ const principles = [
 
 <section class="sec philosophy">
     <div class="wrap">
-        <SectionHead
-            index="01"
-            label="Our Philosophy"
-            title="Architecture is more than buildings—it is the art of shaping how people live."
-        />
+
+        <div class="ph-top">
+            <div class="ph-label" data-reveal>
+                <span class="ph-index">01</span>
+                <span class="label">Our Philosophy</span>
+            </div>
+            <h2 class="ph-statement" data-scrub>
+                Architecture is more than buildings—it is the art of shaping how people live.
+            </h2>
+        </div>
 
         <div class="ph-grid">
             <figure class="ph-figure">
-                <div class="media ratio-4-5" data-reveal="mask">
-                    <img src="/images/Section2-1.webp" alt="Residential Architecture" loading="lazy" decoding="async" width="1024" height="1536" />
+                <div class="ph-frame media" data-reveal="mask">
+                    <div class="ph-inner">
+                        <img src="/images/Section2-1.webp" alt="Residential Architecture" loading="lazy" decoding="async" width="1024" height="1536" data-parallax="0.07" />
+                    </div>
                 </div>
                 <figcaption class="ph-stat" data-reveal>
-                    <span class="ph-stat-num">25<span>+</span></span>
+                    <span class="ph-stat-num"><span data-count="25">25</span><sup>+</sup></span>
                     <span class="label">Years of Excellence</span>
                 </figcaption>
             </figure>
 
             <div class="ph-copy">
-                <div class="ph-text" data-reveal>
-                    <p class="lead">
+                <div class="ph-text">
+                    <p class="lead" data-reveal>
                         Every project begins with understanding the people, the place,
                         and the purpose. We believe great architecture balances beauty,
                         functionality, sustainability and timeless craftsmanship to
                         create spaces that remain relevant for generations.
                     </p>
-                    <p>
+                    <p data-reveal>
                         Whether designing a private residence, a commercial
                         development or an interior environment, our approach combines
                         thoughtful planning with meticulous attention to detail,
@@ -54,18 +60,36 @@ const principles = [
                     </p>
                 </div>
 
-                <Rows items={principles} variant="compact" class="ph-rows" />
+                <Rows items={principles} variant="compact" />
 
                 <div data-reveal>
                     <Btn href="/about" variant="arrow">Learn More</Btn>
                 </div>
             </div>
         </div>
+
     </div>
 </section>
 
 <style>
-    .philosophy :global(.shead-title) { max-width: 22ch; }
+    .ph-top {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 28px;
+        margin-bottom: clamp(72px, 10vw, 160px);
+    }
+    .ph-label { grid-column: 1 / span 3; display: flex; gap: 14px; align-items: baseline; padding-top: 1.1em; }
+    .ph-index { font-size: var(--fs-label); font-weight: 600; letter-spacing: .12em; color: var(--ink); }
+    .ph-statement {
+        grid-column: 4 / -1;
+        font-size: clamp(2.1rem, 1.2rem + 3.4vw, 4.6rem);
+        font-weight: 300;
+        line-height: 1.08;
+        letter-spacing: -.035em;
+        text-indent: 2.2em;
+        max-width: 20ch;
+    }
 
     .ph-grid {
         display: grid;
@@ -75,22 +99,30 @@ const principles = [
         align-items: start;
     }
     .ph-figure { grid-column: 1 / span 5; }
-    .ph-copy { grid-column: 7 / -1; display: grid; gap: 48px; padding-top: 8px; }
+    .ph-frame { aspect-ratio: 4 / 5; }
+    .ph-inner { width: 100%; height: 100%; overflow: hidden; }
+    .ph-inner img { width: 100%; height: 100%; object-fit: cover; }
+    .ph-copy { grid-column: 7 / -1; display: grid; gap: 48px; padding-top: clamp(0px, 10vw, 160px); }
 
     .ph-stat {
         display: flex;
         align-items: baseline;
+        justify-content: space-between;
         gap: 18px;
-        padding-top: 20px;
-        margin-top: 20px;
+        padding-top: 18px;
+        margin-top: 18px;
         border-top: 1px solid var(--line);
     }
-    .ph-stat-num { font-size: 2.6rem; font-weight: 200; line-height: 1; letter-spacing: -.04em; color: var(--ink); }
-    .ph-stat-num span { font-weight: 300; }
+    .ph-stat-num { font-size: clamp(3rem, 2.2rem + 2.6vw, 4.8rem); font-weight: 200; line-height: 1; letter-spacing: -.05em; color: var(--ink); font-variant-numeric: tabular-nums; }
+    .ph-stat-num sup { font-size: .45em; font-weight: 300; vertical-align: top; margin-left: 4px; position: relative; top: .25em; }
 
-    .ph-text { display: grid; gap: 20px; max-width: 58ch; }
+    .ph-text { display: grid; gap: 20px; max-width: 56ch; }
 
     @media (max-width: 899px) {
+        .ph-label, .ph-statement { grid-column: 1 / -1; }
+        .ph-label { padding-top: 0; }
+        .ph-statement { text-indent: 0; }
         .ph-figure, .ph-copy { grid-column: 1 / -1; }
+        .ph-copy { padding-top: 0; }
     }
 </style>

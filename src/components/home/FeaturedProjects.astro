@@ -47,12 +47,13 @@ const layout = ["w", "n", "n", "w"];
 <section class="sec featured">
     <div class="wrap">
         <SectionHead index="03" label="Featured Projects" title="Spaces Crafted with Purpose">
+            <span class="fp-count" data-reveal style="--d:.2s">({String(latestProjects.length).padStart(2, "0")})</span>
             <div class="fp-all" data-reveal style="--d:.15s">
                 <Btn href="/projects" variant="arrow">View All Projects</Btn>
             </div>
         </SectionHead>
 
-        <div class="fp-grid">
+        <div class="fp-grid" data-cursor-zone>
             {latestProjects.map((project, index) => {
                 const kind = layout[index % 4];
                 return (
@@ -63,6 +64,8 @@ const layout = ["w", "n", "n", "w"];
                         eyebrow={project.category}
                         ratio={kind === "w" ? "ratio-3-2" : "ratio-4-5"}
                         width={kind === "w" ? 1400 : 1000}
+                        index={String(index + 1).padStart(2, "0")}
+                        parallax
                         class={`fp-item fp-${kind}`}
                     />
                 );
@@ -73,6 +76,16 @@ const layout = ["w", "n", "n", "w"];
 
 <style>
     .fp-all { margin-top: 36px; }
+    .fp-count {
+        position: absolute;
+        right: 0;
+        top: .6em;
+        font-size: var(--fs-label);
+        font-weight: 600;
+        letter-spacing: .14em;
+        color: var(--muted);
+    }
+    .featured :global(.shead-main) { position: relative; }
 
     .fp-grid {
         display: grid;

@@ -266,9 +266,64 @@ a.media:hover img, a:hover > .media img, .card:hover .media img { transform: sca
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js [data-reveal], .js [data-reveal] > * { opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important; }
+  .js [data-reveal], .js [data-reveal] > *, .js [data-split] .w > span { opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+
+/* ==========================================================
+   Motion helpers (see src/scripts/reveal.ts + motion.ts)
+========================================================== */
+
+/* split headings: words rise out of a line mask */
+.js [data-split] .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.js [data-split] .w > span {
+  display: inline-block;
+  transform: translate3d(0, 108%, 0);
+  transition: transform 1.15s var(--ease);
+  transition-delay: calc(var(--d, 0s) + var(--wi, 0) * 0.045s);
+}
+.js [data-split].is-in .w > span { transform: none; }
+.js [data-split][data-reveal] { opacity: 1; transform: none; }
+
+/* scrubbed text: words brighten as you scroll */
+.is-scrub .sw { opacity: 0.16; transition: opacity 0.5s ease; }
+.is-scrub .sw.lit { opacity: 1; }
+
+/* magnetic elements ease back */
+[data-magnetic] { transition: transform 0.6s var(--ease), background var(--transition), color var(--transition), border-color var(--transition); will-change: transform; }
+
+/* parallax images sit slightly oversized inside their frame */
+[data-parallax] { will-change: transform; transform: scale(var(--ps, 1.14)); }
+
+/* custom cursor used over project imagery */
+.cursor-dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  width: 84px;
+  height: 84px;
+  margin: -42px 0 0 -42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.4;
+  transition: opacity 0.35s ease, scale 0.5s var(--ease);
+}
+.cursor-dot.on { opacity: 1; scale: 1; }
+.cursor-dot svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.2; }
+[data-cursor-zone].has-cursor a { cursor: none; }
 
 /* ==========================================================
    Utilities

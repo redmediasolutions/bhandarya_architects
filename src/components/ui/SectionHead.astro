@@ -22,7 +22,7 @@ const intros = intro ? (Array.isArray(intro) ? intro : [intro]) : [];
         </div>
     )}
     <div class="shead-main">
-        <Tag class="shead-title" data-reveal style="--d:.05s"><Lines text={title} soft /></Tag>
+        <Tag class="shead-title" data-split style="--d:.05s"><Lines text={title} soft /></Tag>
         {intros.length > 0 && (
             <div class="shead-intro" data-reveal style="--d:.12s">
                 {intros.map((p) => <p>{p}</p>)}

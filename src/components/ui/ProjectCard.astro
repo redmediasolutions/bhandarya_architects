@@ -16,6 +16,8 @@ interface Props {
     ratio?: string;
     width?: number;
     eager?: boolean;
+    index?: string;
+    parallax?: boolean;
     class?: string;
 }
 
@@ -29,22 +31,31 @@ const {
     ratio = "ratio-4-3",
     width = 1200,
     eager = false,
+    index,
+    parallax = false,
     class: cls,
 } = Astro.props;
 
 const metaItems = meta.filter(Boolean) as string[];
 ---
-<a href={href} class:list={["card", cls]} data-reveal>
-    <div class:list={["media", ratio]}>
-        {image && (typeof image === "string" ? (
-            <img src={image} alt={title} loading={eager ? "eager" : "lazy"} decoding="async" />
-        ) : (
-            <Image src={image} alt={title} width={Math.min(width, image.width)} loading={eager ? "eager" : "lazy"} decoding="async" />
-        ))}
+<a href={href} class:list={["card", parallax && "card--px", cls]} data-reveal={parallax ? undefined : ""}>
+    <div class:list={["media", ratio]} data-reveal={parallax ? "mask" : undefined}>
+        <div class="card-inner">
+            {image && (typeof image === "string" ? (
+                <img src={image} alt={title} loading={eager ? "eager" : "lazy"} decoding="async" data-parallax={parallax ? "0.06" : undefined} />
+            ) : (
+                <Image src={image} alt={title} width={Math.min(width, image.width)} loading={eager ? "eager" : "lazy"} decoding="async" data-parallax={parallax ? "0.06" : undefined} />
+            ))}
+        </div>
     </div>
     <div class="card-cap">
         <div class="card-txt">
-            {eyebrow && <span class="label card-eyebrow">{eyebrow}</span>}
+            {(eyebrow || index) && (
+                <span class="label card-eyebrow">
+                    {index && <span class="card-index">{index}</span>}
+                    {eyebrow}
+                </span>
+            )}
             <h3 class="card-title">{title}</h3>
             {metaItems.length > 0 && (
                 <p class="card-meta">{metaItems.map((m, i) => <span>{m}</span>)}</p>
@@ -60,6 +71,14 @@ const metaItems = meta.filter(Boolean) as string[];
 
 <style>
     .card { display: block; color: var(--ink); }
+    .card-inner { width: 100%; height: 100%; overflow: hidden; }
+    .card-inner :global(img) { width: 100%; height: 100%; object-fit: cover; }
+    .card--px .media :global(img) { transition: none; }
+    .card--px .card-inner { transition: transform 1.4s var(--ease), clip-path 1.5s cubic-bezier(.77,0,.18,1); }
+    .card--px:hover .card-inner { transform: scale(1.04); }
+    .card-index { color: var(--ink); margin-right: 14px; letter-spacing: .1em; }
+    .card--px .card-cap { opacity: 0; transform: translateY(14px); transition: opacity 1s var(--ease) .25s, transform 1s var(--ease) .25s; }
+    .card--px .media.is-in + .card-cap, :global(html:not(.js)) .card--px .card-cap { opacity: 1; transform: none; }
     .card-cap {
         display: flex;
         justify-content: space-between;

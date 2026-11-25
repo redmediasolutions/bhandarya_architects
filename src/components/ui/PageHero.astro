@@ -38,7 +38,7 @@ const hasAside = stats.length > 0 || Astro.slots.has("aside");
     <div class="wrap phero-inner">
         <div class="phero-copy">
             <span class="label phero-label" data-reveal>{label}</span>
-            <h1 data-reveal style="--d:.08s"><Lines text={title} soft /></h1>
+            <h1 data-split style="--d:.15s"><Lines text={title} soft /></h1>
             {text && <p class="phero-text" data-reveal style="--d:.16s">{text}</p>}
             {actions.length > 0 && (
                 <div class="btn-row phero-actions" data-reveal style="--d:.24s">

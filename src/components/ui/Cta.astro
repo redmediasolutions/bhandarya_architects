@@ -25,13 +25,13 @@ const { label, title, text, actions = [], image } = Astro.props;
     <div class="wrap cta-grid">
         <div class="cta-label" data-reveal><span class="label">{label}</span></div>
         <div class="cta-main">
-            <h2 data-reveal style="--d:.06s"><Lines text={title} soft /></h2>
+            <h2 data-split style="--d:.06s"><Lines text={title} soft /></h2>
             <div class="cta-foot">
                 {text && <p data-reveal style="--d:.12s">{text}</p>}
                 {(actions.length > 0 || Astro.slots.has("default")) && (
                     <div class="btn-row" data-reveal style="--d:.18s">
                         {actions.map((a, i) => (
-                            <Btn href={a.href} target={a.target} variant={a.variant ?? (i === 0 ? "solid" : "ghost")}>{a.text}</Btn>
+                            <Btn href={a.href} target={a.target} variant={a.variant ?? (i === 0 ? "solid" : "ghost")} magnetic>{a.text}</Btn>
                         ))}
                     </div>
                 )}

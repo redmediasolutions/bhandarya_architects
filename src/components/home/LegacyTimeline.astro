@@ -38,52 +38,84 @@ const timeline = [
             intro="Every milestone represents our commitment to creating meaningful spaces that inspire communities and stand the test of time."
         />
 
-        <ol class="tl" data-reveal-stagger=".1">
-            {timeline.map((item) => (
-                <li class="tl-item" data-reveal>
-                    <span class="tl-year">{item.year}</span>
-                    <h3 class="tl-title">{item.title}</h3>
-                    <p class="tl-text">{item.description}</p>
-                </li>
-            ))}
-        </ol>
+        <div class="tl-wrap" data-progress data-progress-start="0.8" data-progress-span="0.9">
+            <div class="tl-rail" aria-hidden="true"><span></span></div>
+            <ol class="tl">
+                {timeline.map((item, i) => (
+                    <li class="tl-item" style={`--k:${(i / timeline.length).toFixed(3)}`}>
+                        <span class="tl-dot" aria-hidden="true"></span>
+                        <span class="tl-year">{item.year}</span>
+                        <h3 class="tl-title">{item.title}</h3>
+                        <p class="tl-text">{item.description}</p>
+                    </li>
+                ))}
+            </ol>
+        </div>
     </div>
 </section>
 
 <style>
+    .tl-wrap { --p: 1; position: relative; }
+    :global(.js) .tl-wrap { --p: 0; }
+
+    .tl-rail { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--line-strong); }
+    .tl-rail span { display: block; height: 100%; background: var(--ink); transform-origin: left; transform: scaleX(var(--p)); }
+
     .tl {
+        --on: 1;
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         column-gap: var(--gap);
         row-gap: 56px;
     }
     .tl-item {
+        /* 0 → 1 as the rail passes this item */
+        --a: clamp(0, calc((var(--p) - var(--k)) * 9), 1);
         position: relative;
-        padding-top: 28px;
-        border-top: 1px solid var(--line-strong);
+        padding-top: 36px;
     }
-    .tl-item::before {
+    .tl-dot {
+        position: absolute;
+        top: -5px;
+        left: 0;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        border: 1px solid var(--ink);
+        background: var(--paper-2);
+    }
+    .tl-dot::after {
         content: "";
         position: absolute;
-        top: -4px;
-        left: 0;
-        width: 7px;
-        height: 7px;
+        inset: 2px;
         border-radius: 50%;
         background: var(--ink);
+        transform: scale(var(--a));
     }
     .tl-year {
         display: block;
-        font-size: clamp(2.6rem, 2rem + 2.4vw, 4.5rem);
+        font-size: clamp(2.8rem, 2rem + 3vw, 5.4rem);
         font-weight: 200;
         line-height: 1;
-        letter-spacing: -.045em;
-        color: var(--ink);
+        letter-spacing: -.05em;
         font-variant-numeric: tabular-nums;
+        color: rgb(21 21 21 / var(--a));
+        -webkit-text-stroke: 1px var(--ink);
+        transition: color .3s ease;
+    }
+    .tl-title,
+    .tl-text {
+        opacity: calc(.35 + var(--a) * .65);
+        transform: translateY(calc((1 - var(--a)) * 12px));
     }
     .tl-title { margin-top: clamp(28px, 4vw, 56px); font-size: var(--fs-h4); font-weight: 500; }
     .tl-text { margin-top: 12px; max-width: 34ch; }
 
-    @media (max-width: 1024px) { .tl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 1024px) {
+        .tl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .tl-rail { display: none; }
+        .tl-item { --a: 1; border-top: 1px solid var(--line-strong); }
+    }
     @media (max-width: 599px) { .tl { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { .tl-wrap { --p: 1 !important; } }
 </style>
