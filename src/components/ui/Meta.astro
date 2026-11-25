@@ -1,0 +1,39 @@
+---
+interface Props {
+    items: { label: string; value: string | number | undefined }[];
+    layout?: "row" | "list";
+    class?: string;
+}
+const { items, layout = "row", class: cls } = Astro.props;
+---
+<dl class:list={["meta", `meta--${layout}`, cls]}>
+    {items.filter((i) => i.value !== undefined && i.value !== "").map((i) => (
+        <div class="meta-item">
+            <dt class="label">{i.label}</dt>
+            <dd>{i.value}</dd>
+        </div>
+    ))}
+</dl>
+
+<style>
+    .meta dd { color: var(--ink); font-size: var(--fs-body); font-weight: 500; line-height: 1.45; margin-top: 6px; }
+    :global(.sec--dark) .meta dd, :global(.on-dark) .meta dd { color: #fff; }
+
+    .meta--row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 24px var(--gap);
+        padding: 24px 0;
+        border-block: 1px solid var(--line);
+    }
+    .meta--list { border-top: 1px solid var(--line); }
+    .meta--list .meta-item {
+        display: grid;
+        grid-template-columns: minmax(120px, 40%) 1fr;
+        gap: 16px;
+        align-items: baseline;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--line);
+    }
+    .meta--list dd { margin-top: 0; }
+</style>

@@ -1,0 +1,75 @@
+---
+import Lines from "./Lines.astro";
+
+interface Props {
+    label?: string;
+    index?: string;
+    title: string | string[];
+    intro?: string | string[];
+    layout?: "split" | "stack" | "center";
+    as?: "h1" | "h2";
+    class?: string;
+}
+
+const { label, index, title, intro, layout = "split", as: Tag = "h2", class: cls } = Astro.props;
+const intros = intro ? (Array.isArray(intro) ? intro : [intro]) : [];
+---
+<header class:list={["shead", `shead--${layout}`, cls]}>
+    {label && (
+        <div class="shead-label" data-reveal>
+            {index && <span class="shead-index">{index}</span>}
+            <span class="label">{label}</span>
+        </div>
+    )}
+    <div class="shead-main">
+        <Tag class="shead-title" data-reveal style="--d:.05s"><Lines text={title} soft /></Tag>
+        {intros.length > 0 && (
+            <div class="shead-intro" data-reveal style="--d:.12s">
+                {intros.map((p) => <p>{p}</p>)}
+            </div>
+        )}
+        <slot />
+    </div>
+</header>
+
+<style>
+    .shead { margin-bottom: clamp(48px, 6vw, 96px); }
+
+    .shead-label { display: flex; align-items: baseline; gap: 14px; }
+    .shead-index {
+        font-size: var(--fs-label);
+        font-weight: 600;
+        letter-spacing: .12em;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+    }
+    :global(.sec--dark) .shead-index { color: #fff; }
+
+    .shead-title { max-width: 18ch; }
+    .shead-intro { margin-top: 28px; max-width: 52ch; display: grid; gap: 16px; }
+    .shead-intro p { font-size: var(--fs-lead); line-height: 1.6; }
+
+    /* split: label sits in its own column, heading spans the rest */
+    .shead--split {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 24px;
+    }
+    .shead--split .shead-label { grid-column: 1 / span 4; padding-top: .9em; }
+    .shead--split .shead-main { grid-column: 5 / -1; }
+
+    .shead--stack .shead-label { margin-bottom: 28px; }
+
+    .shead--center { text-align: center; }
+    .shead--center .shead-label { justify-content: center; margin-bottom: 28px; }
+    .shead--center .shead-title,
+    .shead--center .shead-intro { margin-inline: auto; }
+    .shead--center .shead-title { max-width: 22ch; }
+
+    @media (max-width: 899px) {
+        .shead--split .shead-label,
+        .shead--split .shead-main { grid-column: 1 / -1; }
+        .shead--split .shead-label { padding-top: 0; }
+    }
+</style>

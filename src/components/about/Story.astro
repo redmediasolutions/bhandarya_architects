@@ -1,14 +1,14 @@
-<section class="story section">
+---
+import SectionHead from "../ui/SectionHead.astro";
+---
 
-    <div class="container">
+<section class="sec story">
+    <div class="wrap">
+        <SectionHead index="01" label="Our Story" title="Architecture Rooted in Purpose." />
 
-        <div class="story-grid">
-
-            <!-- Left -->
-
-            <div class="story-blueprint">
-
-<svg viewBox="0 0 1000 760">
+        <div class="st-grid">
+            <figure class="st-drawing" data-reveal>
+<svg viewBox="0 0 1000 760" role="img" aria-label="Concept elevation drawing">
 
     <!-- Border -->
 
@@ -162,471 +162,76 @@
 
 </svg>
 
-</div>
+            </figure>
 
-            <!-- Right -->
-
-            <div class="story-content">
-
-                <span class="small-title">
-
-                    Our Story
-
-                </span>
-
-                <h2>
-
-                    Architecture Rooted in Purpose.
-
-                </h2>
-
-                <p>
-
+            <div class="st-copy" data-reveal style="--d:.1s">
+                <p class="lead">
                     Founded in 1995, Bhandary Associates has been at the
                     forefront of architectural innovation for three decades.
                     What started as a small practice with a vision for
                     excellence has grown into one of the most respected
                     architecture firms in the region.
-
                 </p>
-
                 <p>
-
                     Our journey has been defined by a commitment to pushing
                     boundaries while respecting tradition.
-
                 </p>
-
                 <p>
-
                     Today, our portfolio spans residential, commercial and
                     urban planning projects, each bearing the hallmark of
                     sustainable design, functional beauty and client
                     satisfaction.
-
                 </p>
-
             </div>
-
         </div>
-
     </div>
-
 </section>
 
 <style>
-
-.story{
-    background:#fff;
-    overflow:hidden;
-}
-
-.story-grid{
-
-    display:grid;
-
-    grid-template-columns:1.1fr .9fr;
-
-    gap:90px;
-
-    align-items:center;
-
-}
-
-/* ================================================= */
-/* Blueprint Container */
-/* ================================================= */
-
-.story-blueprint{
-
-    position:relative;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:40px;
-
-    border-radius:24px;
-
-    background:
-        radial-gradient(circle at top left,
-        rgba(255,120,0,.08),
-        transparent 45%),
-
-        linear-gradient(
-            180deg,
-            #111,
-            #050505
-        );
-
-    border:1px solid rgba(255,140,0,.18);
-
-    box-shadow:
-
-        0 35px 90px rgba(0,0,0,.22),
-
-        inset 0 0 100px rgba(255,120,0,.04);
-
-    overflow:hidden;
-
-    opacity:0;
-
-    transform:translateY(40px);
-
-    transition:
-
-        opacity .9s ease,
-
-        transform .9s cubic-bezier(.22,1,.36,1);
-
-}
-
-/* Appears when visible */
-
-.story.animate .story-blueprint{
-
-    opacity:1;
-
-    transform:none;
-
-}
-
-/* ================================================= */
-/* Background Glow */
-/* ================================================= */
-
-.story-blueprint::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    pointer-events:none;
-
-    background:
-
-        radial-gradient(circle at top left,
-        rgba(255,140,0,.12),
-        transparent 30%),
-
-        radial-gradient(circle at bottom right,
-        rgba(255,140,0,.06),
-        transparent 35%);
-
-}
-
-/* ================================================= */
-/* Animated Scan Line */
-/* ================================================= */
-
-.story-blueprint::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    right:0;
-
-    height:2px;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,170,70,.9),
-            transparent
-        );
-
-    box-shadow:
-
-        0 0 16px rgba(255,170,70,.7);
-
-    animation:scanLine 5s linear infinite;
-
-}
-
-/* ================================================= */
-
-.story-blueprint svg{
-
-    width:100%;
-
-    max-width:760px;
-
-    position:relative;
-
-    z-index:2;
-
-}
-
-/* ================================================= */
-/* Blueprint Lines */
-/* ================================================= */
-
-.story-blueprint path,
-.story-blueprint line,
-.story-blueprint rect,
-.story-blueprint circle,
-.story-blueprint polygon{
-
-    fill:none;
-
-    stroke:#ff9800;
-
-    stroke-width:1.5;
-
-    stroke-linecap:round;
-
-    stroke-linejoin:round;
-
-    stroke-dasharray:2200;
-
-    stroke-dashoffset:2200;
-
-    filter:
-
-        drop-shadow(0 0 2px rgba(255,160,40,.7))
-
-        drop-shadow(0 0 6px rgba(255,140,0,.25));
-
-}
-
-/* ================================================= */
-/* Text */
-/* ================================================= */
-
-.story-blueprint text{
-
-    fill:#ffc16a;
-
-    font-family:monospace;
-
-    font-size:15px;
-
-    letter-spacing:1px;
-
-    opacity:0;
-
-    filter:
-
-        drop-shadow(0 0 5px rgba(255,180,80,.35));
-
-}
-
-/* ================================================= */
-/* Start animation only when visible */
-/* ================================================= */
-
-.story.animate .story-blueprint path,
-.story.animate .story-blueprint line,
-.story.animate .story-blueprint rect,
-.story.animate .story-blueprint circle,
-.story.animate .story-blueprint polygon{
-
-    animation:draw 4.8s ease forwards;
-
-}
-
-.story.animate .story-blueprint text{
-
-    animation:textFade .7s ease forwards;
-
-}
-
-/* ================================================= */
-/* Stagger */
-/* ================================================= */
-
-.story.animate .story-blueprint path:nth-of-type(1){animation-delay:.2s;}
-.story.animate .story-blueprint path:nth-of-type(2){animation-delay:.45s;}
-.story.animate .story-blueprint path:nth-of-type(3){animation-delay:.7s;}
-.story.animate .story-blueprint path:nth-of-type(4){animation-delay:.95s;}
-
-.story.animate .story-blueprint rect:nth-of-type(1){animation-delay:1.2s;}
-.story.animate .story-blueprint rect:nth-of-type(2){animation-delay:1.4s;}
-.story.animate .story-blueprint rect:nth-of-type(3){animation-delay:1.6s;}
-.story.animate .story-blueprint rect:nth-of-type(4){animation-delay:1.8s;}
-
-.story.animate .story-blueprint line:nth-of-type(1){animation-delay:2s;}
-.story.animate .story-blueprint line:nth-of-type(2){animation-delay:2.15s;}
-.story.animate .story-blueprint line:nth-of-type(3){animation-delay:2.3s;}
-.story.animate .story-blueprint line:nth-of-type(4){animation-delay:2.45s;}
-.story.animate .story-blueprint line:nth-of-type(5){animation-delay:2.6s;}
-.story.animate .story-blueprint line:nth-of-type(6){animation-delay:2.75s;}
-.story.animate .story-blueprint line:nth-of-type(7){animation-delay:2.9s;}
-.story.animate .story-blueprint line:nth-of-type(8){animation-delay:3.05s;}
-.story.animate .story-blueprint line:nth-of-type(9){animation-delay:3.2s;}
-.story.animate .story-blueprint line:nth-of-type(10){animation-delay:3.35s;}
-
-.story.animate .story-blueprint circle{
-
-    animation-delay:3.5s;
-
-}
-
-.story.animate .story-blueprint polygon{
-
-    animation-delay:3.7s;
-
-}
-
-.story.animate .story-blueprint text{
-
-    animation-delay:4s;
-
-}
-
-/* ================================================= */
-/* Content */
-/* ================================================= */
-
-.story-content{
-
-    max-width:560px;
-
-}
-
-.story h2{
-
-    margin:20px 0 30px;
-
-}
-
-.story p{
-
-    margin-bottom:22px;
-
-}
-
-/* ================================================= */
-/* Animations */
-/* ================================================= */
-
-@keyframes draw{
-
-    from{
-
-        stroke-dashoffset:2200;
-
+    .st-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 56px;
+        align-items: start;
     }
-
-    to{
-
-        stroke-dashoffset:0;
-
+    .st-drawing {
+        grid-column: 1 / span 6;
+        padding: clamp(16px, 2vw, 28px);
+        background: var(--white);
+        border: 1px solid var(--line);
     }
+    .st-copy { grid-column: 8 / -1; display: grid; gap: 22px; max-width: 54ch; }
 
-}
-
-@keyframes textFade{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(6px);
-
+    .st-drawing svg { width: 100%; height: auto; overflow: visible; }
+    .st-drawing :global(rect),
+    .st-drawing :global(path),
+    .st-drawing :global(line),
+    .st-drawing :global(circle),
+    .st-drawing :global(polygon) {
+        fill: none;
+        stroke: var(--ink);
+        stroke-width: 1;
+        vector-effect: non-scaling-stroke;
+        stroke-dasharray: 1600;
+        stroke-dashoffset: 1600;
+        transition: stroke-dashoffset 3.2s var(--ease);
     }
-
-    to{
-
-        opacity:1;
-
-        transform:none;
-
+    .st-drawing :global(polygon) { fill: var(--ink); }
+    .st-drawing :global(text) {
+        fill: var(--muted);
+        font-family: var(--font);
+        font-size: 13px;
+        letter-spacing: .14em;
     }
+    .st-drawing.is-in :global(rect),
+    .st-drawing.is-in :global(path),
+    .st-drawing.is-in :global(line),
+    .st-drawing.is-in :global(circle),
+    .st-drawing.is-in :global(polygon) { stroke-dashoffset: 0; }
+    :global(html:not(.js)) .st-drawing :global(*) { stroke-dashoffset: 0; }
 
-}
-
-@keyframes scanLine{
-
-    from{
-
-        top:-5%;
-
-        opacity:0;
-
+    @media (max-width: 899px) {
+        .st-drawing, .st-copy { grid-column: 1 / -1; }
     }
-
-    15%{
-
-        opacity:1;
-
-    }
-
-    85%{
-
-        opacity:1;
-
-    }
-
-    to{
-
-        top:105%;
-
-        opacity:0;
-
-    }
-
-}
-
-/* ================================================= */
-/* Responsive */
-/* ================================================= */
-
-@media(max-width:900px){
-
-    .story-grid{
-
-        grid-template-columns:1fr;
-
-        gap:60px;
-
-    }
-
-    .story-blueprint{
-
-        order:2;
-
-        padding:28px;
-
-    }
-
-}
-
 </style>
-<script is:inline>
-
-const story = document.querySelector(".story");
-
-if (story) {
-
-    const observer = new IntersectionObserver((entries) => {
-
-        if (entries[0].isIntersecting) {
-
-            story.classList.add("animate");
-
-            observer.disconnect();
-
-        }
-
-    }, {
-
-        threshold: 0.35
-
-    });
-
-    observer.observe(story);
-
-}
-
-</script>

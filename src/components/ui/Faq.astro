@@ -1,0 +1,78 @@
+---
+import SectionHead from "./SectionHead.astro";
+
+interface Props {
+    label: string;
+    title: string | string[];
+    intro?: string;
+    items: { q: string; a: string }[];
+    tone?: "paper" | "alt" | "white";
+}
+const { label, title, intro, items, tone = "paper" } = Astro.props;
+---
+<section class:list={["sec faq", tone === "alt" && "sec--alt", tone === "white" && "sec--white"]}>
+    <div class="wrap faq-grid">
+        <div class="faq-head">
+            <SectionHead label={label} title={title} intro={intro} layout="stack" />
+        </div>
+        <div class="faq-list" data-reveal-stagger=".05">
+            {items.map((item, i) => (
+                <details class="faq-item" data-reveal open={i === 0}>
+                    <summary>
+                        <span class="faq-q">{item.q}</span>
+                        <span class="faq-icon" aria-hidden="true"></span>
+                    </summary>
+                    <div class="faq-a"><p>{item.a}</p></div>
+                </details>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    .faq-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+    }
+    .faq-head { grid-column: 1 / span 5; }
+    .faq-head :global(.shead) { position: sticky; top: calc(var(--header-h) + 32px); margin-bottom: 40px; }
+    .faq-head :global(.shead-title) { font-size: clamp(1.9rem, 1.4rem + 1.8vw, 3rem); }
+    .faq-list { grid-column: 7 / -1; border-top: 1px solid var(--line); align-self: start; }
+
+    .faq-item { border-bottom: 1px solid var(--line); }
+    summary {
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 32px;
+        padding: 28px 0;
+        cursor: pointer;
+        color: var(--ink);
+        font-size: var(--fs-h4);
+        font-weight: 450;
+        line-height: 1.4;
+        letter-spacing: -0.01em;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary:hover .faq-q { opacity: .65; }
+    .faq-q { transition: opacity .3s ease; }
+
+    .faq-icon { position: relative; flex: 0 0 14px; height: 14px; margin-top: .45em; }
+    .faq-icon::before, .faq-icon::after {
+        content: ""; position: absolute; left: 0; top: 50%; width: 14px; height: 1px; background: currentColor;
+        transition: transform var(--transition);
+    }
+    .faq-icon::after { transform: rotate(90deg); }
+    details[open] .faq-icon::after { transform: rotate(0deg); }
+
+    .faq-a { padding: 0 48px 30px 0; max-width: 62ch; }
+    .faq-a p { color: var(--ink-2); }
+
+    @media (max-width: 899px) {
+        .faq-head, .faq-list { grid-column: 1 / -1; }
+        .faq-head :global(.shead) { position: static; }
+        .faq-a { padding-right: 0; }
+    }
+</style>

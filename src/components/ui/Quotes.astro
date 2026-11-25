@@ -1,0 +1,194 @@
+---
+/**
+ * Testimonial carousel — one large quotation at a time,
+ * numbered pager, optional photograph per quote.
+ */
+interface Item {
+    quote: string;
+    name: string;
+    meta?: string;
+    image?: string;
+}
+interface Props {
+    index?: string;
+    label: string;
+    title: string | string[];
+    items: Item[];
+    tone?: "paper" | "alt" | "white";
+}
+import SectionHead from "./SectionHead.astro";
+
+const { index, label, title, items, tone = "alt" } = Astro.props;
+const withImages = items.some((i) => i.image);
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<section class:list={["sec quotes", tone === "alt" && "sec--alt", tone === "white" && "sec--white"]} data-quotes>
+    <div class="wrap">
+        <SectionHead index={index} label={label} title={title} />
+
+        <div class:list={["q-stage", withImages && "q-stage--img"]} data-reveal>
+            {items.map((item, i) => (
+                <figure class:list={["q-item", i === 0 && "active"]} aria-hidden={i === 0 ? "false" : "true"}>
+                    {item.image && (
+                        <div class="q-photo media ratio-4-5">
+                            <img src={item.image} alt={item.name} loading="lazy" decoding="async" />
+                        </div>
+                    )}
+                    <div class="q-body">
+                        <span class="q-mark" aria-hidden="true">“</span>
+                        <blockquote>{item.quote}</blockquote>
+                        <figcaption>
+                            <strong>{item.name}</strong>
+                            {item.meta && <span>{item.meta}</span>}
+                        </figcaption>
+                    </div>
+                </figure>
+            ))}
+        </div>
+
+        {items.length > 1 && (
+            <div class="q-nav" data-reveal>
+                <div class="q-pager">
+                    {items.map((_, i) => (
+                        <button type="button" class:list={["q-dot", i === 0 && "active"]} data-i={i} aria-label={`Go to testimonial ${i + 1}`}>
+                            {pad(i + 1)}
+                        </button>
+                    ))}
+                </div>
+                <div class="q-arrows">
+                    <button type="button" class="q-prev" aria-label="Previous testimonial">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6" /></svg>
+                    </button>
+                    <button type="button" class="q-next" aria-label="Next testimonial">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6" /></svg>
+                    </button>
+                </div>
+            </div>
+        )}
+    </div>
+</section>
+
+<script>
+    document.querySelectorAll<HTMLElement>("[data-quotes]").forEach((root) => {
+        const slides = [...root.querySelectorAll<HTMLElement>(".q-item")];
+        const dots = [...root.querySelectorAll<HTMLButtonElement>(".q-dot")];
+        if (slides.length < 2) return;
+
+        let current = 0;
+        let timer: number | undefined;
+
+        const show = (i: number) => {
+            current = (i + slides.length) % slides.length;
+            slides.forEach((s, k) => {
+                s.classList.toggle("active", k === current);
+                s.setAttribute("aria-hidden", String(k !== current));
+            });
+            dots.forEach((d, k) => d.classList.toggle("active", k === current));
+        };
+        const play = () => {
+            window.clearInterval(timer);
+            timer = window.setInterval(() => show(current + 1), 7000);
+        };
+
+        dots.forEach((d) => d.addEventListener("click", () => { show(Number(d.dataset.i)); play(); }));
+        root.querySelector(".q-prev")?.addEventListener("click", () => { show(current - 1); play(); });
+        root.querySelector(".q-next")?.addEventListener("click", () => { show(current + 1); play(); });
+
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) play();
+    });
+</script>
+
+<style>
+    .q-stage { display: grid; }
+    .q-item {
+        grid-area: 1 / 1;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(12px);
+        transition: opacity .8s var(--ease), transform .8s var(--ease), visibility .8s;
+    }
+    .q-item.active { opacity: 1; visibility: visible; transform: none; }
+
+    .q-body {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+    }
+    .q-mark {
+        grid-column: 1 / span 4;
+        font-size: clamp(5rem, 10vw, 9rem);
+        font-weight: 200;
+        line-height: .8;
+        color: var(--ink);
+        opacity: .18;
+    }
+    .q-body blockquote {
+        grid-column: 5 / -1;
+        font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.6rem);
+        font-weight: 300;
+        line-height: 1.32;
+        letter-spacing: -.02em;
+        color: var(--ink);
+        max-width: 28ch;
+        text-wrap: pretty;
+    }
+    .q-body figcaption {
+        grid-column: 5 / -1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        align-items: baseline;
+        margin-top: 40px;
+    }
+    .q-body figcaption strong { color: var(--ink); font-weight: 500; }
+    .q-body figcaption span { color: var(--muted); font-size: var(--fs-small); }
+
+    /* with photo */
+    .q-stage--img .q-item {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 40px;
+        align-items: center;
+    }
+    .q-stage--img .q-photo { grid-column: 1 / span 4; }
+    .q-stage--img .q-body { grid-column: 6 / -1; display: block; }
+    .q-stage--img .q-mark { display: block; margin-bottom: 16px; }
+
+    .q-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        margin-top: clamp(48px, 6vw, 88px);
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+    }
+    .q-pager { display: flex; gap: 24px; }
+    .q-dot {
+        position: relative;
+        padding: 6px 0;
+        font-size: var(--fs-label);
+        font-weight: 600;
+        letter-spacing: .12em;
+        color: var(--muted);
+        transition: color .3s ease;
+    }
+    .q-dot::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--ink);
+        transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease);
+    }
+    .q-dot.active { color: var(--ink); }
+    .q-dot.active::after { transform: scaleX(1); }
+    .q-arrows { display: flex; gap: 4px; }
+    .q-arrows button { width: 44px; height: 44px; display: grid; place-items: center; color: var(--ink); opacity: .6; transition: opacity .3s; }
+    .q-arrows button:hover { opacity: 1; }
+    .q-arrows svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.2; }
+
+    @media (max-width: 899px) {
+        .q-mark, .q-body blockquote, .q-body figcaption { grid-column: 1 / -1; }
+        .q-stage--img .q-photo, .q-stage--img .q-body { grid-column: 1 / -1; }
+        .q-stage--img .q-photo { max-width: 320px; }
+    }
+</style>

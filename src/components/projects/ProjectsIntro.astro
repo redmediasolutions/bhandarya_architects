@@ -1,4 +1,7 @@
 ---
+import SectionHead from "../ui/SectionHead.astro";
+import Stats from "../ui/Stats.astro";
+
 const sectors = [
   {
     title: "Residences",
@@ -16,7 +19,7 @@ const sectors = [
     title: "Interior",
     count: "21",
     text: "Luxury interior environments tailored to each client.",
-    href: "/projects/interior",
+    href: "/projects/interiors",
   },
   {
     title: "Educational Institutions",
@@ -27,812 +30,91 @@ const sectors = [
 ];
 ---
 
-<section class="projects-intro section">
+<section class="sec intro">
+    <div class="intro-word" aria-hidden="true">PROJECTS</div>
 
-    <div class="background-word">
+    <div class="wrap">
+        <SectionHead
+            index="01"
+            label="Featured Work"
+            title={["Every project tells", "a different story."]}
+            intro="Over two decades of architecture across residential, commercial and hospitality sectors, shaped by thoughtful design and timeless craftsmanship."
+        />
 
-        PROJECTS
-
-    </div>
-
-    <div class="intro-container">
-
-        <div class="intro-header">
-
-            <span class="small-title">
-
-                Featured Work
-
-            </span>
-
-            <h2>
-
-                Every project tells
-                <br>
-                a different story.
-
-            </h2>
-
-            <p>
-
-                Over two decades of architecture across
-                residential, commercial and hospitality
-                sectors, shaped by thoughtful design and
-                timeless craftsmanship.
-
-            </p>
-
+        <div class="intro-stats">
+            <Stats items={[
+                { value: "120+", label: "Projects" },
+                { value: "25+", label: "Years" },
+                { value: "3.5M+", label: "Sq.ft Designed" },
+            ]} />
         </div>
 
-        <div class="stats">
-
-            <div class="stat">
-
-                <strong>120+</strong>
-
-                <span>Projects</span>
-
-            </div>
-
-            <div class="stat">
-
-                <strong>25+</strong>
-
-                <span>Years</span>
-
-            </div>
-
-            <div class="stat">
-
-                <strong>3.5M+</strong>
-
-                <span>Sq.ft Designed</span>
-
-            </div>
-
-        </div>
-
-        <div class="sector-grid">
-
-            {
-                sectors.map((sector,index)=>(
-
-                    <article
-    class="sector-card"
-    style={`--delay:${index * 0.15}s`}
->
-    <div class="sector-scan"></div>
-
-<div class="corner tl"></div>
-<div class="corner tr"></div>
-<div class="corner bl"></div>
-<div class="corner br"></div>
-    <div class="sector-number">
-        {sector.count}
+        <ul class="sectors" data-reveal-stagger=".07">
+            {sectors.map((sector) => (
+                <li data-reveal>
+                    <a href={sector.href} class="sector">
+                        <span class="sector-count">{sector.count}</span>
+                        <h3 class="sector-title">{sector.title}</h3>
+                        <p class="sector-text">{sector.text}</p>
+                        <span class="arrow-link sector-cta">
+                            <span>Explore</span>
+                            <span class="ar" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                </li>
+            ))}
+        </ul>
     </div>
-
-    <h3>
-        {sector.title}
-    </h3>
-
-    <p>
-        {sector.text}
-    </p>
-
-    <a
-        href={sector.href}
-        class="sector-button"
-    >
-
-        Explore
-
-        <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-        >
-            <path d="M5 12H19"/>
-            <path d="M12 5L19 12L12 19"/>
-        </svg>
-
-    </a>
-
-</article>
-
-                ))
-            }
-
-        </div>
-
-    </div>
-
 </section>
 
 <style>
-.projects-intro{
-
-    position:relative;
-
-    overflow:hidden;
-
-    background:#f7f5f2;
-
-}
-
-/* ================================================= */
-/* Layout */
-/* ================================================= */
-
-.intro-container{
-
-    width:min(1600px,92vw);
-
-    margin:0 auto;
-
-    position:relative;
-
-    z-index:2;
-
-}
-
-.background-word{
-
-    position:absolute;
-
-    top:40px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    font-size:220px;
-
-    font-weight:700;
-
-    letter-spacing:10px;
-
-    color:rgba(0,0,0,.03);
-
-    white-space:nowrap;
-
-    pointer-events:none;
-
-}
-
-/* ================================================= */
-/* Header */
-/* ================================================= */
-
-.intro-header{
-
-    max-width:900px;
-
-    margin:0 auto;
-
-    text-align:center;
-
-}
-
-.intro-header h2{
-
-    margin:18px 0 24px;
-
-}
-
-.intro-header p{
-
-    max-width:720px;
-
-    margin:auto;
-
-}
-
-/* ================================================= */
-/* Statistics */
-/* ================================================= */
-
-.stats{
-
-    margin:90px auto;
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:50px;
-
-    max-width:1000px;
-
-    text-align:center;
-
-}
-
-.stat strong{
-
-    display:block;
-
-    font-size:70px;
-
-    line-height:1;
-
-    color:var(--accent);
-
-}
-
-.stat span{
-
-    display:block;
-
-    margin-top:12px;
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    font-size:12px;
-
-    color:#666;
-
-}
-
-/* ================================================= */
-/* Grid */
-/* ================================================= */
-
-.sector-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(4,minmax(320px,1fr));
-
-    gap:34px;
-
-    margin-top:80px;
-
-}
-
-/* ================================================= */
-/* Cards */
-/* ================================================= */
-
-.sector-card{
-
-    position:relative;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:flex-end;
-
-    min-height:420px;
-
-    padding:50px;
-
-    overflow:hidden;
-
-    border-radius:22px;
-
-    background:#111;
-
-    color:#fff;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    isolation:isolate;
-
-    opacity:0;
-
-    transform:translateY(60px);
-
-    transition:
-        opacity .8s ease,
-        transform .6s cubic-bezier(.22,1,.36,1),
-        box-shadow .45s,
-        border-color .45s;
-
-}
-
-/* reveal */
-
-.projects-intro.visible .sector-card{
-
-    opacity:1;
-
-    transform:none;
-
-    transition-delay:var(--delay);
-
-}
-
-/* orange glow */
-
-.sector-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:-35%;
-
-    background:
-
-        radial-gradient(
-
-            circle,
-
-            rgba(255,120,0,.18),
-
-            transparent 70%
-
-        );
-
-    opacity:.18;
-
-    transition:.6s;
-
-    z-index:0;
-
-}
-
-/* blueprint grid */
-
-.sector-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background-image:
-
-        linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
-
-        linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-
-    background-size:40px 40px;
-
-    animation:gridMove 16s linear infinite;
-
-    opacity:.08;
-
-    z-index:0;
-
-}
-
-/* scan animation */
-
-.sector-scan{
-
-    position:absolute;
-
-    inset:0;
-
-    overflow:hidden;
-
-    z-index:1;
-
-    pointer-events:none;
-
-}
-
-.sector-scan::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:-120%;
-
-    left:0;
-
-    width:100%;
-
-    height:150%;
-
-    background:
-
-        linear-gradient(
-
-            transparent,
-
-            rgba(255,120,0,.08),
-
-            transparent
-
-        );
-
-    animation:scanLine 7s linear infinite;
-
-}
-
-/* keep content above overlays */
-
-.sector-number,
-.sector-card h3,
-.sector-card p,
-.sector-button{
-
-    position:relative;
-
-    z-index:3;
-
-}
-
-.corner{
-
-    position:absolute;
-
-    width:34px;
-
-    height:34px;
-
-    border-color:var(--accent);
-
-    opacity:.35;
-
-    transition:.35s;
-
-    z-index:4;
-
-}
-
-.tl{
-
-    top:18px;
-
-    left:18px;
-
-    border-top:2px solid;
-
-    border-left:2px solid;
-
-}
-
-.tr{
-
-    top:18px;
-
-    right:18px;
-
-    border-top:2px solid;
-
-    border-right:2px solid;
-
-}
-
-.bl{
-
-    left:18px;
-
-    bottom:18px;
-
-    border-left:2px solid;
-
-    border-bottom:2px solid;
-
-}
-
-.br{
-
-    right:18px;
-
-    bottom:18px;
-
-    border-right:2px solid;
-
-    border-bottom:2px solid;
-
-}
-
-.sector-card:hover .corner{
-
-    opacity:1;
-
-    transform:scale(1.15);
-
-}
-
-/* hover */
-
-.sector-card:hover{
-
-    transform:translateY(-12px);
-
-    border-color:rgba(255,120,0,.35);
-
-    box-shadow:
-
-        0 35px 80px rgba(0,0,0,.28);
-
-}
-
-.sector-card:hover::before{
-
-    opacity:.45;
-
-}
-
-/* ================================================= */
-/* Typography */
-/* ================================================= */
-
-.sector-number{
-
-    font-size:74px;
-
-    line-height:1;
-
-    font-weight:700;
-
-    color:rgba(255,120,0,.18);
-
-    margin-bottom:24px;
-
-}
-
-.sector-card h3{
-
-    color:#fff;
-
-    font-size:30px;
-
-    margin-bottom:18px;
-
-}
-
-.sector-card p{
-
-    color:rgba(255,255,255,.68);
-
-    line-height:1.8;
-
-    margin-bottom:36px;
-
-}
-
-/* ================================================= */
-/* Button */
-/* ================================================= */
-
-.sector-button{
-
-    position:relative;
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    align-self:flex-start;
-
-    overflow:hidden;
-
-    padding:15px 28px;
-
-    margin-top:auto;
-
-    border-radius:999px;
-
-    background:var(--accent);
-
-    color:#fff;
-
-    text-decoration:none;
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    font-size:12px;
-
-    font-weight:600;
-
-    transition:.35s;
-
-}
-
-.sector-button::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-
-        linear-gradient(
-
-            120deg,
-
-            transparent,
-
-            rgba(255,255,255,.35),
-
-            transparent
-
-        );
-
-    transform:translateX(-180%);
-
-}
-
-.sector-button:hover::before{
-
-    animation:buttonShine .8s forwards;
-
-}
-
-.sector-button:hover{
-
-    background:#fff;
-
-    color:#111;
-
-    transform:translateY(-2px);
-
-    box-shadow:0 12px 30px rgba(255,120,0,.35);
-
-}
-
-.sector-button svg{
-
-    width:18px;
-
-    height:18px;
-
-    transition:.35s;
-
-}
-
-.sector-button:hover svg{
-
-    transform:translateX(6px);
-
-}
-
-@keyframes gridMove{
-
-    from{
-
-        background-position:0 0;
-
+    .intro { overflow: hidden; }
+    .intro-word {
+        position: absolute;
+        top: clamp(24px, 3vw, 48px);
+        right: calc(var(--gutter) * -0.2);
+        font-size: clamp(5rem, 16vw, 15rem);
+        font-weight: 200;
+        letter-spacing: -.05em;
+        line-height: .8;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(21,21,21,.08);
+        pointer-events: none;
+        user-select: none;
     }
 
-    to{
-
-        background-position:36px 36px;
-
+    .intro-stats { margin-bottom: clamp(64px, 8vw, 120px); }
+    @media (min-width: 900px) {
+        .intro-stats { margin-left: calc((100% + var(--gap)) * 4 / 12); }
     }
 
-}
-
-@keyframes scanLine{
-
-    from{
-
-        transform:translateY(-120%);
-
+    .sectors { border-top: 1px solid var(--line-strong); }
+    .sectors li { border-bottom: 1px solid var(--line); }
+    .sector {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        align-items: baseline;
+        padding: clamp(24px, 3vw, 40px) 0;
+        transition: padding .5s var(--ease), background .5s ease;
     }
-
-    to{
-
-        transform:translateY(220%);
-
+    .sector:hover { padding-left: 16px; }
+    .sector-count {
+        grid-column: 1 / span 2;
+        font-size: clamp(2rem, 1.5rem + 1.6vw, 3.25rem);
+        font-weight: 200;
+        letter-spacing: -.04em;
+        line-height: 1;
+        color: var(--ink);
     }
+    .sector-title { grid-column: 3 / span 4; font-size: var(--fs-h3); font-weight: 300; }
+    .sector-text { grid-column: 7 / span 4; max-width: 40ch; }
+    .sector-cta { grid-column: 11 / -1; justify-self: end; }
 
-}
-
-@keyframes buttonShine{
-
-    to{
-
-        transform:translateX(180%);
-
+    @media (max-width: 899px) {
+        .sector { grid-template-columns: 64px 1fr; row-gap: 10px; }
+        .sector-count { grid-column: 1; grid-row: 1 / span 3; font-size: 1.8rem; }
+        .sector-title, .sector-text, .sector-cta { grid-column: 2; justify-self: start; }
+        .sector:hover { padding-left: 0; }
     }
-
-}
-
-/* ================================================= */
-/* Responsive */
-/* ================================================= */
-
-@media(max-width:1400px){
-
-    .sector-grid{
-
-        grid-template-columns:repeat(2,1fr);
-
-    }
-
-}
-
-@media(max-width:991px){
-
-    .stats{
-
-        grid-template-columns:1fr;
-
-        gap:30px;
-
-    }
-
-    .sector-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-}
-
-@media(max-width:768px){
-
-    .intro-container{
-
-        width:92vw;
-
-    }
-
-    .background-word{
-
-        font-size:110px;
-
-    }
-
-    .sector-card{
-
-        padding:36px;
-
-        min-height:auto;
-
-    }
-
-    .sector-number{
-
-        font-size:56px;
-
-    }
-
-    .sector-card h3{
-
-        font-size:24px;
-
-    }
-
-}
-
 </style>
-
-<script is:inline>
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-    const section=document.querySelector(".projects-intro");
-
-    if(!section) return;
-
-    const observer=new IntersectionObserver((entries)=>{
-
-        if(entries[0].isIntersecting){
-
-            section.classList.add("visible");
-
-            observer.disconnect();
-
-        }
-
-    },{
-
-        threshold:.2
-
-    });
-
-    observer.observe(section);
-
-});
-
-</script>

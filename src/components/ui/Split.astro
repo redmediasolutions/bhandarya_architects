@@ -1,0 +1,57 @@
+---
+/**
+ * Image + copy split. The image column carries an optional caption
+ * figure (e.g. "25+ / Years of Excellence") under a hairline.
+ */
+interface Props {
+    image: string;
+    alt: string;
+    ratio?: string;
+    caption?: { value: string; label: string };
+    reverse?: boolean;
+    class?: string;
+}
+const { image, alt, ratio = "ratio-4-5", caption, reverse = false, class: cls } = Astro.props;
+---
+<div class:list={["split", reverse && "split--reverse", cls]}>
+    <figure class="split-fig">
+        <div class:list={["media", ratio]} data-reveal="mask">
+            <img src={image} alt={alt} loading="lazy" decoding="async" />
+        </div>
+        {caption && (
+            <figcaption class="split-cap" data-reveal>
+                <strong>{caption.value}</strong>
+                <span class="label" set:html={caption.label} />
+            </figcaption>
+        )}
+    </figure>
+    <div class="split-body">
+        <slot />
+    </div>
+</div>
+
+<style>
+    .split {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 56px;
+        align-items: start;
+    }
+    .split-fig { grid-column: 1 / span 5; }
+    .split-body { grid-column: 7 / -1; display: grid; gap: 32px; }
+    .split--reverse .split-fig { grid-column: 8 / -1; grid-row: 1; }
+    .split--reverse .split-body { grid-column: 1 / span 6; grid-row: 1; }
+
+    .split-cap { display: flex; align-items: baseline; gap: 16px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .split-cap strong { font-size: 2.4rem; font-weight: 200; letter-spacing: -.04em; line-height: 1; color: var(--ink); }
+    :global(.sec--dark) .split-cap { border-color: var(--night-line); }
+    :global(.sec--dark) .split-cap strong { color: #fff; }
+
+    .split-body :global(p) { max-width: 58ch; }
+
+    @media (max-width: 899px) {
+        .split-fig, .split-body,
+        .split--reverse .split-fig, .split--reverse .split-body { grid-column: 1 / -1; grid-row: auto; }
+    }
+</style>

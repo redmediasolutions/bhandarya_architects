@@ -1,310 +1,154 @@
 ---
-import HeroBackground from "./HeroBackground.astro";
-import HeroContent from "./HeroContent.astro";
-
 import { slides } from "./heroData";
 
-const totalSlides = String(slides.length).padStart(2, "0");
+const pad = (n: number) => String(n).padStart(2, "0");
+const first = slides[0];
 ---
 
-<section
-    class="hero"
-    id="hero"
->
+<section class="hero on-dark" id="hero" aria-roledescription="carousel" aria-label="Featured work">
 
-    <!-- Background Images -->
-
-    <HeroBackground slides={slides} />
-
-    <!-- Overlay -->
-
-    <div class="hero-overlay"></div>
-
-    <!-- Content -->
-
-    <div class="hero-inner">
-
-        <div class="container">
-
-            <HeroContent slide={slides[0]} />
-
-        </div>
-
-    </div>
-
-    <!-- Bottom UI -->
-    
-    <div class="hero-bottom">
-        
-        <div class="container">
-            
-            <div class="hero-bottom-inner">
-                
-                <!-- Counter -->
-                <div class="hero-counter">
-                    <span id="hero-current">01</span>
-                    <span class="divider">/</span>
-                    <span id="hero-total">{totalSlides}</span>
-                </div>
-
-                <!-- Progress Bar -->
-                <div class="hero-progress">
-                    <div class="hero-progress-fill" id="hero-progress-fill"></div>
-                </div>
-
-                <!-- Navigation Controls -->
-                <div class="hero-controls">
-                    <button id="hero-prev" class="hero-nav-btn" aria-label="Previous Slide">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="19" y1="12" x2="5" y2="12"></line>
-                            <polyline points="12 19 5 12 12 5"></polyline>
-                        </svg>
-                    </button>
-                    
-                    <button id="hero-next" class="hero-nav-btn" aria-label="Next Slide">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </button>
-                </div>
-
+    <div class="hero-media" aria-hidden="true">
+        {slides.map((slide, index) => (
+            <div class:list={["hero-slide", index === 0 && "active"]} data-slide={index}>
+                <img
+                    src={slide.image}
+                    alt={slide.title}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    fetchpriority={index === 0 ? "high" : undefined}
+                    decoding="async"
+                />
             </div>
+        ))}
+    </div>
+    <div class="hero-shade" aria-hidden="true"></div>
 
+    <div class="wrap hero-inner">
+        <div class="hero-content" id="hero-content" aria-live="polite">
+            <span class="label hero-subtitle">{first.subtitle}</span>
+            <h1 class="hero-title" id="hero-title">{first.title}</h1>
+            <p class="hero-description" id="hero-description">{first.description}</p>
+            <div class="hero-buttons btn-row">
+                {first.buttons.map((button) => (
+                    <a href={button.href} class:list={["btn", button.outline && "btn--ghost"]}>{button.text}</a>
+                ))}
+            </div>
         </div>
 
+        <div class="hero-bar">
+            <div class="hero-counter">
+                <span id="hero-current">{pad(1)}</span>
+                <span class="sep">/</span>
+                <span>{pad(slides.length)}</span>
+            </div>
+            <div class="hero-progress"><span id="hero-progress-fill"></span></div>
+            <div class="hero-controls">
+                <button id="hero-prev" class="hero-nav" type="button" aria-label="Previous Slide">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6" /></svg>
+                </button>
+                <button id="hero-next" class="hero-nav" type="button" aria-label="Next Slide">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6" /></svg>
+                </button>
+            </div>
+        </div>
     </div>
 
 </section>
 
 <script>
-    // Astro will automatically bundle this when using a standard script tag
     import "./hero";
 </script>
 
 <style>
-
-.hero{
-
-    position:relative;
-
-    min-height:70vh;
-
-    overflow:hidden;
-
-    background:#111;
-
-    color:white;
-
-}
-
-/* -------------------------------- */
-
-.hero-overlay{
-
-    position:absolute;
-
-    inset:0;
-
-    z-index:2;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,.78),
-            rgba(0,0,0,.45),
-            rgba(0,0,0,.12)
-        );
-
-}
-
-/* -------------------------------- */
-
-.hero-inner{
-
-    position:relative;
-
-    z-index:5;
-
-    display:flex;
-
-    align-items:center;
-
-    min-height:100vh;
-
-}
-
-/* -------------------------------- */
-
-.hero-bottom{
-
-    position:absolute;
-
-    left:0;
-
-    right:0;
-
-    bottom:0;
-
-    z-index:8;
-
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-
-    background:rgba(0,0,0,.35);
-
-    border-top:1px solid rgba(255,255,255,.12);
-
-}
-
-/* -------------------------------- */
-
-.hero-bottom-inner{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:40px;
-
-    padding:28px 0;
-
-}
-
-/* -------------------------------- */
-/* Bottom UI Elements */
-/* -------------------------------- */
-
-.hero-counter {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: white;
-}
-
-.hero-counter .divider {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-#hero-total {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-/* -------------------------------- */
-
-.hero-progress {
-    flex-grow: 1;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.15);
-    position: relative;
-    max-width: 400px; /* Adjust max-width as needed */
-    overflow: hidden;
-}
-
-.hero-progress-fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0%;
-    background: white;
-    transform-origin: left;
-}
-
-/* -------------------------------- */
-
-.hero-controls{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:20px;
-
-}
-
-.hero-nav-btn {
-    background: none;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    color: white;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.hero-nav-btn:hover {
-    background: white;
-    color: black;
-    border-color: white;
-}
-
-/* -------------------------------- */
-/* Media Queries */
-/* -------------------------------- */
-
-@media(max-width:991px){
-
-    .hero-bottom-inner{
-
-        flex-direction:row;
-
-        flex-wrap: wrap;
-
-        align-items:center;
-
-        gap:20px;
-
+    .hero {
+        position: relative;
+        height: 100svh;
+        min-height: 640px;
+        background: var(--night);
+        color: rgba(255,255,255,.8);
+        overflow: hidden;
+        isolation: isolate;
     }
 
-    .hero-progress {
-        order: -1; /* Move progress bar to the top on tablet */
-        max-width: 100%;
+    .hero-media { position: absolute; inset: 0; z-index: -2; }
+    .hero-slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1.6s var(--ease);
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide img {
         width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.08);
+        transition: transform 8s linear;
+    }
+    .hero-slide.active img { transform: scale(1); }
+
+    .hero-shade {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+            linear-gradient(180deg, rgba(10,10,10,.5) 0%, rgba(10,10,10,0) 24%),
+            linear-gradient(0deg, rgba(10,10,10,.82) 0%, rgba(10,10,10,.3) 48%, rgba(10,10,10,.05) 100%);
     }
 
-}
-
-@media(max-width:768px){
-
-    .hero{
-
-        min-height:700px;
-
+    .hero-inner {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding-bottom: 36px;
     }
 
-    .hero-bottom{
+    .hero-content { max-width: 880px; padding-bottom: clamp(48px, 7vh, 96px); }
+    .hero-subtitle { display: block; color: rgba(255,255,255,.72); margin-bottom: 28px; }
+    .hero-title { color: #fff; white-space: pre-line; max-width: 12ch; }
+    .hero-description { margin-top: 30px; max-width: 46ch; font-size: var(--fs-lead); line-height: 1.6; }
+    .hero-buttons { margin-top: 42px; }
 
-        position:relative;
+    .hero-content > * { transition: opacity .5s ease, transform .7s var(--ease); }
+    .hero-content.fade-out > * { opacity: 0; transform: translateY(-10px); }
+    .hero-content.animating > * { animation: hero-in 1s var(--ease) both; }
+    .hero-content.animating > :nth-child(2) { animation-delay: .08s; }
+    .hero-content.animating > :nth-child(3) { animation-delay: .16s; }
+    .hero-content.animating > :nth-child(4) { animation-delay: .24s; }
+    @keyframes hero-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
 
+    .hero-bar {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: clamp(20px, 3vw, 48px);
+        padding-top: 24px;
+        border-top: 1px solid rgba(255,255,255,.2);
     }
-
-    .hero-bottom-inner{
-
-        padding:24px 0;
-
+    .hero-counter {
+        display: flex;
+        gap: 10px;
+        font-size: var(--fs-label);
+        font-weight: 600;
+        letter-spacing: .16em;
+        font-variant-numeric: tabular-nums;
+        color: #fff;
     }
+    .hero-counter .sep, .hero-counter span:last-child { color: rgba(255,255,255,.45); }
 
-    .hero-controls{
+    .hero-progress { height: 1px; background: rgba(255,255,255,.2); overflow: hidden; }
+    .hero-progress span { display: block; height: 100%; width: 0; background: #fff; }
 
-        gap: 12px;
-
+    .hero-controls { display: flex; gap: 4px; }
+    .hero-nav {
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        opacity: .7;
+        transition: opacity .3s ease;
     }
-
-    .hero-nav-btn {
-        width: 40px;
-        height: 40px;
-    }
-
-}
-
+    .hero-nav:hover { opacity: 1; }
+    .hero-nav svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.2; }
 </style>

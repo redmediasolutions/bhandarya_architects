@@ -1,168 +1,66 @@
 ---
-
-import DesignCard from "./DesignCard.astro";
-import DesignNavigation from "./DesignNavigation.astro";
-
 const slides = [
-
     {
         title: "Natural Light",
-
         description:
             "Every space is designed to maximise daylight and strengthen the connection between indoors and outdoors.",
-
         image: "/images/projects/kutira/Kuitra.webp",
     },
-
     {
         title: "Material Palette",
-
         description:
             "Honest materials chosen for warmth, texture and timeless beauty.",
-
         image: "/images/projects/samudra/samudra.webp",
     },
-
 ];
+
+const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
-<section class="design-showcase">
-
-    <div class="slider-wrapper">
-
-        <div
-            class="slider"
-            id="design-slider"
-        >
-
-            {
-                slides.map((slide, index) => (
-
-                    <DesignCard
-
-                        title={slide.title}
-
-                        description={slide.description}
-
-                        image={slide.image}
-
-                        index={index}
-
-                    />
-
-                ))
-            }
-
-        </div>
-
-        <DesignNavigation
-
-            total={slides.length}
-
-        />
-
+<section class="sec sec--white showcase">
+    <div class="wrap sc-grid">
+        {slides.map((slide, index) => (
+            <figure class="sc-item" data-reveal style={`--d:${index * 0.12}s`}>
+                <div class="media ratio-4-3" data-reveal="mask">
+                    <img src={slide.image} alt={slide.title} loading="lazy" decoding="async" />
+                </div>
+                <figcaption class="sc-cap">
+                    <span class="label">{pad(index + 1)} — Designing With Purpose</span>
+                    <h3>{slide.title}</h3>
+                    <p>{slide.description}</p>
+                </figcaption>
+            </figure>
+        ))}
     </div>
-
 </section>
 
-<script>
-
-    import "./designShowcase.ts";
-
-</script>
-
 <style>
-
-.design-showcase{
-
-    position:relative;
-
-    height:200vh;
-
-    background:#f5f4f1;
-
-    overflow:visible;
-
-}
-
-/* ------------------------------ */
-
-.slider-wrapper{
-
-    position:sticky;
-
-    top:0;
-
-    height:100vh;
-
-    overflow:hidden;
-
-    display:flex;
-
-    align-items:center;
-
-}
-
-/* ------------------------------ */
-
-.slider{
-
-    position:absolute;
-
-    top:50%;
-
-    left:0;
-
-    display:flex;
-
-    gap:24px;
-
-    padding:0 9vw;
-
-    transform:translateY(-50%);
-
-    will-change:transform;
-
-}
-
-/* ------------------------------ */
-
-@media(max-width:991px){
-
-    .design-showcase{
-
-        height:auto;
-
-        padding-bottom:60px;
-
+    .sc-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 64px;
+        align-items: start;
     }
+    .sc-item:first-child { grid-column: 1 / span 7; }
+    .sc-item:last-child { grid-column: 9 / -1; margin-top: clamp(96px, 14vw, 240px); }
+    .sc-item:last-child .media { aspect-ratio: 4 / 5; }
 
-    .slider-wrapper{
-
-        position:relative;
-
-        height:auto;
-
-        overflow:visible;
-
+    .sc-cap {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+        gap: 12px var(--gap);
+        padding-top: 22px;
+        margin-top: 22px;
+        border-top: 1px solid var(--line);
     }
+    .sc-cap .label { grid-column: 1 / -1; }
+    .sc-cap h3 { font-weight: 300; }
+    .sc-cap p { max-width: 40ch; }
+    .sc-item:last-child .sc-cap { grid-template-columns: 1fr; }
 
-    .slider{
-
-        position:relative;
-
-        transform:none !important;
-
-        display:flex;
-
-        flex-direction:column;
-
-        gap:28px;
-
-        padding:0 20px;
-
+    @media (max-width: 899px) {
+        .sc-item:first-child, .sc-item:last-child { grid-column: 1 / -1; margin-top: 0; }
+        .sc-cap { grid-template-columns: 1fr; }
     }
-
-}
-
 </style>

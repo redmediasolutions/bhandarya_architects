@@ -1,4 +1,6 @@
 ---
+import SectionHead from "../ui/SectionHead.astro";
+
 const timeline = [
   {
     year: "1995",
@@ -27,315 +29,61 @@ const timeline = [
 ];
 ---
 
-<section class="timeline section reveal-timeline">
+<section class="sec sec--alt timeline">
+    <div class="wrap">
+        <SectionHead
+            index="02"
+            label="Our Journey"
+            title="Building a Legacy"
+            intro="Every milestone represents our commitment to creating meaningful spaces that inspire communities and stand the test of time."
+        />
 
-    <div class="container">
-
-        <div class="timeline-header">
-
-            <span class="small-title">
-                Our Journey
-            </span>
-
-            <h2>
-                Building a Legacy
-            </h2>
-
-            <p>
-                Every milestone represents our commitment to creating meaningful
-                spaces that inspire communities and stand the test of time.
-            </p>
-
-        </div>
-
-        <div class="timeline-grid">
-
-            {
-  timeline.map((item, index) => (
-
-    <article
-      class="timeline-item"
-      style={`--delay:${index * 180}ms`}
-    >
-
-      <div class="timeline-dot"></div>
-
-      <div class="timeline-year">
-        {item.year}
-      </div>
-
-      <h3>{item.title}</h3>
-
-      <p>{item.description}</p>
-
-    </article>
-
-  ))
-}
-
-        </div>
-
+        <ol class="tl" data-reveal-stagger=".1">
+            {timeline.map((item) => (
+                <li class="tl-item" data-reveal>
+                    <span class="tl-year">{item.year}</span>
+                    <h3 class="tl-title">{item.title}</h3>
+                    <p class="tl-text">{item.description}</p>
+                </li>
+            ))}
+        </ol>
     </div>
-
 </section>
 
-<script>
-
-const timelineSection = document.querySelector(".reveal-timeline");
-
-if(timelineSection){
-
-    const observer = new IntersectionObserver((entries)=>{
-
-        entries.forEach(entry=>{
-
-            if(entry.isIntersecting){
-
-                entry.target.classList.add("visible");
-
-                observer.disconnect();
-
-            }
-
-        });
-
-    },{
-
-        threshold:.25
-
-    });
-
-    observer.observe(timelineSection);
-
-}
-
-</script>
-
 <style>
-
-.timeline{
-    background:var(--black);
-    color:white;
-}
-
-.timeline h2{
-    color:white;
-    margin:20px 0;
-}
-
-.timeline-header{
-    max-width:700px;
-    margin-bottom:80px;
-}
-
-.timeline-header p{
-    color:rgba(255,255,255,.65);
-}
-
-.timeline-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    gap:40px;
-
-    position:relative;
-
-}
-
-.timeline-grid::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    right:0;
-
-    top:8px;
-
-    height:1px;
-
-    background:rgba(255,255,255,.15);
-
-}
-
-.timeline-item{
-    position:relative;
-}
-
-.timeline-dot{
-
-    width:16px;
-
-    height:16px;
-
-    border-radius:50%;
-
-    background:var(--accent);
-
-    position:relative;
-
-    z-index:2;
-
-    margin-bottom:30px;
-
-}
-
-.timeline-year{
-
-    font-size:52px;
-
-    font-weight:300;
-
-    color:rgba(255,255,255,.18);
-
-    margin-bottom:18px;
-
-}
-
-.timeline-item h3{
-
-    color:white;
-
-    margin-bottom:18px;
-
-}
-
-.timeline-item p{
-
-    color:rgba(255,255,255,.65);
-
-}
-
-@media(max-width:991px){
-
-    .timeline-grid{
-
-        grid-template-columns:repeat(2,1fr);
-
+    .tl {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 56px;
     }
-
-    .timeline-grid::before{
-
-        display:none;
-
+    .tl-item {
+        position: relative;
+        padding-top: 28px;
+        border-top: 1px solid var(--line-strong);
     }
-
-}
-
-@media(max-width:768px){
-
-    .timeline-grid{
-
-        grid-template-columns:1fr;
-
-        gap:50px;
-
+    .tl-item::before {
+        content: "";
+        position: absolute;
+        top: -4px;
+        left: 0;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--ink);
     }
-
-    .timeline-header{
-
-        margin-bottom:50px;
-
+    .tl-year {
+        display: block;
+        font-size: clamp(2.6rem, 2rem + 2.4vw, 4.5rem);
+        font-weight: 200;
+        line-height: 1;
+        letter-spacing: -.045em;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
     }
+    .tl-title { margin-top: clamp(28px, 4vw, 56px); font-size: var(--fs-h4); font-weight: 500; }
+    .tl-text { margin-top: 12px; max-width: 34ch; }
 
-}
-
-/* ================================================= */
-/* Premium Timeline Animation */
-/* ================================================= */
-
-.timeline-grid::before{
-
-    transform:scaleX(0);
-
-    transform-origin:left;
-
-    transition:transform 1.3s cubic-bezier(.22,1,.36,1);
-
-}
-
-/* ----------------------------- */
-
-.timeline-item{
-
-    opacity:0;
-
-    transform:translateY(60px);
-
-    transition:
-
-        opacity .9s cubic-bezier(.22,1,.36,1),
-
-        transform .9s cubic-bezier(.22,1,.36,1);
-
-    transition-delay:var(--delay);
-
-}
-
-/* ----------------------------- */
-
-.timeline-dot{
-
-    transform:scale(0);
-
-    transition:
-
-        transform .5s cubic-bezier(.34,1.6,.64,1);
-
-    transition-delay:calc(var(--delay) + 250ms);
-
-}
-
-/* ----------------------------- */
-
-.timeline-year{
-
-    opacity:0;
-
-    transform:translateY(20px);
-
-    transition:
-
-        opacity .8s ease,
-
-        transform .8s ease;
-
-    transition-delay:calc(var(--delay) + 350ms);
-
-}
-
-/* ----------------------------- */
-
-.reveal-timeline.visible .timeline-grid::before{
-
-    transform:scaleX(1);
-
-}
-
-.reveal-timeline.visible .timeline-item{
-
-    opacity:1;
-
-    transform:none;
-
-}
-
-.reveal-timeline.visible .timeline-dot{
-
-    transform:scale(1);
-
-}
-
-.reveal-timeline.visible .timeline-year{
-
-    opacity:1;
-
-    transform:none;
-
-}
-
+    @media (max-width: 1024px) { .tl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 599px) { .tl { grid-template-columns: 1fr; } }
 </style>

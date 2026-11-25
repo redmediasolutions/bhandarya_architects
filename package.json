@@ -11,6 +11,7 @@
     "postinstall": "node scripts/fetch-images.mjs"
   },
   "dependencies": {
+    "@fontsource-variable/manrope": "^5.3.0",
     "astro": "^5.0.0",
     "photoswipe": "^5.4.4"
   }

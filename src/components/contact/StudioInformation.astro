@@ -1,564 +1,97 @@
 ---
 import { img } from "../../consts";
+import Btn from "../ui/Btn.astro";
 
 const studioImage = img("2026/05/2.webp");
 ---
 
-<section class="studio-information section">
+<section class="sec studio">
+    <div class="wrap st-grid">
 
-    <div class="container">
-
-        <div class="studio-grid">
-
-            <!-- Image -->
-
-            <div class="studio-image">
-
-                <div class="image-frame">
-
-                    <img
-                        src={studioImage}
-                        alt="Bhandary Architects Studio"
-                    />
-
-                </div>
-
-                <div class="experience-card">
-
-                    <strong>
-
-                        25+
-
-                    </strong>
-
-                    <span>
-
-                        Years of Architectural Excellence
-
-                    </span>
-
-                </div>
-
+        <figure class="st-figure">
+            <div class="media ratio-4-5" data-reveal="mask">
+                <img src={studioImage} alt="Bhandary Architects Studio" loading="lazy" decoding="async" width="1365" height="1024" />
             </div>
-
-            <!-- Content -->
-
-            <div class="studio-content">
-
-                <span class="small-title">
-
-                    Visit Our Studio
-
-                </span>
-
-                <h2>
-
-                    Let's Meet,
-                    <br>
-                    Discuss &
-                    <br>
-                    Design Together.
-
-                </h2>
-
-                <p>
-
-                    Every successful project begins with a meaningful
-                    conversation. Visit our studio to explore ideas,
-                    review concepts and collaborate with our architects
-                    in creating spaces that reflect your aspirations.
-
-                </p>
-
-                <div class="info-grid">
-
-                    <div class="info-item">
-
-                        <div class="icon">
-
-                            📍
-
-                        </div>
-
-                        <div>
-
-                            <h4>
-
-                                Studio Address
-
-                            </h4>
-
-                            <p>
-
-                                Bhandary Architects<br>
-                                Mangalore, Karnataka
-
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    <div class="info-item">
-
-                        <div class="icon">
-
-                            📞
-
-                        </div>
-
-                        <div>
-
-                            <h4>
-
-                                Phone
-
-                            </h4>
-
-                            <a href="tel:+919999999999">
-
-                                +91 99999 99999
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                    <div class="info-item">
-
-                        <div class="icon">
-
-                            ✉️
-
-                        </div>
-
-                        <div>
-
-                            <h4>
-
-                                Email
-
-                            </h4>
-
-                            <a href="mailto:info@bhandaryarchitects.com">
-
-                                info@bhandaryarchitects.com
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                    <div class="info-item">
-
-                        <div class="icon">
-
-                            🕒
-
-                        </div>
-
-                        <div>
-
-                            <h4>
-
-                                Working Hours
-
-                            </h4>
-
-                            <p>
-
-                                Mon – Sat<br>
-
-                                9:00 AM – 6:00 PM
-
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="actions">
-
-                    <a
-
-                        href="https://maps.google.com"
-
-                        target="_blank"
-
-                        class="btn"
-
-                    >
-
-                        View On Google Maps
-
-                    </a>
-
-                    <a
-
-                        href="https://wa.me/919999999999"
-
-                        target="_blank"
-
-                        class="btn btn-outline"
-
-                    >
-
-                        WhatsApp Us
-
-                    </a>
-
-                </div>
-
+            <figcaption class="st-cap" data-reveal>
+                <strong>25+</strong>
+                <span class="label">Years of Architectural Excellence</span>
+            </figcaption>
+        </figure>
+
+        <div class="st-content">
+            <div class="st-label" data-reveal>
+                <span class="st-index">03</span>
+                <span class="label">Visit Our Studio</span>
             </div>
+            <h2 data-reveal style="--d:.05s">Let's Meet, <br class="br-desk" />Discuss & <br class="br-desk" />Design Together.</h2>
+            <p class="lead" data-reveal style="--d:.1s">
+                Every successful project begins with a meaningful
+                conversation. Visit our studio to explore ideas,
+                review concepts and collaborate with our architects
+                in creating spaces that reflect your aspirations.
+            </p>
 
+            <dl class="st-info" data-reveal style="--d:.15s">
+                <div>
+                    <dt class="label">Studio Address</dt>
+                    <dd>Bhandary Architects<br />Mangalore, Karnataka</dd>
+                </div>
+                <div>
+                    <dt class="label">Phone</dt>
+                    <dd><a href="tel:+919999999999">+91 99999 99999</a></dd>
+                </div>
+                <div>
+                    <dt class="label">Email</dt>
+                    <dd><a href="mailto:info@bhandaryarchitects.com">info@bhandaryarchitects.com</a></dd>
+                </div>
+                <div>
+                    <dt class="label">Working Hours</dt>
+                    <dd>Mon – Sat<br />9:00 AM – 6:00 PM</dd>
+                </div>
+            </dl>
+
+            <div class="btn-row" data-reveal style="--d:.2s">
+                <Btn href="https://maps.google.com" target="_blank">View On Google Maps</Btn>
+                <Btn href="https://wa.me/919999999999" target="_blank" variant="ghost">WhatsApp Us</Btn>
+            </div>
         </div>
 
     </div>
-
 </section>
 
 <style>
-
-.studio-information{
-
-    background:#f8f8f8;
-
-    overflow:hidden;
-
-}
-
-.studio-grid{
-
-    display:grid;
-
-    grid-template-columns:1.1fr 1fr;
-
-    gap:90px;
-
-    align-items:center;
-
-}
-
-/* ------------------------- */
-
-.studio-image{
-
-    position:relative;
-
-}
-
-.image-frame{
-
-    overflow:hidden;
-
-    border-radius:18px;
-
-    background:#111;
-
-    box-shadow:
-
-        0 45px 90px rgba(0,0,0,.15);
-
-}
-
-.image-frame img{
-
-    width:100%;
-
-    display:block;
-
-    transform:scale(1.05);
-
-    transition:
-
-        transform 2.5s cubic-bezier(.22,1,.36,1),
-
-        filter .8s;
-
-}
-
-.studio-image:hover img{
-
-    transform:scale(1.12);
-
-}
-
-/* ------------------------- */
-
-.experience-card{
-
-    position:absolute;
-
-    right:-35px;
-
-    bottom:-35px;
-
-    width:240px;
-
-    padding:35px;
-
-    background:#111;
-
-    color:white;
-
-    border-radius:16px;
-
-    box-shadow:
-
-        0 35px 70px rgba(0,0,0,.25);
-
-}
-
-.experience-card strong{
-
-    display:block;
-
-    font-size:60px;
-
-    color:var(--accent);
-
-    line-height:1;
-
-    margin-bottom:10px;
-
-}
-
-.experience-card span{
-
-    color:rgba(255,255,255,.75);
-
-    line-height:1.6;
-
-    font-size:14px;
-
-}
-
-/* ------------------------- */
-
-.studio-content h2{
-
-    margin:18px 0 28px;
-
-}
-
-.studio-content>p{
-
-    max-width:620px;
-
-    margin-bottom:50px;
-
-}
-
-/* ------------------------- */
-
-.info-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:35px;
-
-    margin-bottom:50px;
-
-}
-
-.info-item{
-
-    display:flex;
-
-    gap:18px;
-
-    align-items:flex-start;
-
-}
-
-.icon{
-
-    width:58px;
-
-    height:58px;
-
-    border-radius:16px;
-
-    background:#fff;
-
-    display:grid;
-
-    place-items:center;
-
-    font-size:24px;
-
-    box-shadow:
-
-        0 12px 30px rgba(0,0,0,.08);
-
-    transition:.4s;
-
-}
-
-.info-item:hover .icon{
-
-    background:var(--accent);
-
-    transform:
-
-        translateY(-4px)
-
-        rotate(-8deg);
-
-}
-
-.info-item h4{
-
-    margin-bottom:8px;
-
-    font-size:15px;
-
-}
-
-.info-item p,
-
-.info-item a{
-
-    color:#666;
-
-    line-height:1.7;
-
-    text-decoration:none;
-
-    transition:.3s;
-
-}
-
-.info-item a:hover{
-
-    color:var(--accent);
-
-}
-
-/* ------------------------- */
-
-.actions{
-
-    display:flex;
-
-    gap:18px;
-
-    flex-wrap:wrap;
-
-}
-
-/* ------------------------- */
-
-@media(max-width:991px){
-
-    .studio-grid{
-
-        grid-template-columns:1fr;
-
-        gap:60px;
-
+    .st-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 64px;
+        align-items: center;
     }
+    .st-figure { grid-column: 1 / span 5; }
+    .st-cap { display: flex; align-items: baseline; gap: 16px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .st-cap strong { font-size: 2.4rem; font-weight: 200; letter-spacing: -.04em; line-height: 1; color: var(--ink); }
 
-    .experience-card{
+    .st-content { grid-column: 7 / -1; display: grid; gap: 28px; }
+    .st-label { display: flex; gap: 14px; align-items: baseline; }
+    .st-index { font-size: var(--fs-label); font-weight: 600; letter-spacing: .12em; color: var(--ink); }
+    .st-content .lead { max-width: 50ch; }
 
-        right:25px;
-
-        bottom:25px;
-
+    .st-info {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border-top: 1px solid var(--line);
+        margin-block: 8px 16px;
     }
+    .st-info > div { padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .st-info > div:nth-child(even) { padding-left: var(--gap); border-left: 1px solid var(--line); }
+    .st-info dd { margin-top: 8px; color: var(--ink); font-weight: 500; line-height: 1.55; word-break: break-word; }
+    .st-info a:hover { opacity: .6; }
 
-}
-
-@media(max-width:768px){
-
-    .info-grid{
-
-        grid-template-columns:1fr;
-
+    @media (max-width: 899px) {
+        .st-figure, .st-content { grid-column: 1 / -1; }
     }
-
-    .experience-card{
-
-        position:relative;
-
-        right:auto;
-
-        bottom:auto;
-
-        margin-top:25px;
-
-        width:100%;
-
+    @media (max-width: 499px) {
+        .st-info { grid-template-columns: 1fr; }
+        .st-info > div:nth-child(even) { padding-left: 0; border-left: 0; }
     }
-
-    .actions{
-
-        flex-direction:column;
-
-    }
-
-}
-
 </style>
-
-<script is:inline>
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-    const section=document.querySelector(".studio-information");
-
-    if(!section) return;
-
-    const observer=new IntersectionObserver(entries=>{
-
-        if(entries[0].isIntersecting){
-
-            section.animate([
-
-                {
-
-                    opacity:0,
-
-                    transform:"translateY(70px)"
-
-                },
-
-                {
-
-                    opacity:1,
-
-                    transform:"translateY(0)"
-
-                }
-
-            ],{
-
-                duration:900,
-
-                easing:"cubic-bezier(.22,1,.36,1)",
-
-                fill:"forwards"
-
-            });
-
-            observer.disconnect();
-
-        }
-
-    },{
-
-        threshold:.25
-
-    });
-
-    observer.observe(section);
-
-});
-
-</script>

@@ -1,5 +1,6 @@
 ---
 import { img } from "../../consts";
+import SectionHead from "../ui/SectionHead.astro";
 
 const leaders = [
   {
@@ -7,514 +8,72 @@ const leaders = [
     role: "Principal Architect",
     image: img("2026/03/photo-1506794778202-cad84cf45f1d.avif"),
     bio: `With over three decades of architectural experience, Amarnath
-    Bhandary has led the practice with a vision rooted in timeless design,
-    functionality and innovation. His work reflects a deep understanding of
-    people, place and purpose, resulting in projects that remain relevant for
-    generations.`,
+Bhandary has led the practice with a vision rooted in timeless design,
+functionality and innovation. His work reflects a deep understanding of
+people, place and purpose, resulting in projects that remain relevant for
+generations.`,
   },
   {
     name: "Ar. Sarina Bhandary",
     role: "Principal Architect",
     image: img("2026/03/photo-1506794778202-cad84cf45f1d.avif"),
     bio: `Sarina Bhandary brings a thoughtful and human-centred approach to
-    architecture and interiors. Her attention to detail, materiality and
-    spatial planning ensures that every project delivers beauty, comfort and
-    lasting value.`,
+architecture and interiors. Her attention to detail, materiality and
+spatial planning ensures that every project delivers beauty, comfort and
+lasting value.`,
   },
 ];
 ---
 
-<section class="leadership section">
-
-    <div class="container">
-
-        <div class="leadership-header">
-
-            <span class="small-title">
-                Leadership
-            </span>
-
-            <h2>
-                Meet Our Principal Architects
-            </h2>
-
-            <p>
-                Every successful project begins with strong leadership,
-                thoughtful collaboration and decades of architectural
-                experience.
-            </p>
-
-
-        </div>
-
-        {
-            leaders.map((leader, index) => (
-
-                <article class={`leader ${index % 2 ? "reverse" : ""}`}>
-
-                     <div class="leader-number">
-
-        {String(index + 1).padStart(2,"0")}
-
-    </div>
-
-                    <div class="leader-image">
-
-                        <img
-                            src={leader.image}
-                            alt={leader.name}
-                            loading="lazy"
-                        />
-
-                    </div>
-
-                    <div class="leader-content">
-
-                        <span class="leader-role">
-                            {leader.role}
-                        </span>
-
-                       <h3 class="leader-name">
-
-    {leader.name}
-
-    <svg class="name-sketch" viewBox="0 0 320 20">
-
-        <path
-
-            d="M5 12
-
-               C40 16 80 5 120 11
-
-               C170 18 220 6 270 12
-
-               C295 15 308 12 315 13"
-
+<section class="sec sec--alt leadership">
+    <div class="wrap">
+        <SectionHead
+            index="03"
+            label="Leadership"
+            title="Meet Our Principal Architects"
+            intro="Every successful project begins with strong leadership, thoughtful collaboration and decades of architectural experience."
         />
 
-    </svg>
-
-</h3>
-
-                        <p>
-                            {leader.bio}
-                        </p>
-
+        <div class="ld-list">
+            {leaders.map((leader, index) => (
+                <article class="ld" data-reveal>
+                    <span class="ld-num">{String(index + 1).padStart(2, "0")}</span>
+                    <div class="media ratio-4-5 ld-photo">
+                        <img src={leader.image} alt={leader.name} loading="lazy" decoding="async" width="400" height="600" />
                     </div>
-
+                    <div class="ld-body">
+                        <span class="label">{leader.role}</span>
+                        <h3 class="ld-name">{leader.name}</h3>
+                        <p>{leader.bio}</p>
+                    </div>
                 </article>
-
-            ))
-        }
-
+            ))}
+        </div>
     </div>
-
 </section>
 
 <style>
-
-.leadership{
-    background:var(--white);
-}
-
-.leadership-header{
-    max-width:720px;
-    margin-bottom:80px;
-}
-
-.leadership-header h2{
-    margin:20px 0;
-}
-
-.leadership-header p{
-    max-width:620px;
-}
-
-
-
-.leader:last-child{
-    margin-bottom:0;
-}
-
-.leader.reverse{
-    grid-template-columns:1fr 420px;
-}
-
-.leader.reverse .leader-image{
-
-    transform:translateX(60px);
-
-}
-
-.leader.reverse .leader-content{
-    order:1;
-}
-
-.leader-image img{
-
-    width:100%;
-
-    display:block;
-
-    aspect-ratio:4/5;
-
-    object-fit:cover;
-
-    transition:
-        transform 1.2s ease,
-        filter .6s ease;
-
-}
-
-.leader-role{
-
-    display:inline-block;
-
-    margin-bottom:16px;
-
-    color:var(--accent);
-
-    font-size:13px;
-
-    font-weight:600;
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-}
-
-.leader-content h3{
-
-    font-size:42px;
-
-    margin-bottom:24px;
-
-}
-
-.leader-content p{
-
-    max-width:620px;
-
-}
-
-@media(max-width:991px){
-
-    .leader,
-    .leader.reverse{
-
-        grid-template-columns:1fr;
-
-        gap:40px;
-
+    .ld-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+    .ld {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+        column-gap: var(--gap);
+        row-gap: 18px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line-strong);
     }
+    .ld-num { grid-column: 1 / -1; font-size: var(--fs-label); font-weight: 600; letter-spacing: .12em; color: var(--ink); }
+    .ld-photo img { filter: grayscale(1); transition: filter 1s var(--ease), transform 1.4s var(--ease); }
+    .ld:hover .ld-photo img { filter: grayscale(0); }
+    .ld-body { display: flex; flex-direction: column; gap: 14px; }
+    .ld-name { font-size: var(--fs-h3); font-weight: 300; margin-bottom: 8px; }
+    .ld-body p { font-size: var(--fs-small); line-height: 1.8; }
 
-    .leader.reverse .leader-image,
-    .leader.reverse .leader-content{
-
-        order:initial;
-
+    @media (max-width: 1100px) {
+        .ld-list { grid-template-columns: 1fr; row-gap: 64px; }
+        .ld { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
     }
-
-}
-
-.leader-content{
-
-    opacity:0;
-
-    transform:translateY(30px);
-
-    transition:
-
-        opacity .8s ease,
-
-        transform .8s ease;
-
-    transition-delay:.2s;
-
-}
-
-.leader.animate .leader-content{
-
-    opacity:1;
-
-    transform:none;
-
-}
-
-.leader-image::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:260px;
-
-    height:260px;
-
-    left:-80px;
-
-    top:-80px;
-
-    border-radius:50%;
-
-    background:
-
-        radial-gradient(circle,
-
-        rgba(255,120,0,.22),
-
-        transparent 70%);
-
-    filter:blur(45px);
-
-    opacity:0;
-
-    transition:.8s;
-
-}
-
-.leader.animate .leader-image::before{
-
-    opacity:1;
-
-}
-@media(max-width:768px){
-
-    .leadership-header{
-
-        margin-bottom:50px;
-
+    @media (max-width: 599px) {
+        .ld { grid-template-columns: 1fr; }
     }
-
-    .leader{
-
-        margin-bottom:70px;
-
-    }
-
-    .leader-content h3{
-
-        font-size:32px;
-
-    }
-
-}
-
-.leader-name{
-
-    position:relative;
-
-    display:inline-block;
-
-    margin-bottom:28px;
-
-    font-size:46px;
-
-}
-
-.name-sketch{
-
-    width:100%;
-
-    height:18px;
-
-    margin-top:10px;
-
-    overflow:visible;
-
-}
-
-.name-sketch path{
-
-    fill:none;
-
-    stroke:var(--accent);
-
-    stroke-width:3;
-
-    stroke-linecap:round;
-
-    stroke-dasharray:600;
-
-    stroke-dashoffset:600;
-
-}
-
-.leader.animate .name-sketch path{
-
-    animation:drawUnderline 1.2s ease forwards;
-
-    animation-delay:.4s;
-
-}
-
-@keyframes drawUnderline{
-
-    to{
-
-        stroke-dashoffset:0;
-
-    }
-
-}
-
-
-.leader.animate{
-
-    opacity:1;
-
-    transform:none;
-
-}
-
-.leader-image{
-
-    opacity:0;
-
-    transform:translateX(-60px);
-
-    transition:
-
-        opacity .8s ease,
-
-        transform .8s cubic-bezier(.22,1,.36,1);
-
-}
-
-.leader.animate .leader-image{
-
-    opacity:1;
-
-    transform:none;
-
-}
-
-.leader-image::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-
-        radial-gradient(circle at top left,
-
-        rgba(255,120,0,.22),
-
-        transparent 65%);
-
-    opacity:0;
-
-    transition:.6s;
-
-}
-
-.leader-image:hover::after{
-
-    opacity:1;
-
-}
-
-.leader-image img{
-
-    width:100%;
-
-    aspect-ratio:4/5;
-
-    object-fit:cover;
-
-    transition:
-
-        transform 1.2s ease,
-
-        filter .6s ease;
-
-}
-
-.leader:hover img{
-
-    transform:scale(1.06);
-
-    filter:contrast(1.05);
-
-}
-
-.leader{
-
-    position:relative;
-
-    display:grid;
-
-    grid-template-columns:420px 1fr;
-
-    gap:80px;
-
-    align-items:center;
-
-    margin-bottom:100px;
-
-    opacity:0;
-
-    transform:translateY(80px);
-
-    transition:
-        opacity .9s ease,
-        transform .9s cubic-bezier(.22,1,.36,1);
-
-}
-
-.leader-number{
-
-    position:absolute;
-
-    top:50%;
-
-    right:-30px;
-
-    transform:translateY(-50%);
-
-    font-size:220px;
-
-    font-weight:700;
-
-    color:rgba(255,120,0,.05);
-
-    line-height:1;
-
-    pointer-events:none;
-
-    user-select:none;
-
-}
-
-
 </style>
-
-<script is:inline>
-
-document.querySelectorAll(".leader").forEach((leader)=>{
-
-    const observer = new IntersectionObserver((entries)=>{
-
-        if(entries[0].isIntersecting){
-
-            leader.classList.add("animate");
-
-            observer.disconnect();
-
-        }
-
-    },{
-
-        threshold:.35
-
-    });
-
-    observer.observe(leader);
-
-});
-
-</script>

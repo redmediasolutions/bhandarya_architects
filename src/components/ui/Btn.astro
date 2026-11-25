@@ -1,0 +1,21 @@
+---
+interface Props {
+    href: string;
+    variant?: "solid" | "ghost" | "arrow";
+    target?: string;
+    class?: string;
+}
+const { href, variant = "solid", target, class: cls } = Astro.props;
+const external = target === "_blank" || /^https?:/.test(href);
+const rel = external ? "noopener noreferrer" : undefined;
+---
+{variant === "arrow" ? (
+    <a href={href} target={target} rel={rel} class:list={["arrow-link", cls]}>
+        <span><slot /></span>
+        <span class="ar" aria-hidden="true"></span>
+    </a>
+) : (
+    <a href={href} target={target} rel={rel} class:list={["btn", variant === "ghost" && "btn--ghost", cls]}>
+        <slot />
+    </a>
+)}

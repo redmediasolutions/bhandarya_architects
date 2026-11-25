@@ -13,7 +13,7 @@ const backgroundSlides = [...document.querySelectorAll<HTMLElement>(".hero-slide
 const content = document.getElementById("hero-content");
 const title = document.getElementById("hero-title");
 const description = document.getElementById("hero-description");
-const subtitle = document.querySelector(".hero-subtitle");
+const subtitle = document.querySelector<HTMLElement>(".hero-subtitle");
 const buttonsContainer = document.querySelector(".hero-buttons");
 
 const currentNumber = document.getElementById("hero-current");
@@ -120,7 +120,7 @@ function goToSlide(index: number) {
             slide.buttons.forEach((button) => {
                 const a = document.createElement("a");
                 a.href = button.href;
-                a.className = "btn" + (button.outline ? " btn-outline" : "");
+                a.className = "btn" + (button.outline ? " btn--ghost" : "");
                 a.textContent = button.text;
                 buttonsContainer.appendChild(a);
             });

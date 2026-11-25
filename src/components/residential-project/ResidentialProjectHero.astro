@@ -10,313 +10,90 @@ interface Props {
         year: string;
         area: string;
     };
-
     hero: ImageMetadata;
 }
 
 const { project, hero } = Astro.props;
 ---
 
-<section class="project-hero">
-
-    <div class="container">
-
-        <div class="hero-header">
-
-            <span class="small-title">
-
-                {project.category}
-
-            </span>
-
-            <h1>
-
-                {project.title}
-
-            </h1>
-
-        </div>
-
-        <div class="hero-image">
-
-            <Image
-                src={hero}
-                alt={project.title}
-                loading="eager"
-                class="hero-img"
-            />
-
-            <div class="hero-overlay"></div>
-
-            <div class="project-info">
-
-                <div>
-
-                    <small>
-
-                        Location
-
-                    </small>
-
-                    <strong>
-
-                        {project.location}
-
-                    </strong>
-
-                </div>
-
-                <div>
-
-                    <small>
-
-                        Built Up Area
-
-                    </small>
-
-                    <strong>
-
-                        {project.area}
-
-                    </strong>
-
-                </div>
-
-                <div>
-
-                    <small>
-
-                        Completed
-
-                    </small>
-
-                    <strong>
-
-                        {project.year}
-
-                    </strong>
-
-                </div>
-
-            </div>
-
-        </div>
-
+<section class="pj-hero on-dark">
+    <div class="pj-bg">
+        <Image src={hero} alt={project.title} width={Math.min(2400, hero.width)} loading="eager" fetchpriority="high" class="hero-img" />
     </div>
+    <div class="pj-shade" aria-hidden="true"></div>
 
+    <div class="wrap pj-inner">
+        <div class="pj-head">
+            <span class="label" data-reveal>{project.category}</span>
+            <h1 data-reveal style="--d:.08s">{project.title}</h1>
+        </div>
+
+        <dl class="pj-info" data-reveal style="--d:.16s">
+            <div>
+                <dt>Location</dt>
+                <dd>{project.location}</dd>
+            </div>
+            <div>
+                <dt>Built Up Area</dt>
+                <dd>{project.area}</dd>
+            </div>
+            <div>
+                <dt>Completed</dt>
+                <dd>{project.year}</dd>
+            </div>
+        </dl>
+    </div>
 </section>
 
 <style>
-
-.project-hero{
-
-    padding:160px 0 90px;
-
-    background:#faf8f5;
-
-}
-
-/* ===================================== */
-
-.hero-header{
-
-    text-align:center;
-
-    max-width:900px;
-
-    margin:0 auto 60px;
-
-}
-
-.hero-header h1{
-
-    margin-top:18px;
-
-    font-size:clamp(56px,7vw,110px);
-
-    line-height:.92;
-
-    letter-spacing:-2px;
-
-}
-
-.hero-header .small-title{
-
-    letter-spacing:4px;
-
-}
-
-/* ===================================== */
-
-.hero-image{
-
-    position:relative;
-
-    overflow:hidden;
-
-    border-radius:26px;
-
-    box-shadow:
-        0 35px 90px rgba(0,0,0,.12);
-
-}
-
-.hero-img{
-
-    display:block;
-
-    width:100%;
-
-    height:min(80vh,900px);
-
-    object-fit:cover;
-
-    transition:
-        transform 2.4s cubic-bezier(.22,1,.36,1);
-
-}
-
-.hero-image:hover .hero-img{
-
-    transform:scale(1.04);
-
-}
-
-.hero-overlay{
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-            transparent 45%,
-            rgba(0,0,0,.75)
-        );
-
-}
-
-/* ===================================== */
-
-.project-info{
-
-    position:absolute;
-
-    left:50%;
-
-    bottom:40px;
-
-    transform:translateX(-50%);
-
-    width:calc(100% - 80px);
-
-    max-width:1100px;
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:40px;
-
-    padding:28px 36px;
-
-    background:rgba(255,255,255,.92);
-
-    backdrop-filter:blur(20px);
-
-    border-radius:20px;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.18);
-
-}
-
-.project-info small{
-
-    display:block;
-
-    margin-bottom:10px;
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    font-size:11px;
-
-    color:#888;
-
-}
-
-.project-info strong{
-
-    font-size:18px;
-
-    font-weight:600;
-
-    color:#111;
-
-}
-
-/* ===================================== */
-
-@media(max-width:991px){
-
-    .project-info{
-
-        grid-template-columns:1fr;
-
-        gap:22px;
-
-        width:calc(100% - 40px);
-
+    .pj-hero {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        min-height: 100svh;
+        background: var(--night);
+        overflow: hidden;
+        isolation: isolate;
+    }
+    .pj-bg { position: absolute; inset: 0; z-index: -2; }
+    .pj-bg :global(img) { width: 100%; height: 100%; object-fit: cover; animation: pj-zoom 2.4s var(--ease) both; }
+    @keyframes pj-zoom { from { transform: scale(1.06); } to { transform: none; } }
+    .pj-shade {
+        position: absolute; inset: 0; z-index: -1;
+        background:
+            linear-gradient(180deg, rgba(10,10,10,.45) 0%, rgba(10,10,10,0) 22%),
+            linear-gradient(0deg, rgba(10,10,10,.75) 0%, rgba(10,10,10,.15) 50%, rgba(10,10,10,0) 100%);
     }
 
-}
-
-@media(max-width:768px){
-
-    .project-hero{
-
-        padding:120px 0 70px;
-
+    .pj-inner {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 40px;
+        align-items: end;
+        padding-block: calc(var(--header-h) + 64px) clamp(40px, 6vw, 80px);
     }
+    .pj-head { grid-column: 1 / span 7; }
+    .pj-head .label { display: block; margin-bottom: 24px; color: rgba(255,255,255,.7); }
+    .pj-head h1 { color: #fff; font-size: clamp(3rem, 1.8rem + 6vw, 8rem); }
 
-    .hero-header{
-
-        margin-bottom:40px;
-
+    .pj-info {
+        grid-column: 9 / -1;
+        border-top: 1px solid rgba(255,255,255,.24);
     }
-
-    .hero-header h1{
-
-        font-size:52px;
-
+    .pj-info > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,255,255,.24);
     }
+    .pj-info dt { font-size: var(--fs-label); font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+    .pj-info dd { color: #fff; text-align: right; }
 
-    .hero-img{
-
-        height:60vh;
-
+    @media (max-width: 1024px) {
+        .pj-head, .pj-info { grid-column: 1 / -1; }
+        .pj-info { max-width: 520px; }
     }
-
-    .project-info{
-
-        position:relative;
-
-        left:auto;
-
-        bottom:auto;
-
-        transform:none;
-
-        width:100%;
-
-        margin-top:-4px;
-
-        border-radius:0 0 20px 20px;
-
-    }
-
-}
-
 </style>

@@ -1,0 +1,59 @@
+---
+interface Stat {
+    value: string;
+    label: string;
+    text?: string;
+}
+interface Props {
+    items: Stat[];
+    class?: string;
+}
+const { items, class: cls } = Astro.props;
+---
+<dl class:list={["stats", cls]} style={`--n:${items.length}`} data-reveal-stagger=".08">
+    {items.map((s) => (
+        <div class="stat" data-reveal>
+            <dt class="stat-label label">{s.label}</dt>
+            <dd class="stat-value">{s.value}</dd>
+            {s.text && <dd class="stat-text">{s.text}</dd>}
+        </div>
+    ))}
+</dl>
+
+<style>
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+        border-top: 1px solid var(--line);
+    }
+    :global(.sec--dark) .stats, :global(.on-dark) .stats { border-color: var(--night-line); }
+
+    .stat {
+        display: flex;
+        flex-direction: column;
+        padding: 28px 24px 8px 0;
+    }
+    .stat + .stat { padding-left: 24px; border-left: 1px solid var(--line); }
+    :global(.sec--dark) .stat + .stat, :global(.on-dark) .stat + .stat { border-color: var(--night-line); }
+
+    .stat-label { order: 2; margin-top: 14px; }
+    .stat-value {
+        order: 1;
+        font-size: var(--fs-stat);
+        font-weight: 200;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+    }
+    :global(.sec--dark) .stat-value, :global(.on-dark) .stat-value { color: #fff; }
+    .stat-text { order: 3; margin-top: 10px; font-size: var(--fs-small); color: var(--muted); max-width: 26ch; }
+
+    @media (max-width: 899px) {
+        .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .stat:nth-child(odd) { padding-left: 0; border-left: 0; }
+        .stat:nth-child(n + 3) { border-top: 1px solid var(--line); }
+        :global(.sec--dark) .stat:nth-child(n + 3), :global(.on-dark) .stat:nth-child(n + 3) { border-color: var(--night-line); }
+        .stat { padding-bottom: 24px; }
+    }
+</style>

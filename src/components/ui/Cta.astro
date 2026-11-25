@@ -1,0 +1,79 @@
+---
+/**
+ * Closing call-to-action band. Dark, quiet and typographic;
+ * an optional photograph sits to the right on large screens.
+ */
+import Lines from "./Lines.astro";
+import Btn from "./Btn.astro";
+import type { Action } from "./PageHero.astro";
+
+interface Props {
+    label: string;
+    title: string | string[];
+    text?: string;
+    actions?: Action[];
+    image?: string;
+}
+const { label, title, text, actions = [], image } = Astro.props;
+---
+<section class:list={["cta", "sec", "sec--dark", "on-dark", image && "cta--image"]}>
+    {image && (
+        <div class="cta-bg" aria-hidden="true">
+            <img src={image} alt="" loading="lazy" decoding="async" />
+        </div>
+    )}
+    <div class="wrap cta-grid">
+        <div class="cta-label" data-reveal><span class="label">{label}</span></div>
+        <div class="cta-main">
+            <h2 data-reveal style="--d:.06s"><Lines text={title} soft /></h2>
+            <div class="cta-foot">
+                {text && <p data-reveal style="--d:.12s">{text}</p>}
+                {(actions.length > 0 || Astro.slots.has("default")) && (
+                    <div class="btn-row" data-reveal style="--d:.18s">
+                        {actions.map((a, i) => (
+                            <Btn href={a.href} target={a.target} variant={a.variant ?? (i === 0 ? "solid" : "ghost")}>{a.text}</Btn>
+                        ))}
+                    </div>
+                )}
+            </div>
+            <slot />
+        </div>
+    </div>
+</section>
+
+<style>
+    .cta { overflow: hidden; isolation: isolate; }
+    .cta-bg { position: absolute; inset: 0; z-index: -1; }
+    .cta-bg img { width: 100%; height: 100%; object-fit: cover; opacity: .28; filter: grayscale(.35); }
+    .cta--image::after {
+        content: ""; position: absolute; inset: 0; z-index: -1;
+        background: linear-gradient(90deg, rgba(19,19,18,.92) 0%, rgba(19,19,18,.7) 55%, rgba(19,19,18,.45) 100%);
+    }
+
+    .cta-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 28px;
+    }
+    .cta-label { grid-column: 1 / span 4; padding-top: 1em; }
+    .cta-main { grid-column: 5 / -1; }
+    .cta h2 { font-size: clamp(2.2rem, 1.4rem + 3.2vw, 4.5rem); max-width: 16ch; }
+
+    .cta-foot {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 32px 48px;
+        align-items: end;
+        margin-top: clamp(40px, 5vw, 72px);
+        padding-top: 32px;
+        border-top: 1px solid var(--night-line);
+    }
+    .cta-foot p { max-width: 48ch; color: rgba(255,255,255,.7); }
+
+    @media (max-width: 899px) {
+        .cta-label, .cta-main { grid-column: 1 / -1; }
+        .cta-label { padding-top: 0; }
+        .cta-foot { grid-template-columns: 1fr; }
+    }
+</style>

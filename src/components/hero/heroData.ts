@@ -48,7 +48,7 @@ Generations`,
     buttons: [
       {
         text: "Explore Homes",
-        href: "/projects/residential",
+        href: "/projects/residences",
       },
       {
         text: "Talk To Us",
@@ -136,7 +136,7 @@ For Tomorrow`,
     buttons: [
       {
         text: "Learn More",
-        href: "/services",
+        href: "/#services",
       },
       {
         text: "Contact",

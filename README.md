@@ -28,16 +28,20 @@ If any image fails to download (e.g. no internet), re-run:
 npm run fetch-images
 ```
 
-## Design tokens
+## Design system
 
-Extracted from the live site's Elementor kit (`post-8.css`):
+Minimal, editorial and image-led — one typeface, a warm paper ground, hairline rules and a strict 12-column grid.
 
-- Font: **Montserrat Alternates** (400/500/600/700, Google Fonts)
-- Accent orange: `#FF6900` / `#FF6A00`
-- Bronze: `#CE8133`, text grays: `#7A7A7A`, `#7E7E7E`, `#272727`
-- Container width: `1140px`
+- Font: **Manrope** (variable, self-hosted via `@fontsource-variable/manrope`)
+- Colour: paper `#F5F3EF`, ink `#151515`, muted `#8A867F`, night `#131312`
+- Layout: `.wrap` (max 1480px) + 12-column grids; section rhythm via `.sec`, `.sec--alt`, `.sec--white`, `.sec--dark`
+- Motion: add `data-reveal` to any element for a scroll reveal (`src/scripts/reveal.ts`); respects `prefers-reduced-motion`
 
-All tokens live as CSS variables in `src/styles/global.css`. Site text/nav/contact data is in `src/consts.ts`.
+All tokens live as CSS variables in `src/styles/global.css`.
+
+Reusable building blocks are in `src/components/ui/`:
+`PageHero`, `SectionHead`, `Split`, `Featured`, `ProjectCard`, `Rows`, `Stats`, `Meta`, `Quotes`, `Faq`, `Cta`, `Btn`.
+Page sections (e.g. `components/home/*`, `components/residential/*`) hold the copy and compose these blocks.
 
 ## Notes
 

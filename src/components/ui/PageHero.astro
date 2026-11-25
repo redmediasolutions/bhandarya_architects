@@ -1,0 +1,136 @@
+---
+/**
+ * Full-bleed photographic page hero.
+ * Copy sits bottom-left on a soft gradient; optional stats / aside sit bottom-right.
+ */
+import Lines from "./Lines.astro";
+import Btn from "./Btn.astro";
+
+export interface Action {
+    text: string;
+    href: string;
+    variant?: "solid" | "ghost" | "arrow";
+    target?: string;
+}
+
+interface Props {
+    label: string;
+    title: string | string[];
+    text?: string;
+    image?: string;
+    alt?: string;
+    actions?: Action[];
+    stats?: { value: string; label: string }[];
+    height?: "full" | "tall";
+}
+
+const { label, title, text, image, alt = "", actions = [], stats = [], height = "full" } = Astro.props;
+const hasAside = stats.length > 0 || Astro.slots.has("aside");
+---
+<section class:list={["phero", "on-dark", `phero--${height}`]}>
+    {image && (
+        <div class="phero-bg" aria-hidden={alt ? undefined : "true"}>
+            <img src={image} alt={alt} loading="eager" fetchpriority="high" decoding="async" />
+        </div>
+    )}
+    <div class="phero-shade" aria-hidden="true"></div>
+
+    <div class="wrap phero-inner">
+        <div class="phero-copy">
+            <span class="label phero-label" data-reveal>{label}</span>
+            <h1 data-reveal style="--d:.08s"><Lines text={title} soft /></h1>
+            {text && <p class="phero-text" data-reveal style="--d:.16s">{text}</p>}
+            {actions.length > 0 && (
+                <div class="btn-row phero-actions" data-reveal style="--d:.24s">
+                    {actions.map((a, i) => (
+                        <Btn href={a.href} target={a.target} variant={a.variant ?? (i === 0 ? "solid" : "ghost")}>{a.text}</Btn>
+                    ))}
+                </div>
+            )}
+        </div>
+
+        {hasAside && (
+            <div class="phero-aside" data-reveal style="--d:.32s">
+                {stats.length > 0 && (
+                    <dl class="phero-stats">
+                        {stats.map((s) => (
+                            <div>
+                                <dd>{s.value}</dd>
+                                <dt>{s.label}</dt>
+                            </div>
+                        ))}
+                    </dl>
+                )}
+                <slot name="aside" />
+            </div>
+        )}
+    </div>
+    <slot />
+</section>
+
+<style>
+    .phero {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        min-height: 100svh;
+        background: var(--night);
+        color: rgba(255, 255, 255, .78);
+        overflow: hidden;
+        isolation: isolate;
+    }
+    .phero--tall { min-height: min(88svh, 920px); }
+
+    .phero-bg { position: absolute; inset: 0; z-index: -2; }
+    .phero-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        animation: phero-zoom 2.4s var(--ease) both;
+    }
+    @keyframes phero-zoom { from { transform: scale(1.06); } to { transform: scale(1); } }
+
+    .phero-shade {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+            linear-gradient(180deg, rgba(10,10,10,.45) 0%, rgba(10,10,10,0) 22%),
+            linear-gradient(0deg, rgba(10,10,10,.78) 0%, rgba(10,10,10,.35) 45%, rgba(10,10,10,.1) 100%);
+    }
+
+    .phero-inner {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 48px;
+        align-items: end;
+        padding-top: calc(var(--header-h) + 64px);
+        padding-bottom: clamp(48px, 7vw, 104px);
+    }
+
+    .phero-copy { grid-column: 1 / span 8; }
+    .phero-label { color: rgba(255,255,255,.7); margin-bottom: 28px; display: block; }
+    .phero h1 { color: #fff; max-width: 14ch; }
+    .phero-text { margin-top: 32px; max-width: 50ch; font-size: var(--fs-lead); line-height: 1.6; color: rgba(255,255,255,.78); }
+    .phero-actions { margin-top: 44px; }
+
+    .phero-aside { grid-column: 9 / -1; justify-self: end; width: 100%; max-width: 360px; }
+
+    .phero-stats { display: grid; border-top: 1px solid rgba(255,255,255,.22); }
+    .phero-stats > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(255,255,255,.22);
+    }
+    .phero-stats dd { order: 2; color: #fff; font-size: 1.5rem; font-weight: 300; letter-spacing: -.02em; }
+    .phero-stats dt { order: 1; font-size: var(--fs-label); font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+
+    @media (max-width: 1024px) {
+        .phero-copy, .phero-aside { grid-column: 1 / -1; }
+        .phero-aside { justify-self: start; max-width: 520px; }
+    }
+</style>

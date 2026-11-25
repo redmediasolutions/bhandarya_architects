@@ -1,0 +1,16 @@
+---
+/**
+ * Renders text that was authored across several lines.
+ * Pass a string or an array of lines; lines are joined with <br>
+ * (desktop-only breaks when `soft` is set so copy reflows on phones).
+ */
+interface Props {
+    text: string | string[];
+    soft?: boolean;
+}
+const { text, soft = false } = Astro.props;
+const lines = Array.isArray(text) ? text : [text];
+---
+{lines.map((line, i) => (
+    <Fragment>{line}{i < lines.length - 1 && (soft ? <Fragment>{" "}<br class="br-desk" /></Fragment> : <br />)}</Fragment>
+))}

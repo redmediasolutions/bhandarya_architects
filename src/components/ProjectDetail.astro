@@ -1,388 +1,194 @@
 ---
+/**
+ * Legacy single-project template (used by /samudra and /kuitra).
+ * Shares the visual language of the new project pages.
+ */
+import Header from "../layouts/Header.astro";
+import Footer from "../layouts/Footer.astro";
+
 interface GallerySection {
-  label?: string;
-  images: string[];
-  layout?: 'grid' | 'carousel';
+    label?: string;
+    images: string[];
+    layout?: "grid" | "carousel";
 }
 
 interface Props {
-  category: string;
-  title: string;
-  hero: string;
-  overview: string[];
-  features: string[][];
-  galleryTitle?: string;
-  galleries: GallerySection[];
-  slides?: string[];
-  team: { name: string; role: string }[];
-  details: { label: string; value: string }[];
+    category: string;
+    title: string;
+    hero: string;
+    overview: string[];
+    features: string[][];
+    galleryTitle?: string;
+    galleries: GallerySection[];
+    slides?: string[];
+    team: { name: string; role: string }[];
+    details: { label: string; value: string }[];
 }
 
 const {
-  category,
-  title,
-  hero,
-  overview,
-  features,
-  galleryTitle = 'Project Gallery',
-  galleries,
-  slides = [],
-  team,
-  details,
+    category,
+    title,
+    hero,
+    overview,
+    features,
+    galleryTitle = "Project Gallery",
+    galleries,
+    slides = [],
+    team,
+    details,
 } = Astro.props;
-
-const slug = title.toLowerCase().replace(/\s+/g, '-');
 ---
-<section class="pd-hero" style={`background-image:url('${hero}')`}>
-  <div class="pd-hero-overlay"></div>
-  <div class="container pd-hero-content">
-    <span class="chip">{category}</span>
-    <h1>{title}</h1>
-  </div>
-</section>
 
-<section class="section">
-  <div class="container pd-layout">
-    <div class="pd-main">
-      <h2 class="pd-title">Project Overview</h2>
-      {overview.map((para) => <p class="pd-para" set:html={para} />)}
+<Header />
 
-      <h3 class="pd-label">Key Features</h3>
-      <div class="pd-features">
-        {features.map((list) => (
-          <ul>
-            {list.map((f) => (
-              <li>
-                <span class="dot"></span>
-                {f}
-              </li>
+<main>
+    <section class="pd-hero on-dark">
+        <img class="pd-hero-img" src={hero} alt={title} loading="eager" fetchpriority="high" />
+        <div class="pd-shade" aria-hidden="true"></div>
+        <div class="wrap pd-hero-inner">
+            <span class="label" data-reveal>{category}</span>
+            <h1 data-reveal style="--d:.08s">{title}</h1>
+        </div>
+    </section>
+
+    <section class="sec">
+        <div class="wrap pd-grid">
+            <div class="pd-main">
+                <h2 class="pd-title" data-reveal>Project Overview</h2>
+                <div class="pd-overview">
+                    {overview.map((para) => <p data-reveal set:html={para} />)}
+                </div>
+
+                <h3 class="pd-label label" data-reveal>Key Features</h3>
+                <div class="pd-features" data-reveal>
+                    {features.map((list) => (
+                        <ul>{list.map((f) => <li>{f}</li>)}</ul>
+                    ))}
+                </div>
+
+                <h3 class="pd-label label" data-reveal>Project Team</h3>
+                <ul class="pd-team" data-reveal>
+                    {team.map((m) => (
+                        <li>
+                            <h4>{m.name}</h4>
+                            <p>{m.role}</p>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <aside class="pd-side">
+                <div class="pd-details" data-reveal>
+                    <h3 class="label">Project Details</h3>
+                    {details.map((d) => (
+                        <div class="pd-row">
+                            <h4>{d.label}</h4>
+                            <p>{d.value}</p>
+                        </div>
+                    ))}
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="sec sec--white pd-galleries">
+        <div class="wrap">
+            <h2 class="pd-gtitle" data-reveal>{galleryTitle}</h2>
+
+            {galleries.map((g) => (
+                <div class="pd-block">
+                    {g.label && <h3 class="label pd-glabel">{g.label}</h3>}
+                    <div class:list={[g.layout === "carousel" ? "pd-track" : "pd-gallery"]} data-gallery>
+                        {g.images.map((src, i) => (
+                            <a href={src} class="pd-item" data-pswp-width="1600" data-pswp-height="1067">
+                                <div class="media">
+                                    <img src={src} alt={`${title} — ${g.label ?? "gallery"} image ${i + 1}`} loading="lazy" decoding="async" />
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </div>
             ))}
-          </ul>
-        ))}
-      </div>
 
-      <h3 class="pd-label">{galleryTitle}</h3>
-      {galleries.map((g, gi) => (
-        <div class="pd-gallery-block">
-          {g.label && <h4 class="pd-gallery-label">{g.label}</h4>}
-          {g.layout === 'carousel' ? (
-            <div class="pd-carousel" data-carousel>
-              {g.images.map((src, i) => (
-                <div class={`pd-c-slide${i === 0 ? ' active' : ''}`} style={`background-image:url('${src}')`}></div>
-              ))}
-              <button class="pd-c-nav pd-c-prev" aria-label="Previous image">‹</button>
-              <button class="pd-c-nav pd-c-next" aria-label="Next image">›</button>
-              <div class="pd-c-dots">
-                {g.images.map((_, i) => (
-                  <button class={`pd-c-dot${i === 0 ? ' active' : ''}`} data-index={i} aria-label={`Go to image ${i + 1}`}></button>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div class="pd-gallery">
-              {g.images.map((src, i) => (
-                <img
-                  src={src}
-                  alt={`${title} — ${g.label ?? 'gallery'} image ${i + 1}`}
-                  loading="lazy"
-                  data-lightbox={`${slug}-${gi}`}
-                  data-full={src}
-                />
-              ))}
-            </div>
-          )}
+            {slides.length > 0 && (
+                <div class="pd-block">
+                    <div class="pd-track" data-gallery>
+                        {slides.map((src, i) => (
+                            <a href={src} class="pd-item" data-pswp-width="1600" data-pswp-height="1067">
+                                <div class="media">
+                                    <img src={src} alt={`${title} image ${i + 1}`} loading="lazy" decoding="async" />
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
-      ))}
+    </section>
+</main>
 
-      {slides.length > 0 && (
-        <div class="pd-slider" data-autoplay>
-          {slides.map((src, i) => (
-            <div class={`pd-slide${i === 0 ? ' active' : ''}`} style={`background-image:url('${src}')`}></div>
-          ))}
-          <button class="pd-s-nav pd-s-prev" aria-label="Previous slide">‹</button>
-          <button class="pd-s-nav pd-s-next" aria-label="Next slide">›</button>
-        </div>
-      )}
-
-      <h3 class="pd-label">Project Team</h3>
-      <div class="pd-team">
-        {team.map((m) => (
-          <div class="pd-member">
-            <span class="pd-member-icon">
-              <svg viewBox="0 0 576 512" width="17" height="17" fill="currentColor" aria-hidden="true">
-                <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/>
-              </svg>
-            </span>
-            <div>
-              <h4>{m.name}</h4>
-              <p>{m.role}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <aside class="pd-side">
-      <div class="pd-details">
-        <h3>Project Details</h3>
-        {details.map((d) => (
-          <div class="pd-detail-row">
-            <h4>{d.label}</h4>
-            <p>{d.value}</p>
-          </div>
-        ))}
-      </div>
-    </aside>
-  </div>
-</section>
+<Footer />
 
 <script>
-  document.querySelectorAll<HTMLElement>('.pd-slider[data-autoplay]').forEach((slider) => {
-    const slides = slider.querySelectorAll<HTMLElement>('.pd-slide');
-    if (slides.length < 2) return;
-    let cur = 0;
-    let timer: ReturnType<typeof setInterval>;
-    const go = (i: number) => {
-      slides[cur].classList.remove('active');
-      cur = (i + slides.length) % slides.length;
-      slides[cur].classList.add('active');
-    };
-    const start = () => (timer = setInterval(() => go(cur + 1), 4000));
-    start();
-    slider.addEventListener('mouseenter', () => clearInterval(timer));
-    slider.addEventListener('mouseleave', start);
-    slider.querySelector('.pd-s-prev')?.addEventListener('click', () => go(cur - 1));
-    slider.querySelector('.pd-s-next')?.addEventListener('click', () => go(cur + 1));
-  });
+    import "../scripts/lightbox";
 
-  document.querySelectorAll<HTMLElement>('.pd-carousel[data-carousel]').forEach((carousel) => {
-    const slides = carousel.querySelectorAll<HTMLElement>('.pd-c-slide');
-    const dots = carousel.querySelectorAll<HTMLElement>('.pd-c-dot');
-    if (slides.length < 2) return;
-    let cur = 0;
-    const go = (i: number) => {
-      slides[cur].classList.remove('active');
-      dots[cur]?.classList.remove('active');
-      cur = (i + slides.length) % slides.length;
-      slides[cur].classList.add('active');
-      dots[cur]?.classList.add('active');
-    };
-    carousel.querySelector('.pd-c-prev')?.addEventListener('click', () => go(cur - 1));
-    carousel.querySelector('.pd-c-next')?.addEventListener('click', () => go(cur + 1));
-    dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
-  });
+    // read real image dimensions so the lightbox opens at the correct ratio
+    document.querySelectorAll<HTMLAnchorElement>(".pd-item").forEach((a) => {
+        const img = a.querySelector("img");
+        const set = () => {
+            if (!img?.naturalWidth) return;
+            a.dataset.pswpWidth = String(img.naturalWidth * 2);
+            a.dataset.pswpHeight = String(img.naturalHeight * 2);
+        };
+        img?.complete ? set() : img?.addEventListener("load", set);
+    });
 </script>
 
 <style>
-  .pd-hero {
-    position: relative;
-    min-height: 71vh;
-    display: flex;
-    align-items: flex-end;
-    background-size: cover;
-    background-position: center;
-  }
-  .pd-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
-  }
-  .pd-hero-content { position: relative; z-index: 2; padding-bottom: 46px; color: #fff; }
-  .pd-hero-content h1 {
-    font-size: clamp(34px, 5vw, 52px);
-    font-weight: 600;
-    margin-top: 12px;
-  }
+    .pd-hero { position: relative; display: flex; align-items: flex-end; min-height: 100svh; background: var(--night); overflow: hidden; isolation: isolate; }
+    .pd-hero-img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+    .pd-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(10,10,10,.75), rgba(10,10,10,.1) 55%), linear-gradient(180deg, rgba(10,10,10,.45), transparent 22%); }
+    .pd-hero-inner { padding-block: calc(var(--header-h) + 64px) clamp(48px, 7vw, 104px); }
+    .pd-hero-inner .label { display: block; margin-bottom: 24px; color: rgba(255,255,255,.7); }
+    .pd-hero h1 { color: #fff; font-size: clamp(3rem, 1.8rem + 6vw, 8rem); }
 
-  .pd-layout {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 52px;
-    align-items: start;
-  }
-  .pd-title { font-size: 20px; font-weight: 600; color: var(--black); margin-bottom: 16px; }
-  .pd-para { font-size: 15px; color: var(--dark); margin-bottom: 14px; }
-  .pd-label { font-size: 16px; font-weight: 600; color: var(--black); margin: 30px 0 14px; }
+    .pd-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: 56px; align-items: start; }
+    .pd-main { grid-column: 1 / span 7; }
+    .pd-side { grid-column: 9 / -1; align-self: stretch; }
+    .pd-details { position: sticky; top: calc(var(--header-h) + 32px); border-top: 1px solid var(--line-strong); padding-top: 18px; }
+    .pd-row { display: flex; justify-content: space-between; gap: 20px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+    .pd-row h4 { font-size: var(--fs-small); font-weight: 400; color: var(--muted); }
+    .pd-row p { color: var(--ink); font-weight: 500; text-align: right; }
 
-  .pd-features {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px 40px;
-  }
-  .pd-features ul { list-style: none; }
-  .pd-features li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--dark);
-    padding: 7px 0;
-  }
-  .dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
+    .pd-title { font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem); margin-bottom: 32px; }
+    .pd-overview { display: grid; gap: 22px; max-width: 66ch; }
+    .pd-overview p { font-size: 1.02rem; line-height: 1.85; }
+    .pd-label { display: block; margin: 64px 0 20px; }
 
-  .pd-gallery-label { font-size: 15px; font-weight: 600; color: var(--gray-2); margin: 16px 0 12px; }
-  .pd-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-  .pd-gallery img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 5px;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-  }
-  .pd-gallery img:hover { transform: scale(1.02); box-shadow: 0 10px 24px rgba(0,0,0,0.16); }
+    .pd-features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gap); border-top: 1px solid var(--line); }
+    .pd-features li { padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--ink); }
 
-  .pd-carousel {
-    position: relative;
-    height: 560px;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  .pd-c-slide {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-  }
-  .pd-c-slide.active { opacity: 1; }
-  .pd-c-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(0,0,0,0.5);
-    color: #fff;
-    font-size: 22px;
-    cursor: pointer;
-    transition: background 0.25s;
-  }
-  .pd-c-nav:hover { background: var(--accent); }
-  .pd-c-prev { left: 14px; }
-  .pd-c-next { right: 14px; }
-  .pd-c-dots {
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    display: flex;
-    gap: 8px;
-  }
-  .pd-c-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(255,255,255,0.6);
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.25s, transform 0.25s;
-  }
-  .pd-c-dot.active { background: #fff; transform: scale(1.2); }
+    .pd-team { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+    .pd-team li { padding-top: 16px; border-top: 1px solid var(--line); }
+    .pd-team h4 { font-weight: 500; }
+    .pd-team p { color: var(--muted); font-size: var(--fs-small); }
 
-  .pd-slider {
-    position: relative;
-    height: 400px;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-top: 28px;
-  }
-  .pd-slide {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-  }
-  .pd-slide.active { opacity: 1; }
-  .pd-s-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(0,0,0,0.5);
-    color: #fff;
-    font-size: 22px;
-    cursor: pointer;
-    transition: background 0.25s;
-  }
-  .pd-s-nav:hover { background: var(--accent); }
-  .pd-s-prev { left: 14px; }
-  .pd-s-next { right: 14px; }
+    .pd-gtitle { margin-bottom: 56px; }
+    .pd-block + .pd-block { margin-top: clamp(64px, 8vw, 120px); }
+    .pd-glabel { display: block; margin-bottom: 20px; }
+    .pd-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); }
+    .pd-gallery .media { aspect-ratio: 4 / 3; }
+    .pd-track { display: flex; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 16px; }
+    .pd-track .pd-item { flex: 0 0 clamp(260px, 30vw, 440px); scroll-snap-align: start; }
+    .pd-track .media { aspect-ratio: 3 / 4; }
+    .pd-item { display: block; cursor: zoom-in; }
 
-  .pd-team { display: flex; flex-direction: column; gap: 16px; }
-  .pd-member { display: flex; align-items: center; gap: 15px; }
-  .pd-member-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--gray);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .pd-member h4 { font-size: 16px; font-weight: 600; color: var(--black); }
-  .pd-member p { font-size: 14px; color: var(--gray); }
-
-  .pd-details {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 28px;
-    position: sticky;
-    top: 90px;
-  }
-  .pd-details h3 { font-size: 17px; font-weight: 600; color: var(--black); margin-bottom: 16px; }
-  .pd-detail-row { padding: 10px 0; border-bottom: 1px solid var(--border); }
-  .pd-detail-row:last-child { border-bottom: none; }
-  .pd-detail-row h4 {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--gray-2);
-  }
-  .pd-detail-row h4::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-  .pd-detail-row p { font-size: 16px; font-weight: 600; color: var(--ink); margin-top: 2px; padding-left: 17px; }
-
-  @media (max-width: 1024px) {
-    .pd-layout { grid-template-columns: 1fr; }
-    .pd-details { position: static; }
-  }
-  @media (max-width: 640px) {
-    .pd-gallery { grid-template-columns: 1fr; }
-    .pd-features { grid-template-columns: 1fr; }
-    .pd-gallery img { height: auto; }
-    .pd-carousel { height: 320px; }
-  }
+    @media (max-width: 899px) {
+        .pd-main, .pd-side { grid-column: 1 / -1; }
+        .pd-details { position: static; }
+        .pd-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 599px) {
+        .pd-features, .pd-team, .pd-gallery { grid-template-columns: 1fr; }
+    }
 </style>

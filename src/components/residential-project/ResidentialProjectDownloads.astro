@@ -1,324 +1,81 @@
 ---
 interface Download {
-
     title: string;
-
     description?: string;
-
     type: string;
-
     size?: string;
-
     file: string;
-
 }
 
 interface Props {
-
     downloads: Download[];
-
 }
 
 const { downloads = [] } = Astro.props;
 ---
 
-{
-    downloads.length > 0 && (
+{downloads.length > 0 && (
+    <section class="sec sec--alt downloads">
+        <div class="wrap dl-grid">
+            <div class="dl-head" data-reveal>
+                <span class="label">Project Documentation</span>
+                <h2>Available Downloads</h2>
+                <p>
+                    Explore architectural drawings, presentation sheets and
+                    supporting project documents available for this residence.
+                </p>
+            </div>
 
-<section class="project-downloads section">
-
-    <div class="container">
-
-        <div class="downloads-header">
-
-            <span class="small-title">
-
-                Project Documentation
-
-            </span>
-
-            <h2>
-
-                Available Downloads
-
-            </h2>
-
-            <p>
-
-                Explore architectural drawings, presentation sheets and
-                supporting project documents available for this residence.
-
-            </p>
-
+            <ul class="dl-list">
+                {downloads.map((item) => (
+                    <li data-reveal>
+                        <a href={item.file} class="dl-row" download target="_blank" rel="noopener">
+                            {item.type && <span class="dl-type label">{item.type}</span>}
+                            <span class="dl-main">
+                                <h3>{item.title}</h3>
+                                {item.description && <p>{item.description}</p>}
+                            </span>
+                            <span class="dl-foot">
+                                {item.size && <span class="dl-size">{item.size}</span>}
+                                <strong class="arrow-link"><span>Download</span><span class="ar" aria-hidden="true"></span></strong>
+                            </span>
+                        </a>
+                    </li>
+                ))}
+            </ul>
         </div>
-
-        <div class="downloads-grid">
-
-            {
-
-                downloads.map((item)=>(
-
-                    <a
-                        href={item.file}
-                        class="download-card"
-                        download
-                        target="_blank"
-                        rel="noopener"
-                    >
-
-                        <div class="download-type">
-
-                            {item.type}
-
-                        </div>
-
-                        <h3>
-
-                            {item.title}
-
-                        </h3>
-
-                        {
-
-                            item.description && (
-
-                                <p>
-
-                                    {item.description}
-
-                                </p>
-
-                            )
-
-                        }
-
-                        <div class="download-footer">
-
-                            {
-
-                                item.size && (
-
-                                    <span>
-
-                                        {item.size}
-
-                                    </span>
-
-                                )
-
-                            }
-
-                            <strong>
-
-                                Download →
-
-                            </strong>
-
-                        </div>
-
-                    </a>
-
-                ))
-
-            }
-
-        </div>
-
-    </div>
-
-</section>
-
-    )
-}
+    </section>
+)}
 
 <style>
-
-.project-downloads{
-
-    background:#faf8f5;
-
-    position:relative;
-
-    overflow:hidden;
-
-}
-
-/* ===================================== */
-
-.downloads-header{
-
-    text-align:center;
-
-    max-width:760px;
-
-    margin:0 auto 70px;
-
-}
-
-.downloads-header h2{
-
-    margin:18px 0;
-
-}
-
-.downloads-header p{
-
-    max-width:620px;
-
-    margin:auto;
-
-}
-
-/* ===================================== */
-
-.downloads-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-
-    gap:30px;
-
-}
-
-/* ===================================== */
-
-.download-card{
-
-    display:flex;
-
-    flex-direction:column;
-
-    padding:38px;
-
-    border-radius:24px;
-
-    background:#fff;
-
-    border:1px solid rgba(0,0,0,.08);
-
-    text-decoration:none;
-
-    transition:.35s;
-
-    box-shadow:
-
-        0 20px 45px rgba(0,0,0,.06);
-
-}
-
-.download-card:hover{
-
-    transform:translateY(-8px);
-
-    box-shadow:
-
-        0 35px 70px rgba(0,0,0,.12);
-
-}
-
-/* ===================================== */
-
-.download-type{
-
-    width:max-content;
-
-    padding:8px 14px;
-
-    border-radius:999px;
-
-    background:rgba(255,120,0,.08);
-
-    color:var(--accent);
-
-    font-size:11px;
-
-    font-weight:600;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
-    margin-bottom:24px;
-
-}
-
-.download-card h3{
-
-    font-size:28px;
-
-    margin:0 0 18px;
-
-    color:#111;
-
-}
-
-.download-card p{
-
-    color:#666;
-
-    line-height:1.8;
-
-    margin:0;
-
-}
-
-/* ===================================== */
-
-.download-footer{
-
-    margin-top:auto;
-
-    padding-top:34px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    border-top:1px solid rgba(0,0,0,.08);
-
-}
-
-.download-footer span{
-
-    color:#999;
-
-    font-size:14px;
-
-}
-
-.download-footer strong{
-
-    color:var(--accent);
-
-    font-weight:600;
-
-}
-
-/* ===================================== */
-
-@media(max-width:768px){
-
-    .downloads-grid{
-
-        grid-template-columns:1fr;
-
+    .dl-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 48px;
     }
-
-    .download-card{
-
-        padding:30px;
-
+    .dl-head { grid-column: 1 / span 4; display: grid; gap: 20px; align-content: start; }
+    .dl-head h2 { font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem); }
+    .dl-head p { max-width: 40ch; }
+    .dl-list { grid-column: 6 / -1; border-top: 1px solid var(--line-strong); }
+    .dl-list li { border-bottom: 1px solid var(--line); }
+    .dl-row {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 24px;
+        padding: 26px 0;
+        transition: padding .5s var(--ease);
     }
+    .dl-row:hover { padding-left: 12px; }
+    .dl-main h3 { font-size: var(--fs-h4); font-weight: 450; }
+    .dl-main p { margin-top: 4px; font-size: var(--fs-small); color: var(--muted); }
+    .dl-foot { display: flex; align-items: center; gap: 24px; }
+    .dl-size { font-size: var(--fs-small); color: var(--muted); }
+    .dl-type:empty { display: none; }
 
-    .download-card h3{
-
-        font-size:24px;
-
+    @media (max-width: 899px) {
+        .dl-head, .dl-list { grid-column: 1 / -1; }
+        .dl-row { grid-template-columns: 1fr; gap: 12px; }
     }
-
-}
-
 </style>

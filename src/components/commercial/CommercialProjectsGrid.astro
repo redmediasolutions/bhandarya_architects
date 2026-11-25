@@ -1,721 +1,91 @@
 ---
 import projects from "../../content/commercial";
 import { getCommercialImages } from "../../lib/commercialImages";
+import { Image } from "astro:assets";
+import SectionHead from "../ui/SectionHead.astro";
+import Meta from "../ui/Meta.astro";
+import Btn from "../ui/Btn.astro";
 ---
 
-<section class="commercial-projects">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <span class="small-title">
-
-                Portfolio
-
-            </span>
-
-            <h2>
-
-            Commercial Projects
-
-            </h2>
-
-            <p>
-
-                Spaces that combine functionality, flexibility
-                and architectural excellence.
-
-            </p>
-
-        </div>
-
-        <div class="projects-list">
-
-            {
-
-                projects.map((project,index)=>{
-
-                    const { hero } = getCommercialImages(project.folder);
-
-                    return(
-
-                        <article
-                            class={`project-row ${index % 2 ? "reverse" : ""}`}
-                        >
-
-                            <a
-                                href={`/projects/commercial/${project.slug}`}
-                                class="project-image"
-                            >
-
-                                {
-
-                                    hero ? (
-
-                                        <img
-                                            src={hero.src}
-                                            alt={project.title}
-                                            loading="lazy"
-                                        />
-
-                                    ) : (
-
-                                        <div class="image-placeholder">
-
-                                            <strong>
-
-                                                Missing Hero Image
-
-                                            </strong>
-
-                                            <span>
-
-                                                {project.folder}
-
-                                            </span>
-
-                                        </div>
-
-                                    )
-
-                                }
-
-                            </a>
-
-                            <div class="project-content">
-
-                                <span class="project-category">
-
-                                    {project.subtitle}
-
-                                </span>
-
-                                <h3>
-
-                                    {project.title}
-
-                                </h3>
-
-                                <p>
-
-                                    {project.description[0]}
-
-                                </p>
-
-                                <div class="meta">
-
-                                    <div>
-
-                                        <small>
-
-                                            Location
-
-                                        </small>
-
-                                        <strong>
-
-                                            {project.location}
-
-                                        </strong>
-
-                                    </div>
-
-                                    {
-
-                                        project.area && (
-
-                                            <div>
-
-                                                <small>
-
-                                                    Area
-
-                                                </small>
-
-                                                <strong>
-
-                                                    {project.area}
-
-                                                </strong>
-
-                                            </div>
-
-                                        )
-
-                                    }
-
-                                    <div>
-
-                                        <small>
-
-                                            {
-                                                project.status === "Completed"
-                                                    ? "Completed"
-                                                    : "Status"
-                                            }
-
-                                        </small>
-
-                                        <strong>
-
-                                            {
-                                                project.status === "Completed"
-                                                    ? project.year
-                                                    : project.status
-                                            }
-
-                                        </strong>
-
-                                    </div>
-
+<section class="sec">
+    <div class="wrap">
+        <SectionHead
+            index="03"
+            label="Portfolio"
+            title="Commercial Projects"
+            intro="Spaces that combine functionality, flexibility and architectural excellence."
+        />
+
+        <div class="cp-list">
+            {projects.map((project, index) => {
+                const { hero } = getCommercialImages(project.folder);
+                const href = `/projects/commercial/${project.slug}`;
+                return (
+                    <article class:list={["cp-row", index % 2 && "cp-row--rev"]}>
+                        <a href={href} class="cp-media media ratio-3-2" data-reveal="mask">
+                            {hero ? (
+                                <Image src={hero} alt={project.title} width={Math.min(1400, hero.width)} loading="lazy" decoding="async" />
+                            ) : (
+                                <div class="cp-missing">
+                                    <strong>Missing Hero Image</strong>
+                                    <span>{project.folder}</span>
                                 </div>
-
-                                <a
-                                    href={`/projects/commercial/${project.slug}`}
-                                    class="project-link"
-                                >
-
-                                    View Project →
-
-                                </a>
-
-                            </div>
-
-                        </article>
-
-                    );
-
-                })
-
-            }
-
+                            )}
+                        </a>
+                        <div class="cp-body" data-reveal style="--d:.08s">
+                            <span class="cp-num">{String(index + 1).padStart(2, "0")}</span>
+                            <span class="label">{project.subtitle}</span>
+                            <h3 class="cp-title"><a href={href}>{project.title}</a></h3>
+                            <p>{project.description[0]}</p>
+                            <Meta
+                                items={[
+                                    { label: "Location", value: project.location },
+                                    { label: "Area", value: project.area },
+                                    {
+                                        label: project.status === "Completed" ? "Completed" : "Status",
+                                        value: project.status === "Completed" ? project.year : project.status,
+                                    },
+                                ]}
+                            />
+                            <div><Btn href={href} variant="arrow">View Project</Btn></div>
+                        </div>
+                    </article>
+                );
+            })}
         </div>
-
     </div>
-
 </section>
 
-
 <style>
-
-.commercial-projects{
-
-    position:relative;
-
-    overflow:hidden;
-
-    padding:140px 0;
-
-    background:#faf8f5;
-
-}
-
-.commercial-projects::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background-image:
-        linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px);
-
-    background-size:80px 80px;
-
-    opacity:.25;
-
-}
-
-.container{
-
-    position:relative;
-
-    z-index:2;
-
-}
-
-/* ====================================== */
-
-.section-heading{
-
-    max-width:760px;
-
-    margin:0 auto 90px;
-
-    text-align:center;
-
-}
-
-.section-heading h2{
-
-    margin:18px 0;
-
-}
-
-.section-heading p{
-
-    max-width:620px;
-
-    margin:auto;
-
-    color:#666;
-
-}
-
-/* ====================================== */
-
-.projects-list{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:120px;
-
-}
-
-/* ====================================== */
-
-.project-row{
-
-    display:grid;
-
-    grid-template-columns:1.15fr .85fr;
-
-    gap:70px;
-
-    align-items:center;
-
-}
-
-.project-row.reverse{
-
-    grid-template-columns:.85fr 1.15fr;
-
-}
-
-.project-row.reverse .project-image{
-
-    order:2;
-
-}
-
-.project-row.reverse .project-content{
-
-    order:1;
-
-}
-
-/* ====================================== */
-
-.project-image{
-
-    position:relative;
-
-    display:block;
-
-    overflow:hidden;
-
-    border-radius:22px;
-
-    aspect-ratio:16/10;
-
-    background:#ececec;
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.08);
-
-}
-
-.project-image img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    display:block;
-
-    transform:scale(1.05);
-
-    transition:
-        transform 2s cubic-bezier(.22,1,.36,1);
-
-}
-
-.project-image:hover img{
-
-    transform:scale(1.12);
-
-}
-
-.project-image::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-            transparent,
-            rgba(0,0,0,.15)
-        );
-
-    z-index:1;
-
-    pointer-events:none;
-
-}
-
-.project-image::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:18px;
-
-    border:1px solid rgba(255,255,255,.35);
-
-    opacity:0;
-
-    transform:scale(.95);
-
-    transition:.45s;
-
-    z-index:2;
-
-}
-
-.project-image:hover::after{
-
-    opacity:1;
-
-    transform:scale(1);
-
-}
-
-/* ====================================== */
-
-.image-placeholder{
-
-    width:100%;
-
-    height:100%;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:12px;
-
-    color:#666;
-
-    background:#ececec;
-
-    border:2px dashed #bbb;
-
-    font-size:15px;
-
-}
-
-/* ====================================== */
-
-.project-content{
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-}
-
-.project-category{
-
-    color:var(--accent);
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    font-size:12px;
-
-    font-weight:600;
-
-}
-
-.project-content h3{
-
-    margin:16px 0 22px;
-
-    font-size:clamp(40px,5vw,58px);
-
-    line-height:1.05;
-
-}
-
-.project-content p{
-
-    color:#666;
-
-    line-height:1.9;
-
-    margin-bottom:36px;
-
-}
-
-/* ====================================== */
-
-.meta{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:24px;
-
-    padding:34px 0;
-
-    margin-bottom:34px;
-
-    border-top:1px solid rgba(0,0,0,.08);
-
-    border-bottom:1px solid rgba(0,0,0,.08);
-
-}
-
-.meta small{
-
-    display:block;
-
-    margin-bottom:8px;
-
-    font-size:11px;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
-    color:#888;
-
-}
-
-.meta strong{
-
-    font-size:16px;
-
-    font-weight:600;
-
-    color:#111;
-
-}
-
-/* ====================================== */
-
-.project-link{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    color:var(--accent);
-
-    text-decoration:none;
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    font-size:12px;
-
-    font-weight:600;
-
-    transition:.35s;
-
-}
-
-.project-link:hover{
-
-    letter-spacing:3px;
-
-}
-
-/* ====================================== */
-/* Reveal Animation */
-/* ====================================== */
-
-/* Visible by default */
-
-.project-row{
-
-    opacity:1;
-
-    transform:none;
-
-}
-
-/* Animated only when JS adds .visible */
-
-.js .project-row{
-
-    opacity:0;
-
-    transform:translateY(60px);
-
-    transition:
-        opacity .8s ease,
-        transform .8s cubic-bezier(.22,1,.36,1);
-
-}
-
-.js .commercial-projects.visible .project-row{
-
-    opacity:1;
-
-    transform:none;
-
-}
-
-.js .commercial-projects.visible .project-row:nth-child(1){
-
-    transition-delay:.05s;
-
-}
-
-.js .commercial-projects.visible .project-row:nth-child(2){
-
-    transition-delay:.15s;
-
-}
-
-.js .commercial-projects.visible .project-row:nth-child(3){
-
-    transition-delay:.25s;
-
-}
-
-.js .commercial-projects.visible .project-row:nth-child(4){
-
-    transition-delay:.35s;
-
-}
-
-.js .commercial-projects.visible .project-row:nth-child(5){
-
-    transition-delay:.45s;
-
-}
-
-.js .commercial-projects.visible .project-row:nth-child(6){
-
-    transition-delay:.55s;
-
-}
-
-/* ====================================== */
-
-@media(max-width:991px){
-
-    .project-row,
-
-    .project-row.reverse{
-
-        grid-template-columns:1fr;
-
-        gap:50px;
-
+    .cp-list { display: grid; gap: clamp(80px, 10vw, 160px); }
+    .cp-row {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: 32px;
+        align-items: start;
     }
+    .cp-media { grid-column: 1 / span 7; }
+    .cp-body { grid-column: 9 / -1; display: grid; gap: 18px; align-content: start; }
+    .cp-row--rev .cp-media { grid-column: 6 / -1; grid-row: 1; }
+    .cp-row--rev .cp-body { grid-column: 1 / span 4; grid-row: 1; }
 
-    .project-row.reverse .project-image,
-
-    .project-row.reverse .project-content{
-
-        order:initial;
-
+    .cp-num { font-size: var(--fs-label); font-weight: 600; letter-spacing: .12em; color: var(--ink); }
+    .cp-title { font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.6rem); font-weight: 300; letter-spacing: -.025em; }
+    .cp-title a:hover { opacity: .6; }
+    .cp-body p {
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
+    .cp-missing { display: grid; place-content: center; gap: 6px; height: 100%; text-align: center; color: var(--muted); }
 
-    .project-image{
-
-        aspect-ratio:4/3;
-
+    @media (max-width: 1024px) {
+        .cp-media, .cp-row--rev .cp-media { grid-column: 1 / span 6; grid-row: 1; }
+        .cp-body, .cp-row--rev .cp-body { grid-column: 7 / -1; grid-row: 1; }
     }
-
-}
-
-@media(max-width:768px){
-
-    .commercial-projects{
-
-        padding:90px 0;
-
+    @media (max-width: 799px) {
+        .cp-media, .cp-body, .cp-row--rev .cp-media, .cp-row--rev .cp-body { grid-column: 1 / -1; grid-row: auto; }
     }
-
-    .projects-list{
-
-        gap:70px;
-
-    }
-
-    .project-content h3{
-
-        font-size:34px;
-
-    }
-
-    .meta{
-
-        grid-template-columns:1fr;
-
-        gap:18px;
-
-    }
-
-}
-
 </style>
-
-
-<script is:inline>
-
-document.documentElement.classList.add("js");
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-    const section=document.querySelector(".commercial-projects");
-
-    if(!section) return;
-
-    const observer=new IntersectionObserver((entries)=>{
-
-        if(entries[0].isIntersecting){
-
-            section.classList.add("visible");
-
-            observer.disconnect();
-
-        }
-
-    },{
-
-        threshold:0.1
-
-    });
-
-    observer.observe(section);
-
-});
-
-</script>
