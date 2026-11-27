@@ -16,22 +16,17 @@ export interface HeroSlide {
 export const slides: HeroSlide[] = [
   {
     id: 1,
-    subtitle: "Residential Architecture",
+    subtitle: "Commercial Architecture",
     title: `Designing
 Spaces That
 Endure`,
     description:
-      "Creating timeless homes that combine innovation, craftsmanship and refined living.",
+      "Creating timeless spaces that combine innovation, and craftsmanship.",
     image: "/images/slides/11.webp",
     buttons: [
       {
         text: "View Projects",
         href: "/projects",
-      },
-      {
-        text: "Start a Project",
-        href: "/contact",
-        outline: true,
       },
     ],
   },
@@ -44,7 +39,7 @@ Designed For
 Generations`,
     description:
       "Beautiful residences carefully crafted around lifestyle, context and enduring quality.",
-    image: "/images/slides/(2).webp",
+    image: "/images/slides/(3).webp",
     buttons: [
       {
         text: "Explore Homes",
@@ -52,50 +47,6 @@ Generations`,
       },
       {
         text: "Talk To Us",
-        href: "/contact",
-        outline: true,
-      },
-    ],
-  },
-
-  {
-    id: 3,
-    subtitle: "Commercial Architecture",
-    title: `Creating
-Workspaces That
-Inspire`,
-    description:
-      "Modern commercial environments that encourage collaboration, innovation and growth.",
-    image: "/images/slides/(3).webp",
-    buttons: [
-      {
-        text: "Commercial Projects",
-        href: "/projects",
-      },
-      {
-        text: "Get Started",
-        href: "/contact",
-        outline: true,
-      },
-    ],
-  },
-
-  {
-    id: 4,
-    subtitle: "Hospitality",
-    title: `Extraordinary
-Guest
-Experiences`,
-    description:
-      "Designing hotels, resorts and hospitality destinations with timeless elegance.",
-    image: "/images/slides/(4).webp",
-    buttons: [
-      {
-        text: "View Portfolio",
-        href: "/projects",
-      },
-      {
-        text: "Contact Us",
         href: "/contact",
         outline: true,
       },
@@ -169,28 +120,6 @@ Nature`,
   },
 
   {
-    id: 8,
-    subtitle: "Urban Living",
-    title: `Transforming
-Cities
-Through Design`,
-    description:
-      "Shaping vibrant urban environments that improve everyday life through thoughtful planning.",
-    image: "/images/slides/(8).webp",
-    buttons: [
-      {
-        text: "Projects",
-        href: "/projects",
-      },
-      {
-        text: "Let's Talk",
-        href: "/contact",
-        outline: true,
-      },
-    ],
-  },
-
-  {
     id: 9,
     subtitle: "Architecture + Interiors",
     title: `Every Detail
@@ -228,28 +157,6 @@ Generations`,
       },
       {
         text: "Get Started",
-        href: "/contact",
-        outline: true,
-      },
-    ],
-  },
-
-  {
-    id: 11,
-    subtitle: "Bhandary Architects",
-    title: `Architecture
-That
-Endures`,
-    description:
-      "Three decades of thoughtful architecture, timeless design and exceptional craftsmanship.",
-    image: "/images/slides/11.webp",
-    buttons: [
-      {
-        text: "Our Story",
-        href: "/about",
-      },
-      {
-        text: "Start Your Project",
         href: "/contact",
         outline: true,
       },
