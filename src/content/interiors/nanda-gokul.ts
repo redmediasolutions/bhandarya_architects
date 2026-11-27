@@ -4,7 +4,7 @@ const nandagokulInteriors = {
 
     folder: "nandagokul-interiors",
 
-    title: "Nandagokul Interiors",
+    title: "Nandagokul Apartment Interiors",
 
     subtitle: "Interior Project",
 
